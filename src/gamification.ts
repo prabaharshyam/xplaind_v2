@@ -24,13 +24,13 @@ export interface PlayerStats {
 }
 
 const RANKS = [
-  "Prompt Rookie",
-  "Token Tinkerer",
-  "Context Crafter",
-  "Vector Voyager",
-  "Agent Architect",
-  "Neural Navigator",
-  "Singularity Boss",
+  "Associate Practitioner",
+  "Systems Analyst",
+  "Applied Engineer",
+  "Senior Architect",
+  "Staff AI Architect",
+  "Principal Systems Lead",
+  "Distinguished Fellow",
 ];
 
 const BONUS_XP_KEY = "xplained:bonus_xp";
@@ -107,44 +107,44 @@ export function computePlayerStats(): PlayerStats {
   const badges: BadgeDef[] = [
     {
       id: "first-step",
-      icon: "⚡",
-      title: "First Neuron Fired",
-      desc: "Complete your very first topic in any AI role.",
+      icon: "01",
+      title: "Foundational Specification",
+      desc: "Complete your first technical specification module across any discipline.",
       unlocked: completedTopics >= 1,
     },
     {
       id: "five-topics",
-      icon: "🔥",
-      title: "Momentum Builder",
-      desc: "Complete 5 topics across the academy.",
+      icon: "05",
+      title: "Systems Cadence",
+      desc: "Complete 5 technical modules with verified implementation review.",
       unlocked: completedTopics >= 5,
     },
     {
       id: "quiz-ace",
-      icon: "🧠",
-      title: "Hallucination Hunter",
-      desc: "Ace 3 interactive checkpoint quizzes.",
+      icon: "QA",
+      title: "Architecture Verification",
+      desc: "Pass 3 technical verification assessments with zero errors.",
       unlocked: quizzesWon >= 3,
     },
     {
       id: "lab-rat",
-      icon: "🧪",
-      title: "Prompt Alchemist",
-      desc: "Experiment in the interactive AI Arcade labs.",
+      icon: "LAB",
+      title: "Empirical Benchmarking",
+      desc: "Execute prompt, token cost, or agent trajectory simulations in the Systems Lab.",
       unlocked: labsTried >= 1,
     },
     {
       id: "deep-diver",
-      icon: "🚀",
-      title: "20-Topic Grinder",
-      desc: "Finish 20 topics and reach intermediate mastery.",
+      icon: "20",
+      title: "Cross-Functional Depth",
+      desc: "Complete 20 technical modules across the engineering curriculum.",
       unlocked: completedTopics >= 20,
     },
     {
       id: "role-master",
-      icon: "👑",
-      title: "Role Certified",
-      desc: "Complete 100% of any AI career roadmap.",
+      icon: "CERT",
+      title: "Discipline Mastery",
+      desc: "Complete 100% of all required modules within an AI career track.",
       unlocked: anyRoadmapDone,
     },
   ];

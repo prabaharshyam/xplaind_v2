@@ -14,64 +14,64 @@ const QUESTIONS: {
   choices: { text: string; emoji: string; roles: string[] }[];
 }[] = [
   {
-    q: "1/3 · What's your current tech background?",
-    sub: "Zero gatekeeping — pick what feels closest right now.",
+    q: "01 / 03 · Primary Engineering & Operational Background",
+    sub: "Select the discipline that best aligns with your current technical foundation.",
     choices: [
       {
-        text: "Zero coding! I like strategy, business, workflows, or rules",
-        emoji: "✨",
+        text: "Product strategy, operational architecture, governance, and regulatory compliance",
+        emoji: "01",
         roles: ["ai-product-manager", "ai-automation-specialist", "ai-governance-compliance-specialist"],
       },
       {
-        text: "I write apps / scripts & want to build cool AI products",
-        emoji: "⚡",
+        text: "Full-stack software engineering, distributed APIs, and production application delivery",
+        emoji: "02",
         roles: ["ai-engineer", "agentic-ai-engineer", "forward-deployed-engineer"],
       },
       {
-        text: "I love deep models, math, data pipelines, or cloud infra",
-        emoji: "🧠",
+        text: "Quantitative modeling, deep learning systems, data engineering, or cloud infrastructure",
+        emoji: "03",
         roles: ["generative-ai-llm-engineer", "machine-learning-engineer", "mlops-engineer"],
       },
     ],
   },
   {
-    q: "2/3 · Which superpower sounds the most fun on a Tuesday?",
-    sub: "Imagine getting paid for one of these:",
+    q: "02 / 03 · Target Production Mandate",
+    sub: "Identify the class of engineering problem you intend to own in production.",
     choices: [
       {
-        text: "Shipping chatbots, autonomous agents & AI features users touch",
-        emoji: "🤖",
+        text: "Architecting LLM-powered applications, multi-agent systems, and high-reliability AI products",
+        emoji: "A",
         roles: ["ai-engineer", "agentic-ai-engineer", "ai-product-manager"],
       },
       {
-        text: "Saving 100 hours/week by connecting apps or solving client chaos",
-        emoji: "🚀",
+        text: "Enterprise systems integration, autonomous workflow orchestration, and client field deployments",
+        emoji: "B",
         roles: ["ai-automation-specialist", "forward-deployed-engineer"],
       },
       {
-        text: "Training/serving massive models, scaling GPUs, or auditing AI safety",
-        emoji: "🛡️",
+        text: "Foundation model fine-tuning, high-throughput GPU serving, ML platforms, or risk assurance",
+        emoji: "C",
         roles: ["generative-ai-llm-engineer", "machine-learning-engineer", "mlops-engineer", "ai-governance-compliance-specialist"],
       },
     ],
   },
   {
-    q: "3/3 · How do you want to start learning TODAY?",
-    sub: "We'll tailor your entry path:",
+    q: "03 / 03 · Preferred Technical Entry Vector",
+    sub: "Determine the abstraction layer where you want to begin execution.",
     choices: [
       {
-        text: "Visual, no-code / low-code & product thinking first",
-        emoji: "🎨",
+        text: "System specifications, evaluation frameworks, workflow orchestration, and governance controls",
+        emoji: "I",
         roles: ["ai-product-manager", "ai-automation-specialist", "ai-governance-compliance-specialist"],
       },
       {
-        text: "Hands-on APIs, prompts, RAG & autonomous agents",
-        emoji: "🛠️",
+        text: "Model APIs, hybrid RAG architectures, structured tool-calling, and Model Context Protocol (MCP)",
+        emoji: "II",
         roles: ["ai-engineer", "agentic-ai-engineer", "forward-deployed-engineer"],
       },
       {
-        text: "Deep PyTorch, fine-tuning, ML pipelines & Kubernetes",
-        emoji: "🔬",
+        text: "PyTorch internals, LoRA/QLoRA optimization, vLLM serving engines, and Kubernetes ML pipelines",
+        emoji: "III",
         roles: ["generative-ai-llm-engineer", "machine-learning-engineer", "mlops-engineer"],
       },
     ],
@@ -80,49 +80,49 @@ const QUESTIONS: {
 
 const ROLE_META: Record<string, MatchOption> = {
   "ai-engineer": {
-    label: "🛠️ AI Engineer",
+    label: "AI Systems Engineer",
     slug: "ai-engineer",
-    why: "You want to build and ship real apps powered by LLMs, RAG, and APIs without needing a math PhD.",
+    why: "Focuses on architecting, evaluating, and shipping production software systems powered by foundation models, hybrid retrieval, and deterministic guardrails.",
   },
   "generative-ai-llm-engineer": {
-    label: "✨ Generative AI & LLM Engineer",
+    label: "Generative AI & LLM Systems Engineer",
     slug: "generative-ai-llm-engineer",
-    why: "You want to master the model layer: transformers, LoRA fine-tuning, advanced RAG, and GPU inference.",
+    why: "Focuses on transformer internals, parameter-efficient fine-tuning (LoRA/QLoRA), preference alignment, and low-latency GPU inference engines.",
   },
   "forward-deployed-engineer": {
-    label: "🚀 Forward Deployed Engineer (FDE)",
+    label: "Forward Deployed Engineer (FDE)",
     slug: "forward-deployed-engineer",
-    why: "You love fast prototyping, talking to customers, and making AI work inside real enterprise chaos.",
+    why: "Embeds directly within enterprise environments to architect data ontology pipelines, rapid production pilots, and mission-critical AI deployments.",
   },
   "ai-product-manager": {
-    label: "🧭 AI Product Manager",
+    label: "AI Technical Product Manager",
     slug: "ai-product-manager",
-    why: "No heavy coding required — you decide what AI to build, design the UX, and lead launches.",
+    why: "Defines non-deterministic product specifications, evaluation benchmarks, unit economics (token/latency budgets), and enterprise adoption strategy.",
   },
   "agentic-ai-engineer": {
-    label: "🤖 Agentic AI Engineer",
+    label: "Agentic Systems Engineer",
     slug: "agentic-ai-engineer",
-    why: "You want to build autonomous agents that plan, call tools, use MCP, and collaborate safely.",
+    why: "Designs stateful multi-step execution graphs, Model Context Protocol (MCP) tool servers, memory hierarchies, and bounded autonomy sandboxes.",
   },
   "ai-automation-specialist": {
-    label: "⚙️ AI Automation Specialist",
+    label: "Enterprise AI Automation Architect",
     slug: "ai-automation-specialist",
-    why: "Great for non-coders & builders alike — connect Zapier/Make/n8n with AI to automate whole workflows.",
+    why: "Engineers event-driven enterprise workflows, webhook integrations, structured LLM data pipelines, and human-in-the-loop operational systems.",
   },
   "ai-governance-compliance-specialist": {
-    label: "⚖️ AI Governance & Compliance Specialist",
+    label: "AI Governance, Risk & Compliance Lead",
     slug: "ai-governance-compliance-specialist",
-    why: "Zero coding required — lead AI ethics, EU AI Act compliance, risk audits, and safety guardrails.",
+    why: "Leads algorithmic risk assessments, EU AI Act and NIST AI RMF regulatory alignment,ISO/IEC 42001 management systems, and red-team assurance.",
   },
   "machine-learning-engineer": {
-    label: "📊 Machine Learning Engineer",
+    label: "Machine Learning Systems Engineer",
     slug: "machine-learning-engineer",
-    why: "Turn raw data into predictive models using Python, scikit-learn, PyTorch, and feature engineering.",
+    why: "Builds high-signal feature pipelines, classical and deep predictive models, calibration frameworks, and low-latency production scoring services.",
   },
   "mlops-engineer": {
-    label: "🔁 MLOps Engineer",
+    label: "MLOps & AI Infrastructure Engineer",
     slug: "mlops-engineer",
-    why: "Build the cloud & Kubernetes backbone that trains, deploys, monitors, and scales AI models.",
+    why: "Architects reproducible training pipelines, distributed GPU clusters, model registries, drift telemetry, and automated canary rollbacks.",
   },
 };
 
@@ -155,15 +155,15 @@ export function RoleFinderWidget() {
   if (winner) {
     return (
       <div className="finder-card glass-3d">
-        <div className="finder-badge">🎯 YOUR AI ROLE MATCH (+75 XP EARNED)</div>
+        <div className="finder-badge">RECOMMENDED SPECIALIZATION TRACK</div>
         <h3>{winner.label}</h3>
         <p className="lead">{winner.why}</p>
         <div className="cta" style={{ justifyContent: "flex-start", marginTop: 18 }}>
           <Link to={`/${winner.slug}`} className="btn primary">
-            Launch My Roadmap →
+            Inspect Technical Curriculum →
           </Link>
           <button type="button" className="btn" onClick={reset}>
-            Retake Quiz
+            Reset Diagnostic
           </button>
         </div>
       </div>
@@ -175,8 +175,8 @@ export function RoleFinderWidget() {
   return (
     <div className="finder-card glass-3d">
       <div className="finder-top">
-        <span className="finder-badge">🧭 "I DON'T KNOW WHERE TO START" — 30-SEC ROLE MATCHER</span>
-        <span className="muted">Step {step + 1} of {QUESTIONS.length}</span>
+        <span className="finder-badge">ARCHITECTURAL TRACK DIAGNOSTIC</span>
+        <span className="muted">Phase 0{step + 1} of 0{QUESTIONS.length}</span>
       </div>
       <h3>{cur.q}</h3>
       <p className="muted" style={{ marginTop: -4, marginBottom: 16 }}>{cur.sub}</p>

@@ -10,15 +10,15 @@ import { mlEngineer } from "./roles/mlEngineer";
 import { mlopsEngineer } from "./roles/mlopsEngineer";
 
 export const roadmaps: Roadmap[] = [
-  aiEngineer,
-  genAiEngineer,
-  forwardDeployedEngineer,
-  aiProductManager,
-  agenticAiEngineer,
-  aiAutomationSpecialist,
-  aiGovernanceSpecialist,
-  mlEngineer,
-  mlopsEngineer,
+  { ...aiEngineer, emoji: "AIE" },
+  { ...genAiEngineer, emoji: "LLM" },
+  { ...forwardDeployedEngineer, emoji: "FDE" },
+  { ...aiProductManager, emoji: "APM" },
+  { ...agenticAiEngineer, emoji: "AGT" },
+  { ...aiAutomationSpecialist, emoji: "AUT" },
+  { ...aiGovernanceSpecialist, emoji: "GRC" },
+  { ...mlEngineer, emoji: "MLE" },
+  { ...mlopsEngineer, emoji: "OPS" },
 ];
 
 export const topicsOf = (r: Roadmap): Topic[] => r.sections.flatMap((s) => s.topics);

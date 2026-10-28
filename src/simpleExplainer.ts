@@ -8,44 +8,44 @@ export interface SimpleTake {
 
 const CUSTOM_VIBES: Record<string, SimpleTake> = {
   "python-essentials": {
-    vibe: "Python is basically English with superpowers — it's the remote control for almost every AI tool on earth.",
-    analogy: "Think of Python like LEGO bricks: you don't mold the plastic yourself, you snap ready-made blocks (libraries) together to build a spaceship.",
-    noCodeStep: "Open Google Colab in your browser (zero install) and run `print('Hello AI')` — boom, you're officially coding.",
+    vibe: "Python serves as the primary orchestration layer for modern AI systems, bridging high-level application logic with C++/CUDA tensor runtimes and strongly typed schema validation.",
+    analogy: "Treat Python not as a scripting language, but as the control plane that binds Pydantic data contracts, asynchronous HTTP transport, and accelerated numerical kernels into a cohesive service.",
+    noCodeStep: "Inspect a production FastAPI endpoint using Pydantic `BaseModel` validation and verify how malformed JSON payloads are rejected prior to model invocation.",
   },
   "how-llms-work": {
-    vibe: "LLMs don't 'think' like humans — they play the world's most advanced game of autocomplete, one word-piece (token) at a time.",
-    analogy: "Imagine a friend who read the entire internet and finishes your sentences with spooky accuracy, but sometimes makes up facts just to sound confident.",
-    noCodeStep: "Paste a paragraph into an AI chat and ask it to 'give me 3 completely different endings' to see next-token prediction in action.",
+    vibe: "Autoregressive language models compute conditional probability distributions over subword tokens using causal self-attention; they optimize for statistical plausibility rather than factual truth.",
+    analogy: "An LLM operates like a high-dimensional lossy compression engine over human text—capable of synthesizing complex structural patterns, yet requiring external verification for factual determinism.",
+    noCodeStep: "Compare model outputs across temperature 0.0 and 0.9 on an identical analytical prompt to observe probability distribution divergence.",
   },
   "prompt-design": {
-    vibe: "Prompting is giving clear briefing notes to a genius intern who takes everything literally.",
-    analogy: "Ordering 'food' gets you anything; ordering 'a spicy paneer wrap, no onions, cut in half' gets you exactly what you craved.",
-    noCodeStep: "Take your last vague ChatGPT prompt and rewrite it with Role + Task + Example + Output Format.",
+    vibe: "Prompt engineering is the discipline of programming non-deterministic runtimes through explicit system invariants, few-shot exemplars, and structured output schemas.",
+    analogy: "Treat a system prompt as an API interface contract: ambiguity in input constraints directly translates into variance and failure modes in downstream consumers.",
+    noCodeStep: "Refactor an unstructured prompt into four explicit blocks: System Authority, Context Boundaries, Negative Constraints, and JSON Schema Contract.",
   },
   rag: {
-    vibe: "RAG = letting the AI open your notes during the exam instead of relying on its fuzzy memory.",
-    analogy: "Closed-book exam vs open-book exam with sticky notes on the exact pages you need.",
-    noCodeStep: "Upload a PDF to ChatGPT or NotebookLM and ask a question with 'cite the exact paragraph' — that's RAG!",
+    vibe: "Retrieval-Augmented Generation (RAG) decouples parametric model reasoning from non-parametric enterprise knowledge by injecting dynamically retrieved, access-controlled context at inference time.",
+    analogy: "Instead of retraining model weights whenever corporate state changes, RAG operates as a just-in-time reference index with verifiable provenance.",
+    noCodeStep: "Evaluate a retrieval query across both dense semantic search and lexical BM25 to observe why hybrid Reciprocal Rank Fusion (RRF) prevents missed exact-keyword matches.",
   },
   "tool-use": {
-    vibe: "Tools give AI hands — instead of just talking, it can check live weather, query a database, or send a calendar invite.",
-    analogy: "A brain in a jar vs a person with a smartphone and calculator.",
-    noCodeStep: "Ask an AI assistant to calculate `48912 * 99123` using code execution or search today's news.",
+    vibe: "Function calling transforms a language model from a text generator into a structured decision router capable of emitting typed parameters for external APIs and databases.",
+    analogy: "The model acts as the reasoning controller that formulates a structured RPC request, while your deterministic application runtime validates permissions and executes the side effect.",
+    noCodeStep: "Define a JSON Schema tool specification with strict `enum` and `required` constraints, and verify how the runtime handles missing arguments.",
   },
   "agent-loop": {
-    vibe: "An AI Agent is a model running in a loop: Goal → Think → Use Tool → Check Result → Repeat until done.",
-    analogy: "A single prompt is asking for directions; an agent is hiring a driver who checks traffic, takes detours, and parks the car.",
-    noCodeStep: "Sketch a 4-step task you do every Monday and mark which steps need judgement vs clicking a button.",
+    vibe: "An agentic system embeds an LLM within a stateful feedback loop (Plan → Execute Tool → Observe Telemetry → Re-evaluate) bounded by explicit iteration and cost budgets.",
+    analogy: "Single-turn inference is a stateless function call; an agent is a closed-loop control system that dynamically adapts its execution trajectory based on environment feedback.",
+    noCodeStep: "Trace a 4-step operational workflow and identify which transitions can be hardcoded as deterministic state machines versus those requiring dynamic model routing.",
   },
   "ml-fundamentals": {
-    vibe: "Classic Machine Learning is teaching computers by showing 10,000 examples instead of writing 10,000 if-else rules.",
-    analogy: "Like teaching a kid what a 'dog' is by pointing at dogs in the park rather than measuring ear-length with a ruler.",
-    noCodeStep: "Think of your spam folder: every time you click 'Report Spam', you're labeling training data.",
+    vibe: "Classical machine learning optimizes parametric or tree-based decision boundaries over structured tabular features, consistently outperforming LLMs on latency, cost, and calibration for structured prediction.",
+    analogy: "Using a 70B language model for tabular churn prediction is equivalent to using a jet turbine to power a wristwatch—gradient boosted trees deliver superior precision at 1/1000th the compute cost.",
+    noCodeStep: "Audit a predictive use case in your organization and verify whether temporal train/validation splits are enforced to prevent target leakage.",
   },
   "ai-regulation": {
-    vibe: "AI laws (like the EU AI Act) sort AI by danger level — harmless spam filters get a pass, while AI that decides jobs or loans gets strict audits.",
-    analogy: "Bicycles don't need a license, cars need a driver's test, and commercial airplanes need black boxes and daily inspections.",
-    noCodeStep: "Pick one AI app you use daily and ask: 'If this makes a mistake, who gets hurt and how badly?'",
+    vibe: "Frameworks such as the EU AI Act and NIST AI RMF classify AI systems by operational risk tier, mandating conformity assessments, lineage documentation, and human oversight for high-impact deployments.",
+    analogy: "Regulatory compliance in AI mirrors aviation safety engineering: low-risk consumer utilities require minimal friction, whereas credit, hiring, and clinical systems require black-box telemetry and formal auditability.",
+    noCodeStep: "Map one production AI system against the EU AI Act four-tier risk taxonomy (Unacceptable, High, Limited, Minimal) and document its required oversight controls.",
   },
 };
 
@@ -54,9 +54,9 @@ export function getSimpleTake(topic: Topic): SimpleTake {
   if (custom) return custom;
 
   return {
-    vibe: `${topic.title} in plain English: ${topic.summary.replace(/\.$/, "")} — without needing a PhD to get why it matters.`,
-    analogy: `Think of "${topic.title}" like upgrading from manual gear to autopilot: ${topic.points[0] ?? topic.summary}`,
-    noCodeStep: `Try explaining "${topic.title}" to a friend in one sentence using these 3 takeaways, then mark this milestone Done for +120 XP!`,
+    vibe: `Core Architectural Thesis: ${topic.summary.replace(/\.$/, "")}—engineered for predictable reliability, observability, and controlled unit economics in production.`,
+    analogy: `Systems Mental Model: Treat "${topic.title}" as a critical infrastructure boundary where ${topic.points[0] ?? topic.summary}`,
+    noCodeStep: `Verification Protocol: Audit your current architecture against the three core invariants of "${topic.title}", document failure modes, and record completion (+120 CR).`,
   };
 }
 
@@ -70,9 +70,9 @@ export interface QuizQuestion {
 export function buildTopicQuiz(topic: Topic): QuizQuestion {
   const correct = topic.points[0] ?? topic.summary;
   const distractors = [
-    "Ignore validation and deploy directly to production without testing or baselines.",
-    "Always train a 70-billion parameter model from scratch before trying a simple prompt.",
-    "Store API keys and personal customer data directly inside public Git commits.",
+    "Bypass offline evaluation benchmarks and deploy directly to production traffic without telemetry.",
+    "Default to training a bespoke foundation model from scratch prior to establishing a retrieval or prompting baseline.",
+    "Embed unvalidated external payloads and credentials directly inside system prompts without schema sanitization.",
   ];
 
   // Deterministic shuffle based on topic.id length
@@ -85,9 +85,9 @@ export function buildTopicQuiz(topic: Topic): QuizQuestion {
   }
 
   return {
-    question: `Quick Vibe Check: Which rule actually holds true for "${topic.title}"?`,
+    question: `Technical Verification: Which architectural principle governs "${topic.title}" in production?`,
     options,
     correctIndex,
-    explanation: `Spot on! "${correct}" is a core principle of ${topic.title}.`,
+    explanation: `Verified. "${correct}" is a primary engineering invariant for ${topic.title}.`,
   };
 }

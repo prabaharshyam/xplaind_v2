@@ -41,101 +41,101 @@ export interface EcosystemSite {
 export const MNC_ACADEMIES: MncAcademyItem[] = [
   {
     org: "DeepLearning.AI (Andrew Ng)",
-    badge: "GOLD STANDARD",
-    emoji: "🧠",
-    title: "DeepLearning.AI Short Courses & Specializations",
+    badge: "FOUNDATIONAL CURRICULUM",
+    emoji: "DL",
+    title: "DeepLearning.AI Engineering Courses & Specializations",
     level: "Beginner",
     free: true,
     url: "https://www.deeplearning.ai/short-courses/",
-    summary: "60+ hands-on courses built directly with OpenAI, Anthropic, Meta, LangChain, LlamaIndex, CrewAI, and AWS.",
-    skills: ["Prompt Engineering", "RAG", "LangGraph Agents", "ML & Deep Learning", "MLOps"],
+    summary: "60+ technical courses developed in collaboration with OpenAI, Anthropic, Meta, LangChain, LlamaIndex, CrewAI, and AWS.",
+    skills: ["Prompt Engineering", "Hybrid RAG", "LangGraph Runtimes", "Deep Learning", "MLOps"],
   },
   {
-    org: "Anthropic Academy",
+    org: "Anthropic Engineering",
     badge: "FRONTIER LAB",
-    emoji: "🧡",
-    title: "Anthropic Official Courses, Prompt Tutorial & MCP Docs",
+    emoji: "ANT",
+    title: "Anthropic Engineering Courses, Prompt Specifications & MCP",
     level: "Intermediate",
     free: true,
     url: "https://github.com/anthropics/courses",
-    summary: "Official engineering playbooks on Claude prompt design, tool use, evals, Contextual Retrieval, and Model Context Protocol (MCP).",
+    summary: "Official engineering playbooks covering Claude system prompt design, tool use, evaluation harnesses, Contextual Retrieval, and Model Context Protocol (MCP).",
     skills: ["Claude API", "Tool Calling", "MCP Servers", "Agentic Workflows", "Evals"],
   },
   {
     org: "Google Cloud & DeepMind",
-    badge: "MNC CERTIFICATION",
-    emoji: "🌐",
+    badge: "CLOUD ARCHITECTURE",
+    emoji: "GCP",
     title: "Google Cloud Skills Boost — Generative AI & ML Crash Course",
     level: "Beginner",
     free: true,
     url: "https://www.cloudskillsboost.google/paths/118",
-    summary: "Google's official curriculum covering LLMs, Vertex AI, Responsible AI, Machine Learning Crash Course, and MLOps.",
+    summary: "Google's official engineering curriculum covering foundation models, Vertex AI, Responsible AI governance, Machine Learning Crash Course, and MLOps.",
     skills: ["Gemini & Vertex AI", "ML Crash Course", "Responsible AI", "Embeddings"],
   },
   {
     org: "Microsoft Learn",
-    badge: "FREE GITHUB CURRICULUM",
-    emoji: "💠",
-    title: "Generative AI & AI Agents for Beginners (Microsoft Official)",
+    badge: "OPEN-SOURCE CURRICULUM",
+    emoji: "MS",
+    title: "Generative AI & Autonomous Agents Curriculum (Microsoft Official)",
     level: "Beginner",
     free: true,
     url: "https://github.com/microsoft/generative-ai-for-beginners",
-    summary: "21-lesson GenAI curriculum + 10-lesson AI Agents curriculum with Python/TypeScript code, Azure AI, and AutoGen.",
+    summary: "21-module Generative AI curriculum and 10-module AI Agents engineering guide with Python/TypeScript reference implementations.",
     skills: ["GenAI Foundations", "AI Agents", "RAG", "Responsible AI", "Python"],
   },
   {
     org: "NVIDIA Deep Learning Institute (DLI)",
     badge: "GPU & INFERENCE",
-    emoji: "🟢",
+    emoji: "NV",
     title: "NVIDIA DLI — Accelerated Deep Learning, RAG & Triton Serving",
     level: "Advanced",
     free: true,
     url: "https://www.nvidia.com/en-us/training/",
-    summary: "Master GPU-accelerated training, TensorRT-LLM, quantization, CUDA fundamentals, and enterprise RAG pipelines.",
+    summary: "GPU-accelerated training, TensorRT-LLM compilation, quantization, CUDA fundamentals, and high-throughput enterprise RAG pipelines.",
     skills: ["CUDA & GPUs", "TensorRT-LLM", "Triton Server", "LoRA Fine-Tuning"],
   },
   {
-    org: "OpenAI Academy & Cookbook",
-    badge: "PRODUCTION CODE",
-    emoji: "⚡",
-    title: "OpenAI Developer Cookbook & Structured Outputs Guide",
+    org: "OpenAI Engineering Cookbook",
+    badge: "PRODUCTION PATTERNS",
+    emoji: "OAI",
+    title: "OpenAI Developer Cookbook & Structured Outputs Specification",
     level: "Intermediate",
     free: true,
     url: "https://cookbook.openai.com/",
-    summary: "Production-ready Python/Node recipes for Structured Outputs, Function Calling, Realtime Voice Agents, and Evals.",
+    summary: "Production Python and TypeScript architectures for Structured Outputs, Function Calling, Realtime Agents, and automated evaluation suites.",
     skills: ["Structured JSON", "Realtime Agents", "Embeddings", "Automated Evals"],
   },
   {
     org: "Hugging Face Learn",
-    badge: "OPEN-SOURCE HUB",
-    emoji: "🤗",
-    title: "Hugging Face NLP, LLM, Smol-Course & AI Agents Courses",
+    badge: "OPEN-WEIGHTS ECOSYSTEM",
+    emoji: "HF",
+    title: "Hugging Face NLP, LLM, Smol-Course & Agent Engineering",
     level: "Intermediate",
     free: true,
     url: "https://huggingface.co/learn",
-    summary: "Free community certifications covering Transformers, Diffusers, PEFT/LoRA fine-tuning, DPO alignment, and open-source agents.",
+    summary: "Technical certifications covering Transformers, Diffusers, PEFT/LoRA fine-tuning, DPO preference alignment, and open-weights agents.",
     skills: ["Transformers", "LoRA / QLoRA", "TRL & DPO", "Open-Weights Models"],
   },
   {
-    org: "AWS Skill Builder & ML University",
-    badge: "CLOUD AI SCALE",
-    emoji: "☁️",
+    org: "AWS Machine Learning University",
+    badge: "CLOUD INFRASTRUCTURE",
+    emoji: "AWS",
     title: "AWS Generative AI, Amazon Bedrock & MLOps Engineering",
     level: "Intermediate",
     free: true,
     url: "https://aws.amazon.com/training/learn-about/machine-learning/",
-    summary: "Cloud architecture patterns for multi-tenant Bedrock RAG, SageMaker pipelines, security guardrails, and FinOps.",
+    summary: "Enterprise cloud architectures for multi-tenant Bedrock RAG, SageMaker training pipelines, IAM guardrails, and inference FinOps.",
     skills: ["Amazon Bedrock", "SageMaker MLOps", "Cloud IAM", "Cost Optimization"],
   },
   {
     org: "Stanford & MIT OpenCourseWare",
-    badge: "IVY / UNIVERSITY",
-    emoji: "🎓",
+    badge: "ACADEMIC RESEARCH",
+    emoji: "UNI",
     title: "Stanford CS229 (ML), CS224N (NLP), CS25 (Transformers) & MIT 6.S191",
     level: "Advanced",
     free: true,
     url: "https://introtodeeplearning.com/",
-    summary: "Full university lecture videos, slides, and assignments from Stanford and MIT professors.",
+    summary: "Complete university lecture series, mathematical derivations, and problem sets from Stanford and MIT faculty.",
     skills: ["Mathematical Foundations", "Transformers", "Deep Learning", "Research Papers"],
   },
 ];
@@ -150,7 +150,7 @@ export const YOUTUBE_MASTERS: YoutubeMasterItem[] = [
     url: "https://www.youtube.com/watch?v=_uQrJ0TkZlc",
     topicLink: "/ai-engineer/python-essentials",
     topicLabel: "Python for AI Work",
-    summary: "The world's go-to beginner course for Python syntax, data structures, modules, and clean coding habits.",
+    summary: "Comprehensive engineering introduction to Python syntax, data structures, modular design, and production coding standards.",
   },
   {
     creator: "Andrej Karpathy",
@@ -159,9 +159,9 @@ export const YOUTUBE_MASTERS: YoutubeMasterItem[] = [
     title: "Deep Dive into LLMs like ChatGPT & Let's Build GPT from Scratch",
     duration: "3h 31m",
     url: "https://www.youtube.com/watch?v=7xTGNNLPyMI",
-    topicLink: "/generative-ai-engineer/how-llms-work",
+    topicLink: "/generative-ai-llm-engineer/how-llms-work",
     topicLabel: "How LLMs Work",
-    summary: "Former Tesla AI Director & OpenAI cofounder explains pretraining, tokenization, SFT, RLHF, and builds GPT in PyTorch.",
+    summary: "First-principles walkthrough of pretraining, BPE tokenization, supervised fine-tuning, RLHF, and building a Transformer in PyTorch.",
   },
   {
     creator: "3Blue1Brown (Grant Sanderson)",
@@ -170,9 +170,9 @@ export const YOUTUBE_MASTERS: YoutubeMasterItem[] = [
     title: "Neural Networks, Backpropagation & Transformers Visually Explained",
     duration: "27m + Playlist",
     url: "https://www.youtube.com/watch?v=wjZofJX0v4M",
-    topicLink: "/generative-ai-engineer/attention-transformer",
+    topicLink: "/generative-ai-llm-engineer/attention-transformer",
     topicLabel: "Attention & Transformers",
-    summary: "Unbeatable 3D visual intuition for linear algebra, gradient descent, embeddings, and self-attention.",
+    summary: "Rigorous geometric intuition for linear algebra, backpropagation, high-dimensional embeddings, and multi-head self-attention.",
   },
   {
     creator: "StatQuest with Josh Starmer",
@@ -183,7 +183,7 @@ export const YOUTUBE_MASTERS: YoutubeMasterItem[] = [
     url: "https://www.youtube.com/@statquest",
     topicLink: "/machine-learning-engineer/ml-fundamentals",
     topicLabel: "ML Fundamentals & Metrics",
-    summary: "Breaks down every classical ML algorithm, loss function, and evaluation metric with zero intimidation.",
+    summary: "Clear mathematical decompositions of classical ML algorithms, loss functions, regularization, and evaluation metrics.",
   },
   {
     creator: "freeCodeCamp.org",
@@ -194,7 +194,7 @@ export const YOUTUBE_MASTERS: YoutubeMasterItem[] = [
     url: "https://www.youtube.com/watch?v=V_xro1bcAuA",
     topicLink: "/machine-learning-engineer/pytorch-training",
     topicLabel: "PyTorch & Deep Learning",
-    summary: "Complete end-to-end coding bootcamps with zero paywalls.",
+    summary: "Complete end-to-end engineering lectures covering tensor computation, neural network training, and retrieval pipelines.",
   },
   {
     creator: "DataTalksClub (Alexey Grigorev)",
@@ -205,7 +205,7 @@ export const YOUTUBE_MASTERS: YoutubeMasterItem[] = [
     url: "https://www.youtube.com/playlist?list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK",
     topicLink: "/mlops-engineer/mlops-lifecycle",
     topicLabel: "MLOps Lifecycle",
-    summary: "Hands-on production engineering covering experiment tracking, orchestration, model registries, and drift monitoring.",
+    summary: "Production systems engineering covering experiment tracking, workflow orchestration, model registries, and drift telemetry.",
   },
   {
     creator: "TechWorld with Nana",
@@ -216,7 +216,7 @@ export const YOUTUBE_MASTERS: YoutubeMasterItem[] = [
     url: "https://www.youtube.com/watch?v=3c-iBn73dDE",
     topicLink: "/mlops-engineer/docker",
     topicLabel: "Containers with Docker",
-    summary: "The clearest infrastructure explanations for AI and MLOps engineers.",
+    summary: "Containerization, Kubernetes cluster architecture, and automated CI/CD deployment pipelines for ML infrastructure.",
   },
   {
     creator: "Two Minute Papers & Yannic Kilcher",
@@ -225,95 +225,95 @@ export const YOUTUBE_MASTERS: YoutubeMasterItem[] = [
     title: "Latest AI Breakthroughs & Paper Walkthroughs",
     duration: "10–45m",
     url: "https://www.youtube.com/@TwoMinutePapers",
-    topicLink: "/generative-ai-engineer/pretraining-scaling",
+    topicLink: "/generative-ai-llm-engineer/pretraining-scaling",
     topicLabel: "Pretraining & Scaling Laws",
-    summary: "Stay on top of new arXiv papers, multimodal models, and scaling breakthroughs in minutes.",
+    summary: "Technical analysis of foundational arXiv publications, compute-optimal scaling laws, and multimodal architectures.",
   },
   {
     creator: "Matt Wolfe & Nick Saraev",
     subs: "1M+ Subscribers",
-    specialty: "AI Tools, n8n/Make Workflows & No-Code Automation",
-    title: "Weekly AI Tool Breakdowns & End-to-End n8n Automation Builds",
+    specialty: "AI Tools, n8n/Make Workflows & Enterprise Automation",
+    title: "Enterprise n8n Workflow Architectures & AI Tooling Analysis",
     duration: "30m–2h",
     url: "https://www.youtube.com/@mreflow",
     topicLink: "/ai-automation-specialist/no-code-tools",
     topicLabel: "No-Code Automation Tools",
-    summary: "Discover practical AI tools and build revenue-generating business automations without a CS degree.",
+    summary: "Event-driven webhook orchestration, structured LLM data extraction, and production workflow automation.",
   },
 ];
 
 export const ECOSYSTEM_PORTALS: EcosystemSite[] = [
   {
     name: "There's An AI For That (TAAFT)",
-    badge: "#1 AI DIRECTORY",
-    emoji: "🧭",
+    badge: "MARKET INDEX",
+    emoji: "IDX",
     category: "AI Tools Directory",
     url: "https://theresanaiforthat.com/",
-    description: "The world's largest live index of 12,000+ AI tools searchable by job role, use case, and task.",
-    bestFor: "Finding ready-to-use AI tools before building from scratch (Build vs Buy).",
+    description: "Comprehensive market index of 12,000+ AI software products categorized by enterprise function, domain, and workflow.",
+    bestFor: "Conducting Build-vs-Buy architectural evaluations prior to custom engineering.",
   },
   {
     name: "DataCamp",
-    badge: "INTERACTIVE LABS",
-    emoji: "💻",
+    badge: "INTERACTIVE RUNTIME",
+    emoji: "LAB",
     category: "Interactive Coding",
     url: "https://www.datacamp.com/",
-    description: "Interactive browser-based courses for Python, SQL, PyTorch, OpenAI API, LangChain, and AI Fundamentals.",
-    bestFor: "Non-tech beginners and engineers who want guided in-browser coding exercises.",
+    description: "Browser-based execution environments for Python, SQL, PyTorch, OpenAI API, LangChain, and statistical modeling.",
+    bestFor: "Practitioners seeking structured, in-browser implementation exercises.",
   },
   {
     name: "Hugging Face Hub",
-    badge: "OPEN WEIGHTS",
-    emoji: "🤗",
+    badge: "MODEL REGISTRY",
+    emoji: "HF",
     category: "Models & Datasets",
     url: "https://huggingface.co/",
-    description: "The GitHub of AI: 1M+ open-weights LLMs, vision models, datasets, leaderboards, and live Spaces demos.",
-    bestFor: "Downloading Llama/Qwen/Mistral weights, datasets, and hosting Gradio prototypes.",
+    description: "Primary open-weights registry hosting 1M+ model checkpoints, evaluation datasets, leaderboards, and Spaces runtimes.",
+    bestFor: "Inspecting open-weights architectures (Llama, Qwen, Mistral) and benchmark datasets.",
   },
   {
     name: "Kaggle",
-    badge: "FREE GPUS & DATA",
-    emoji: "🏆",
+    badge: "DATASETS & BENCHMARKS",
+    emoji: "KGL",
     category: "Interactive Coding",
     url: "https://www.kaggle.com/",
-    description: "Google's data science community offering free cloud GPU notebooks, 300k+ datasets, micro-courses, and competitions.",
-    bestFor: "Practicing feature engineering, XGBoost, and PyTorch on real tabular/vision datasets.",
+    description: "Empirical machine learning platform providing cloud GPU kernels, 300k+ datasets, and competitive benchmark leaderboards.",
+    bestFor: "Validating feature engineering, gradient boosted trees, and deep learning architectures.",
   },
   {
     name: "LMSYS Chatbot Arena (LMArena)",
-    badge: "LIVE LEADERBOARD",
-    emoji: "⚔️",
+    badge: "ELO BENCHMARK",
+    emoji: "ELO",
     category: "Research & Benchmarks",
     url: "https://lmarena.ai/",
-    description: "Blind human side-by-side battles ranking GPT, Claude, Gemini, Llama, and DeepSeek by ELO rating.",
-    bestFor: "Choosing the best frontier or open-weight model for coding, reasoning, or vision.",
+    description: "Blind, randomized human preference evaluation ranking frontier and open-weight models via Bradley-Terry Elo ratings.",
+    bestFor: "Empirical model selection across coding, reasoning, and instruction-following tasks.",
   },
   {
     name: "Papers With Code & arXiv",
-    badge: "RESEARCH + GITHUB",
-    emoji: "📄",
+    badge: "PRIMARY LITERATURE",
+    emoji: "PWC",
     category: "Research & Benchmarks",
     url: "https://paperswithcode.com/",
-    description: "Links machine learning research papers directly to their official GitHub code and SOTA benchmark tables.",
-    bestFor: "Validating state-of-the-art architectures and finding reproducible reference implementations.",
+    description: "Maps peer-reviewed machine learning publications directly to reference GitHub implementations and SOTA benchmark tables.",
+    bestFor: "Auditing state-of-the-art architectures and reproducible reference code.",
   },
   {
     name: "Futurepedia & Product Hunt AI",
-    badge: "DAILY AI LAUNCHES",
-    emoji: "🚀",
+    badge: "ECOSYSTEM TELEMETRY",
+    emoji: "DIR",
     category: "AI Tools Directory",
     url: "https://www.futurepedia.io/",
-    description: "Curated directory of daily AI product launches, productivity tools, and enterprise SaaS workflows.",
-    bestFor: "AI Product Managers and Automation Specialists tracking market trends.",
+    description: "Curated intelligence directory tracking enterprise AI software releases, vertical SaaS tools, and workflow integrations.",
+    bestFor: "AI Product Managers and Automation Architects monitoring vendor capabilities.",
   },
   {
     name: "Smithery & Official MCP Registry",
-    badge: "AGENT TOOLS",
-    emoji: "🔌",
+    badge: "PROTOCOL REGISTRY",
+    emoji: "MCP",
     category: "Prompt & Agent Hubs",
     url: "https://modelcontextprotocol.io/",
-    description: "Open standard and community servers connecting AI agents to GitHub, Postgres, Slack, browser, and local files.",
-    bestFor: "Agentic AI Engineers wiring standardized tool integrations.",
+    description: "Open protocol specification and server registry connecting agentic runtimes to GitHub, PostgreSQL, Slack, and enterprise systems.",
+    bestFor: "Agentic Systems Engineers implementing standardized tool-calling interfaces.",
   },
 ];
 
@@ -359,15 +359,15 @@ export default function UniversityPage() {
   return (
     <div className="container">
       <div className="glass-3d" style={{ padding: "32px 28px", marginBottom: 28 }}>
-        <span className="pill neon-pill">🎓 XPLAINED.IN AI UNIVERSITY · ONE-STOP GLOBAL AI LIBRARY</span>
+        <span className="pill neon-pill">RESEARCH & CURRICULUM INDEX · PRIMARY TECHNICAL ARCHIVE</span>
         <h1 style={{ fontSize: "clamp(28px, 4.5vw, 46px)", margin: "6px 0 12px" }}>
-          The Complete <span className="ai-grad">AI University & Resource Vault</span>
+          Research, Curricula & <span className="ai-grad">Technical Specifications</span>
         </h1>
         <p className="lead" style={{ maxWidth: 820 }}>
-          More than career roadmaps — this is your end-to-end AI encyclopedia. Explore every deep-dive textbook module,
-          official courses from <strong>Google, Anthropic, Microsoft, DeepLearning.AI & NVIDIA</strong>, the internet's
-          best <strong>YouTube masterclasses (Mosh, Karpathy, 3Blue1Brown, StatQuest)</strong>, and essential platforms like{" "}
-          <strong>There's An AI For That, DataCamp, Hugging Face & Kaggle</strong>.
+          A consolidated technical archive indexing all {allUniqueTopics.length} engineering specifications alongside
+          official curricula from <strong>Anthropic, DeepLearning.AI, Google Cloud, Microsoft, NVIDIA, and Stanford</strong>,
+          foundational lectures from <strong>Andrej Karpathy, 3Blue1Brown, and StatQuest</strong>, and empirical benchmarks
+          including <strong>LMSYS Chatbot Arena, Hugging Face, and Papers With Code</strong>.
         </p>
 
         <div className="toolbar" style={{ marginBottom: 0 }}>
@@ -375,24 +375,24 @@ export default function UniversityPage() {
             type="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="🔍 Search courses, Mosh Python, Anthropic, RAG, TheresAnAIForThat..."
+            placeholder="Filter by organization, topic, or protocol (Anthropic, RAG, Karpathy, MCP)..."
             style={{ minWidth: 320, flex: 1 }}
           />
           <div className="tabs">
             <button type="button" className={`tab ${tab === "all" ? "active" : ""}`} onClick={() => setTab("all")}>
-              🌐 Everything
+              Complete Index
             </button>
             <button type="button" className={`tab ${tab === "mnc" ? "active" : ""}`} onClick={() => setTab("mnc")}>
-              🏛️ Top MNC Courses ({filteredMnc.length})
+              Engineering Academies ({filteredMnc.length})
             </button>
             <button type="button" className={`tab ${tab === "youtube" ? "active" : ""}`} onClick={() => setTab("youtube")}>
-              ▶️ Top AI YouTubers ({filteredYt.length})
+              Technical Lectures ({filteredYt.length})
             </button>
             <button type="button" className={`tab ${tab === "portals" ? "active" : ""}`} onClick={() => setTab("portals")}>
-              🧭 AI Directories & Labs ({filteredPortals.length})
+              Registries & Benchmarks ({filteredPortals.length})
             </button>
             <button type="button" className={`tab ${tab === "encyclopedia" ? "active" : ""}`} onClick={() => setTab("encyclopedia")}>
-              📚 All {filteredTopics.length} Deep-Dive Modules
+              All {filteredTopics.length} Specifications
             </button>
           </div>
         </div>
@@ -400,12 +400,12 @@ export default function UniversityPage() {
 
       {(tab === "all" || tab === "mnc") && (
         <section className="section">
-          <span className="pill neon-pill">🏛️ OFFICIAL TECH GIANT ACADEMIES</span>
+          <span className="pill neon-pill">FRONTIER LAB & UNIVERSITY ACADEMIES</span>
           <h2 className="h2" style={{ marginTop: 6 }}>
-            Learn Directly from Google, Anthropic, Microsoft, DeepLearning.AI & NVIDIA
+            Primary Engineering Curricula (Anthropic, DeepLearning.AI, Google, NVIDIA, Stanford)
           </h2>
           <p className="muted" style={{ marginTop: -8, marginBottom: 18 }}>
-            Every resource below is official, vetted by senior engineers, and earns you <strong>+30 Bonus XP</strong> when you explore it.
+            Verified primary documentation and engineering courses. Inspecting any resource records <strong>+30 Competency Credits</strong>.
           </p>
           <div className="grid">
             {filteredMnc.map((item) => (
@@ -423,7 +423,7 @@ export default function UniversityPage() {
                   </div>
                   <div className="meta">
                     <span>{item.org}</span>
-                    <span>{item.level} · {item.free ? "FREE" : "Paid"}</span>
+                    <span>{item.level} · {item.free ? "OPEN ACCESS" : "COMMERCIAL"}</span>
                   </div>
                   <h3>{item.title}</h3>
                   <p>{item.summary}</p>
@@ -432,8 +432,8 @@ export default function UniversityPage() {
                       <span key={s} className="mini-chip">{s}</span>
                     ))}
                   </div>
-                  <span style={{ fontWeight: 700, fontSize: 13, color: "var(--accent)" }}>
-                    Open Official Academy (+30 XP) ↗
+                  <span style={{ fontWeight: 600, fontSize: 13, color: "var(--accent)" }}>
+                    Inspect Curriculum (+30 CR) ↗
                   </span>
                 </a>
               </Tilt3DCard>
@@ -444,19 +444,19 @@ export default function UniversityPage() {
 
       {(tab === "all" || tab === "youtube") && (
         <section className="section" style={{ marginTop: 44 }}>
-          <span className="pill neon-pill">▶️ HALL-OF-FAME AI YOUTUBERS & LECTURES</span>
+          <span className="pill neon-pill">FOUNDATIONAL TECHNICAL LECTURES</span>
           <h2 className="h2" style={{ marginTop: 6 }}>
-            Curated Video Masterclasses Connected to Your Topics
+            Implementation Walkthroughs & Mathematical Foundations
           </h2>
           <p className="muted" style={{ marginTop: -8, marginBottom: 18 }}>
-            Watch Mosh Hamedani for Python, Andrej Karpathy for LLMs, 3Blue1Brown for visual neural nets, and jump straight to the matching XplAIned module.
+            First-principles lectures mapped directly to corresponding XplAIned.in architectural specifications.
           </p>
           <div className="grid">
             {filteredYt.map((yt) => (
               <Tilt3DCard key={yt.title}>
                 <div className="card">
                   <div className="card-top">
-                    <span className="badge neon-green">▶️ {yt.duration}</span>
+                    <span className="badge neon-green">DURATION · {yt.duration}</span>
                     <span className="badge">{yt.subs}</span>
                   </div>
                   <div className="meta">
@@ -473,10 +473,10 @@ export default function UniversityPage() {
                       className="btn primary small"
                       onClick={() => awardBonusXp(30, "lab")}
                     >
-                      ▶️ Watch on YouTube (+30 XP) ↗
+                      View Lecture (+30 CR) ↗
                     </a>
                     <Link to={yt.topicLink} className="btn small">
-                      📖 Study: {yt.topicLabel}
+                      Spec: {yt.topicLabel}
                     </Link>
                   </div>
                 </div>
@@ -488,9 +488,9 @@ export default function UniversityPage() {
 
       {(tab === "all" || tab === "portals") && (
         <section className="section" style={{ marginTop: 44 }}>
-          <span className="pill neon-pill">🧭 ESSENTIAL AI DIRECTORIES, PLATFORMS & BENCHMARKS</span>
+          <span className="pill neon-pill">EMPIRICAL BENCHMARKS, REGISTRIES & TOOLING</span>
           <h2 className="h2" style={{ marginTop: 6 }}>
-            Where AI Practitioners Go Daily (There's An AI For That, DataCamp, Hugging Face & More)
+            Model Registries, Evaluation Leaderboards & Market Directories
           </h2>
           <div className="grid">
             {filteredPortals.map((site) => (
@@ -511,11 +511,11 @@ export default function UniversityPage() {
                   </div>
                   <h3>{site.name}</h3>
                   <p>{site.description}</p>
-                  <p style={{ fontSize: 12.5, color: "#cfd6f0", marginBottom: 10 }}>
-                    <strong>Best for:</strong> {site.bestFor}
+                  <p style={{ fontSize: 12.5, color: "var(--muted)", marginBottom: 10 }}>
+                    <strong>Primary Use Case:</strong> {site.bestFor}
                   </p>
-                  <span style={{ fontWeight: 700, fontSize: 13, color: "var(--accent)" }}>
-                    Launch {site.name} (+25 XP) ↗
+                  <span style={{ fontWeight: 600, fontSize: 13, color: "var(--accent)" }}>
+                    Open {site.name} (+25 CR) ↗
                   </span>
                 </a>
               </Tilt3DCard>
@@ -526,28 +526,27 @@ export default function UniversityPage() {
 
       {(tab === "all" || tab === "encyclopedia") && (
         <section className="section" style={{ marginTop: 44 }}>
-          <span className="pill neon-pill">📚 COMPLETE A–Z AI ENCYCLOPEDIA ({filteredTopics.length} MODULES)</span>
+          <span className="pill neon-pill">TECHNICAL SPECIFICATION ARCHIVE ({filteredTopics.length} MODULES)</span>
           <h2 className="h2" style={{ marginTop: 6 }}>
-            Every AI Concept — With Architecture, Flowcharts, Playbooks, Case Studies & Videos
+            Complete A–Z Engineering Specifications
           </h2>
           <p className="muted" style={{ marginTop: -8, marginBottom: 18 }}>
-            Click any module to open its full textbook chapter, architecture diagram, step-by-step playbook, real-world case studies, and curated courses.
+            Select any module to inspect its systems analysis, execution pipeline, reference architecture, SOP playbook, and empirical case studies.
           </p>
           <div className="grid">
             {filteredTopics.map((t) => (
               <Link key={t.id} to={`/${t.roleSlug}/${t.id}`} className="card">
                 <div className="card-top">
-                  <span className="badge">{t.roleEmoji} {t.roleTitle}</span>
-                  <span className="badge neon">⏱️ {t.minutes}m · +120 XP</span>
+                  <span className="badge">{t.roleEmoji} · {t.roleTitle}</span>
+                  <span className="badge neon">{t.minutes}m · 120 CR</span>
                 </div>
                 <h3>{t.title}</h3>
                 <p>{t.summary}</p>
                 <div className="chip-row" style={{ marginBottom: 0 }}>
-                  <span className="mini-chip">📐 Architecture</span>
-                  <span className="mini-chip">🔀 Flowchart</span>
-                  <span className="mini-chip">📋 Playbook</span>
-                  <span className="mini-chip">🏢 Case Studies</span>
-                  <span className="mini-chip">▶️ Videos</span>
+                  <span className="mini-chip">Reference Architecture</span>
+                  <span className="mini-chip">Execution Pipeline</span>
+                  <span className="mini-chip">SOP Playbook</span>
+                  <span className="mini-chip">Case Studies</span>
                 </div>
               </Link>
             ))}

@@ -3,22 +3,22 @@ import { awardBonusXp } from "../gamification";
 
 const PRESETS = [
   {
-    name: "Weak Prompt vs Pro Prompt",
+    name: "Architectural Trade-Off Analysis",
     raw: "write something about AI jobs",
     upgraded:
-      "Act as a senior AI hiring manager. Compare AI Engineer vs AI Product Manager in a 3-row markdown table (Skills, Day-to-day, First Portfolio Project) for a beginner with zero AI experience.",
+      "Act as a Principal AI Systems Architect. Compare AI Systems Engineer vs. AI Technical Product Manager in a 3-row markdown matrix (System Ownership, Production Deliverables, Evaluation Metrics) for an enterprise engineering organization.",
   },
   {
-    name: "JSON Extractor",
+    name: "Deterministic Schema Extraction",
     raw: "get the price from this invoice text",
     upgraded:
-      'Extract invoice fields from the text below. Return ONLY valid JSON matching {"vendor": string, "total": number, "currency": "USD"|"EUR"|"INR"}. If a field is missing, set it to null.',
+      'Extract structured financial fields from the document below. Return ONLY valid JSON conforming to {"vendor": string, "total": number, "currency": "USD"|"EUR"|"INR"}. If any attribute is absent or ambiguous, return null without extrapolation.',
   },
   {
-    name: "RAG Grounded Answer",
+    name: "Citation-Grounded RAG Specification",
     raw: "answer customer refund question",
     upgraded:
-      "You are a support assistant. Answer the customer's question using ONLY the provided <context>. Cite the section name in brackets. If the answer is not in <context>, reply exactly: 'I need a human teammate to confirm this.'",
+      "You are an enterprise compliance assistant. Answer the query using ONLY the supplied <context> blocks. Append exact section citations in brackets [Section X.Y]. If the <context> is insufficient to verify the claim, respond verbatim: 'INSUFFICIENT_GROUNDING_CONTEXT'.",
   },
 ];
 
@@ -26,16 +26,16 @@ function scorePrompt(text: string) {
   const t = text.trim();
   if (!t) return { score: 0, checks: [] as { label: string; ok: boolean }[], reply: "" };
 
-  const hasRole = /act as|you are|role:|expert|assistant|manager|engineer/i.test(t);
-  const hasFormat = /json|table|bullet|markdown|list|step|format|schema/i.test(t);
-  const hasConstraint = /only|do not|never|limit|max|under|exact|if missing|if unclear/i.test(t);
+  const hasRole = /act as|you are|role:|expert|assistant|manager|engineer|architect/i.test(t);
+  const hasFormat = /json|table|bullet|markdown|list|step|format|schema|matrix/i.test(t);
+  const hasConstraint = /only|do not|never|limit|max|under|exact|if missing|if unclear|insufficient|without/i.test(t);
   const hasContext = t.length > 75;
 
   const checks = [
-    { label: "Clear Role / Persona ('You are...')", ok: hasRole },
-    { label: "Specific Output Format (JSON, table, bullets)", ok: hasFormat },
-    { label: "Guardrail / Constraint ('Use ONLY...', 'Under 100 words')", ok: hasConstraint },
-    { label: "Rich Context (> 75 chars of detail)", ok: hasContext },
+    { label: "Explicit System Persona & Domain Authority", ok: hasRole },
+    { label: "Deterministic Output Schema (JSON / Matrix / Spec)", ok: hasFormat },
+    { label: "Negative Constraints & Abstention Fallback", ok: hasConstraint },
+    { label: "Sufficient Context Density (> 75 chars)", ok: hasContext },
   ];
 
   const passed = checks.filter((c) => c.ok).length;
@@ -44,13 +44,13 @@ function scorePrompt(text: string) {
   let reply = "";
   if (score < 45) {
     reply =
-      "⚠️ Simulated Model Output: [Vague & Generic] 'AI is a rapidly growing field with many opportunities. People use AI in business and technology...' — Tip: Add a Role, an Output Format, and Constraints!";
+      "[DIAGNOSTIC: UNCONSTRAINED SPECIFICATION]\nModel output exhibits high entropy and hallucination risk due to missing schema boundaries and abstention rules. Define an explicit persona, output contract, and negative constraints.";
   } else if (score < 80) {
     reply =
-      "✨ Simulated Model Output: [Pretty Good!] Here is a structured breakdown based on your prompt:\n• Point 1: Clear actionable insight\n• Point 2: Practical example\n(Add a fallback rule like 'If unsure, say so' to hit 100%!)";
+      "[DIAGNOSTIC: PARTIAL SPECIFICATION]\n• Structural guidance detected\n• Missing explicit abstention fallback for out-of-distribution inputs\nRecommendation: Add a strict deterministic fallback clause to reach production readiness.";
   } else {
     reply =
-      '🔥 Simulated Model Output: [Production-Grade!] {\n  "status": "grounded",\n  "confidence": 0.97,\n  "takeaway": "Your prompt has persona, format, context, and guardrails — ready for production API calls!"\n}';
+      '{\n  "specification_status": "PRODUCTION_VALIDATED",\n  "determinism_index": 0.97,\n  "telemetry": "System persona, output schema, context density, and negative constraints verified."\n}';
   }
 
   return { score, checks, reply };
@@ -63,12 +63,12 @@ export function InteractiveLabs() {
 
   // Token lab state
   const [sampleText, setSampleText] = useState(
-    "XplAIned.in turns 9 AI careers into a gamified skill-tree with interactive labs!",
+    "Production LLM architectures require strict token budgeting, semantic caching, and deterministic schema validation.",
   );
-  const [callsPerDay, setCallsPerDay] = useState(500);
+  const [callsPerDay, setCallsPerDay] = useState(5000);
 
   // Agent simulator state
-  const [agentGoal, setAgentGoal] = useState("Find order #4021 status and draft a polite update");
+  const [agentGoal, setAgentGoal] = useState("Inspect deployment #4021 telemetry and execute canary rollback if p99 > 400ms");
   const [agentStep, setAgentStep] = useState(0);
 
   const { score, checks, reply } = scorePrompt(promptText);
@@ -82,20 +82,20 @@ export function InteractiveLabs() {
   const dailyCostBig = ((estTokens * callsPerDay * 3.5) / 1_000_000).toFixed(4);
 
   const agentTrace = [
-    { tag: "🧠 THINK", text: `Goal received: "${agentGoal}". I need to look up order #4021 first.` },
-    { tag: "🛠️ TOOL CALL", text: `get_order_status({ "order_id": "4021" })` },
-    { tag: "📥 OBSERVE", text: `{ "status": "Out for delivery", "eta": "Today 5:30 PM" }` },
-    { tag: "✅ FINAL ANSWER", text: `"Hey! Order #4021 is out for delivery and arrives today by 5:30 PM."` },
+    { tag: "01 PLAN", text: `Objective parsed: "${agentGoal}". Querying observability metrics for deployment #4021.` },
+    { tag: "02 TOOL_CALL", text: `query_telemetry({ "deployment_id": "4021", "window": "5m" })` },
+    { tag: "03 OBSERVE", text: `{ "status": "DEGRADED", "p99_latency_ms": 612, "error_rate": 0.042 }` },
+    { tag: "04 COMMIT", text: `"Threshold exceeded (612ms > 400ms). Executed automated traffic shift to stable revision #4020."` },
   ];
 
   return (
     <div className="arcade-box glass-3d">
       <div className="arcade-header">
         <div>
-          <span className="pill neon-pill">🕹️ INTERACTIVE AI PLAYGROUND</span>
-          <h2 className="h2" style={{ margin: "6px 0 4px" }}>Learn by Doing — Live AI Sandbox</h2>
+          <span className="pill neon-pill">SYSTEMS TELEMETRY & SIMULATION</span>
+          <h2 className="h2" style={{ margin: "6px 0 4px" }}>Interactive Systems & Economics Workbench</h2>
           <p className="muted" style={{ margin: 0 }}>
-            Tinker with prompts, watch how tokenizers chop words, and step through an AI Agent loop.
+            Evaluate prompt specifications for structural determinism, model BPE token economics at scale, and inspect ReAct execution traces.
           </p>
         </div>
         <div className="tabs">
@@ -104,21 +104,21 @@ export function InteractiveLabs() {
             className={tab === "prompt" ? "tab active" : "tab"}
             onClick={() => setTab("prompt")}
           >
-            🧪 Prompt Alchemist
+            01 · Prompt Specification Bench
           </button>
           <button
             type="button"
             className={tab === "tokens" ? "tab active" : "tab"}
             onClick={() => setTab("tokens")}
           >
-            🔢 Token & Cost X-Ray
+            02 · Token & Unit Economics
           </button>
           <button
             type="button"
             className={tab === "agent" ? "tab active" : "tab"}
             onClick={() => setTab("agent")}
           >
-            🤖 Agent Loop Stepper
+            03 · ReAct Execution Trace
           </button>
         </div>
       </div>
@@ -137,7 +137,7 @@ export function InteractiveLabs() {
                     awardBonusXp(25, "lab");
                   }}
                 >
-                  Load: {p.name}
+                  Template: {p.name}
                 </button>
               ))}
             </div>
@@ -146,13 +146,13 @@ export function InteractiveLabs() {
               rows={5}
               value={promptText}
               onChange={(e) => setPromptText(e.target.value)}
-              placeholder="Write or tweak a prompt here..."
+              placeholder="Enter system prompt specification..."
             />
             <div className="slider-row">
               <label>
-                Temperature: <strong>{temp.toFixed(1)}</strong>{" "}
+                Sampling Temperature: <strong>{temp.toFixed(1)}</strong>{" "}
                 <span className="muted">
-                  ({temp <= 0.3 ? "Precise & deterministic" : temp <= 0.7 ? "Balanced" : "Wild & creative"})
+                  ({temp <= 0.3 ? "Deterministic / Greedy Decoding" : temp <= 0.7 ? "Balanced Nucleus Sampling" : "High-Entropy / Exploratory"})
                 </span>
               </label>
               <input
@@ -169,7 +169,7 @@ export function InteractiveLabs() {
           <div className="lab-output">
             <div className="score-meter">
               <div>
-                <span className="muted">Prompt Power Score</span>
+                <span className="muted">Specification Rigor Index</span>
                 <div className="score-num">{score}/100</div>
               </div>
               <button
@@ -177,13 +177,13 @@ export function InteractiveLabs() {
                 className="btn primary small"
                 onClick={() => awardBonusXp(35, "lab")}
               >
-                Run & Claim +35 XP ⚡
+                Validate Specification (+35 CR)
               </button>
             </div>
             <ul className="check-pills">
               {checks.map((c) => (
                 <li key={c.label} className={c.ok ? "ok" : "miss"}>
-                  {c.ok ? "✅" : "⚪"} {c.label}
+                  {c.ok ? "[PASS]" : "[MISS]"} {c.label}
                 </li>
               ))}
             </ul>
@@ -195,7 +195,7 @@ export function InteractiveLabs() {
       {tab === "tokens" && (
         <div className="lab-grid">
           <div>
-            <label className="muted">Type any sentence to see how an LLM slices it into tokens:</label>
+            <label className="muted">Input payload to inspect subword tokenization and daily inference expenditure:</label>
             <textarea
               className="cyber-textarea"
               rows={4}
@@ -204,7 +204,7 @@ export function InteractiveLabs() {
             />
             <div className="slider-row">
               <label>
-                API requests per day: <strong>{callsPerDay.toLocaleString()}</strong>
+                Daily Production Volume (Requests / Day): <strong>{callsPerDay.toLocaleString()}</strong>
               </label>
               <input
                 type="range"
@@ -227,15 +227,15 @@ export function InteractiveLabs() {
             <div className="stats-mini">
               <div>
                 <strong>~{estTokens}</strong>
-                <span>Estimated Tokens</span>
+                <span>Subword Tokens</span>
               </div>
               <div>
                 <strong>${dailyCostSmall}/day</strong>
-                <span>Small Fast Model</span>
+                <span>SLM Tier ($0.15/1M)</span>
               </div>
               <div>
                 <strong>${dailyCostBig}/day</strong>
-                <span>Frontier Model</span>
+                <span>Frontier Tier ($3.50/1M)</span>
               </div>
             </div>
           </div>
@@ -245,7 +245,7 @@ export function InteractiveLabs() {
       {tab === "agent" && (
         <div className="lab-grid">
           <div>
-            <label className="muted">Give the autonomous agent a mission:</label>
+            <label className="muted">Define autonomous runtime objective:</label>
             <input
               type="text"
               className="cyber-input"
@@ -265,7 +265,7 @@ export function InteractiveLabs() {
                   awardBonusXp(20, "lab");
                 }}
               >
-                {agentStep < agentTrace.length ? "Step Forward in Loop → (+20 XP)" : "Restart Loop ↻"}
+                {agentStep < agentTrace.length ? "Advance Execution State → (+20 CR)" : "Reset Execution Trace ↻"}
               </button>
             </div>
           </div>

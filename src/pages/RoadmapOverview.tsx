@@ -5,10 +5,10 @@ import { useProgress } from "../progress";
 import type { Status } from "../types";
 
 const chip: Record<Status, string> = {
-  pending: "Locked / Ready",
-  learning: "⚡ Grinding",
-  done: "✅ +120 XP Cleared",
-  skipped: "⏭️ Skipped",
+  pending: "Queued",
+  learning: "In Progress",
+  done: "Verified (+120 CR)",
+  skipped: "Deferred",
 };
 
 export default function RoadmapOverview() {
@@ -19,8 +19,8 @@ export default function RoadmapOverview() {
   if (!roadmap) {
     return (
       <section className="container">
-        <h1>Roadmap not found</h1>
-        <p><Link to="/">Back to all roadmaps</Link></p>
+        <h1>Curriculum specification not found</h1>
+        <p><Link to="/">Return to all disciplines</Link></p>
       </section>
     );
   }
@@ -33,25 +33,25 @@ export default function RoadmapOverview() {
 
   return (
     <section className="container narrow">
-      <Link to="/" className="muted">← Back to All 9 AI Roles</Link>
+      <Link to="/" className="muted">← Return to All 9 Engineering & Leadership Disciplines</Link>
       <div className="rm-head glass-3d" style={{ padding: 24, marginTop: 14 }}>
         <span className="emoji big" aria-hidden="true">{roadmap.emoji}</span>
         <div style={{ flex: 1 }}>
-          <span className="pill neon-pill">🗺️ VISUAL SKILL TREE · {all.length} MILESTONES</span>
+          <span className="pill neon-pill">TECHNICAL CURRICULUM SPECIFICATION · {all.length} MODULES</span>
           <h1>{roadmap.title}</h1>
           <p className="lead">{roadmap.description}</p>
           <div className="chips">
-            <span className="badge neon">⚡ {all.length * 120} Total XP</span>
-            <span className="badge">⏱️ ~{minutesOf(roadmap)} min total</span>
-            <span className="badge">🌱 Includes Zero-Jargon Mode</span>
+            <span className="badge neon">{all.length * 120} Total Credits</span>
+            <span className="badge">~{minutesOf(roadmap)} min reading & lab time</span>
+            <span className="badge">Includes Architecture & Playbooks</span>
           </div>
         </div>
       </div>
 
       <div className="box glass-3d">
-        <h2 className="h3">🎯 Who this track is built for</h2>
+        <h2 className="h3">Target Practitioner Profile</h2>
         <p>{roadmap.audience}</p>
-        <h2 className="h3" style={{ marginTop: 16 }}>🛠️ Weapon Loadout (Tools you'll learn)</h2>
+        <h2 className="h3" style={{ marginTop: 16 }}>Reference Production Stack & Standards</h2>
         <div className="chips">
           {roadmap.tools.map((t) => (
             <span key={t} className="badge neon">{t}</span>
@@ -60,7 +60,7 @@ export default function RoadmapOverview() {
       </div>
 
       <div className="box glass-3d">
-        <h2 className="h3">🏆 Boss-Level Outcomes</h2>
+        <h2 className="h3">Production Competency Outcomes</h2>
         <ul className="checks">
           {roadmap.outcomes.map((o) => (
             <li key={o}>{o}</li>
@@ -71,11 +71,11 @@ export default function RoadmapOverview() {
       <div className="quest-progress-box glass-3d">
         <div className="progress-row">
           <strong>
-            Quest Progress: {finished} / {all.length} Milestones ({pct}%)
+            Curriculum Completion: {finished} / {all.length} Specifications ({pct}%)
           </strong>
           {next && (
             <Link className="btn primary small glow-btn" to={`/${roadmap.slug}/${next.id}`}>
-              {finished === 0 ? "🚀 Start Milestone #1" : `⚡ Continue: ${next.title}`}
+              {finished === 0 ? "Begin Specification 01 →" : `Continue: ${next.title} →`}
             </Link>
           )}
         </div>
@@ -90,10 +90,10 @@ export default function RoadmapOverview() {
           return (
             <div key={s.id} className="section tree-stage">
               <div className="stage-banner">
-                <span className="stage-num">STAGE 0{sIdx + 1}</span>
+                <span className="stage-num">PHASE 0{sIdx + 1}</span>
                 <h2>{s.title}</h2>
                 <span className="badge">
-                  {secDone}/{s.topics.length} Cleared
+                  {secDone}/{s.topics.length} Verified
                 </span>
               </div>
               <ol className="topic-list tree-nodes">
@@ -111,7 +111,7 @@ export default function RoadmapOverview() {
                           </span>
                           <span className="row-meta">
                             <span className={`status ${st}`}>{chip[st]}</span>
-                            <span className="muted">{t.minutes} min · +120 XP</span>
+                            <span className="muted">{t.minutes} min · 120 CR</span>
                           </span>
                         </Link>
                       </Tilt3DCard>

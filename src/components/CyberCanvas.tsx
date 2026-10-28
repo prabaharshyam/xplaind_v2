@@ -20,20 +20,30 @@ export function CyberCanvas() {
     };
     window.addEventListener("resize", onResize);
 
-    interface Star {
+    interface LatticeVertex {
       x: number;
       y: number;
       z: number;
-      color: string;
+      gx: number;
+      gz: number;
     }
 
-    const palette = ["#8b72ff", "#38b29a", "#f2789f", "#569cd6", "#f5a623", "#b388eb"];
-    const stars: Star[] = Array.from({ length: 110 }, (_, i) => ({
-      x: (Math.random() - 0.5) * 1600,
-      y: (Math.random() - 0.5) * 1600,
-      z: Math.random() * 1400 + 100,
-      color: palette[i % palette.length],
-    }));
+    const cols = 12;
+    const rows = 10;
+    const spacing = 160;
+    const vertices: LatticeVertex[] = [];
+
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        vertices.push({
+          x: (c - (cols - 1) / 2) * spacing,
+          y: 0,
+          z: (r - (rows - 1) / 2) * spacing + 420,
+          gx: c,
+          gz: r,
+        });
+      }
+    }
 
     let scrollY = window.scrollY;
     let mouseX = 0;
@@ -51,58 +61,80 @@ export function CyberCanvas() {
     window.addEventListener("mousemove", onMouse, { passive: true });
 
     let t = 0;
+    const fov = 720;
+
     const render = () => {
-      t += 0.012;
+      t += 0.008;
       ctx.clearRect(0, 0, width, height);
 
-      const cx = width / 2 + mouseX * 45;
-      const cy = height / 2 + mouseY * 35;
-      const speed = 2.2 + (scrollY % 600) * 0.008;
+      const cx = width * 0.5 + mouseX * 28;
+      const cy = height * 0.54 + mouseY * 18;
+      const rotY = mouseX * 0.14 + Math.sin(t * 0.35) * 0.08;
+      const rotX = 0.42 + mouseY * 0.08;
 
-      const projected: { sx: number; sy: number; r: number; color: string; z: number }[] = [];
+      const cosY = Math.cos(rotY);
+      const sinY = Math.sin(rotY);
+      const cosX = Math.cos(rotX);
+      const sinX = Math.sin(rotX);
 
-      for (const s of stars) {
-        s.z -= speed;
-        if (s.z <= 20) {
-          s.z = 1400;
-          s.x = (Math.random() - 0.5) * 1600;
-          s.y = (Math.random() - 0.5) * 1600;
-        }
-        const scale = 520 / s.z;
-        const sx = cx + s.x * scale + Math.sin(t + s.z * 0.01) * 8;
-        const sy = cy + (s.y - scrollY * 0.35) * scale;
-        const r = Math.max(0.8, Math.min(4.2, (1400 - s.z) / 360));
+      const projected: { sx: number; sy: number; z: number }[] = [];
 
-        if (sx >= -50 && sx <= width + 50 && sy >= -50 && sy <= height + 50) {
-          projected.push({ sx, sy, r, color: s.color, z: s.z });
-          ctx.beginPath();
-          ctx.fillStyle = s.color;
-          ctx.globalAlpha = Math.min(0.85, (1400 - s.z) / 1000);
-          ctx.arc(sx, sy, r, 0, Math.PI * 2);
-          ctx.fill();
-        }
+      for (let i = 0; i < vertices.length; i++) {
+        const v = vertices[i];
+        const wave =
+          Math.sin(v.gx * 0.55 + t + scrollY * 0.002) * 32 +
+          Math.cos(v.gz * 0.55 - t * 0.8) * 24;
+
+        const wx = v.x;
+        const wy = wave + 190;
+        const wz = v.z;
+
+        // Rotate around Y then X
+        const rx = wx * cosY - wz * sinY;
+        const rz1 = wx * sinY + wz * cosY;
+        const ry = wy * cosX - rz1 * sinX;
+        const rz = wy * sinX + rz1 * cosX + 680;
+
+        const scale = fov / Math.max(120, rz);
+        projected.push({
+          sx: cx + rx * scale,
+          sy: cy + ry * scale,
+          z: rz,
+        });
       }
 
-      // Draw neural constellation threads between nearby 3D nodes
-      ctx.lineWidth = 0.7;
-      for (let i = 0; i < projected.length; i++) {
-        for (let j = i + 1; j < projected.length; j++) {
-          const a = projected[i];
-          const b = projected[j];
-          const dx = a.sx - b.sx;
-          const dy = a.sy - b.sy;
-          const dist = dx * dx + dy * dy;
-          if (dist < 13500) {
-            ctx.globalAlpha = (1 - dist / 13500) * 0.22;
-            ctx.strokeStyle = a.color;
+      // Draw crisp architectural wireframe mesh
+      ctx.lineWidth = 0.75;
+      ctx.strokeStyle = "#CDC9BE";
+
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const idx = r * cols + c;
+          const p = projected[idx];
+          if (c + 1 < cols) {
+            const right = projected[idx + 1];
             ctx.beginPath();
-            ctx.moveTo(a.sx, a.sy);
-            ctx.lineTo(b.sx, b.sy);
+            ctx.moveTo(p.sx, p.sy);
+            ctx.lineTo(right.sx, right.sy);
+            ctx.stroke();
+          }
+          if (r + 1 < rows) {
+            const down = projected[idx + cols];
+            ctx.beginPath();
+            ctx.moveTo(p.sx, p.sy);
+            ctx.lineTo(down.sx, down.sy);
             ctx.stroke();
           }
         }
       }
-      ctx.globalAlpha = 1;
+
+      // Draw precision node markers at lattice intersections
+      ctx.fillStyle = "#0F4C81";
+      for (let i = 0; i < projected.length; i++) {
+        const p = projected[i];
+        ctx.fillRect(p.sx - 1.5, p.sy - 1.5, 3, 3);
+      }
+
       animId = requestAnimationFrame(render);
     };
 

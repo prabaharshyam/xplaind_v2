@@ -6,36 +6,36 @@ import { minutesOf, roadmaps, stats, topicsOf } from "../content";
 import { countFinished } from "../progress";
 import { ECOSYSTEM_PORTALS, MNC_ACADEMIES, YOUTUBE_MASTERS } from "./UniversityPage";
 
-const PROBLEMS_SOLVED = [
+const ARCHITECTURAL_PILLARS = [
   {
-    q: '"I know I need to learn AI, but I don\'t know where to start"',
-    a: "Take our 30-second Role Matcher right below — it routes you to your exact starting track.",
-    tag: "SOLVED · 01",
+    q: "Precision Specialization Routing",
+    a: "Use the 3-phase Architectural Track Diagnostic to map your current engineering or operational background directly to one of nine production AI disciplines.",
+    tag: "PILLAR · 01",
   },
   {
-    q: '"What should I learn in AI — and how?"',
-    a: "Every role is broken into ordered quests with real code, prompts, and hands-on AI Arcade labs.",
-    tag: "SOLVED · 02",
+    q: "Systems-Level Engineering Specifications",
+    a: "Every curriculum module is structured around mathematical and architectural fundamentals, failure modes, ASCII system blueprints, and production implementation code.",
+    tag: "PILLAR · 02",
   },
   {
-    q: '"I don\'t have a clear roadmap and milestones"',
-    a: "Visual skill-trees with checkpoint quizzes, XP bars, streaks, and unlockable badges.",
-    tag: "SOLVED · 03",
+    q: "Ordered Competency Progression",
+    a: "Structured dependency stages with technical verification checkpoints, competency credit telemetry, and persistent progress tracking across shared foundational modules.",
+    tag: "PILLAR · 03",
   },
   {
-    q: '"I have a roadmap, but there\'s no simple way to learn"',
-    a: 'Every single lesson has a 1-click "Explain Like I\'m 15 / Zero-Jargon" mode + real-life analogy.',
-    tag: "SOLVED · 04",
+    q: "Executive & First-Principles Briefings",
+    a: "Toggle Executive Briefing mode inside any specification to inspect the core architectural thesis, systems mental model, and immediate verification protocol.",
+    tag: "PILLAR · 04",
   },
   {
-    q: '"I don\'t have a tech background, but I want to master AI"',
-    a: "Non-coding tracks (AI PM, AI Automation, AI Governance) + no-code action steps on every topic.",
-    tag: "SOLVED · 05",
+    q: "Technical & Strategic Role Coverage",
+    a: "Comprehensive coverage across both deep systems tracks (LLM Systems, MLOps, Agentic Runtimes) and strategic/governance leadership (AI PM, Enterprise Automation, GRC).",
+    tag: "PILLAR · 05",
   },
   {
-    q: '"I want to break into high-impact AI roles"',
-    a: "9 end-to-end career tracks covering foundations, portfolio projects, and interview readiness.",
-    tag: "SOLVED · 06",
+    q: "Verified Primary Research & Curricula",
+    a: "Every topic links exclusively to verified engineering documentation and technical courses from Anthropic, DeepLearning.AI, Google Cloud, NVIDIA, Stanford, and MIT.",
+    tag: "PILLAR · 06",
   },
 ];
 
@@ -47,20 +47,20 @@ const NO_CODE_SLUGS = new Set([
 
 const faqs = [
   {
-    q: "I have zero coding experience. Can I actually use this?",
-    a: "100% yes. Hit the '🌱 No-Tech Friendly' filter below to start with AI Product Manager, AI Automation Specialist, or AI Governance — and flip on 'Explain Like I'm 15' inside any lesson.",
+    q: "How are the curricula structured for non-software engineering backgrounds?",
+    a: "Select the 'Strategy, Operations & Governance' filter below to focus on AI Technical Product Management, Enterprise Automation Architecture, or AI Governance & Regulatory Compliance. Every technical module also includes an Executive Briefing toggle for systems-level mental models.",
   },
   {
-    q: "How do XP, Levels, and Streaks work?",
-    a: "Every milestone you finish drops +120 XP, interactive quizzes drop +50 to +75 XP, and AI Arcade labs drop bonus XP. Everything saves automatically in your browser.",
+    q: "How are Competency Credits and Practitioner Tiers calculated?",
+    a: "Completing a technical specification records +120 Credits, passing a Technical Verification checkpoint awards +50 to +75 Credits, and executing interactive workbench simulations awards bonus credits. All telemetry is persisted locally in your browser.",
   },
   {
-    q: "Which role should I pick first?",
-    a: "Use the 3-click Role Matcher right below the hero, or check the comparison matrix. Many foundational quests are shared across roles, so your progress carries over!",
+    q: "How should I select my primary specialization track?",
+    a: "Complete the Architectural Track Diagnostic above or review the Role Specification Matrix below. Foundational modules (such as LLM internals, prompt specifications, and evaluation frameworks) are shared across tracks, so completed credits transfer automatically.",
   },
   {
-    q: "Are the regulatory & tool lessons up to date?",
-    a: "Tools and regulations (like the EU AI Act, NIST AI RMF, ISO 42001) move fast — we focus on durable mental models and remind you to verify official texts for legal compliance.",
+    q: "How frequently are regulatory frameworks and architectural patterns updated?",
+    a: "Specifications emphasize durable systems engineering invariants—evaluation rigor, latency/cost unit economics, retrieval grounding, and defence-in-depth—while referencing primary statutory texts (EU AI Act, NIST AI RMF, ISO/IEC 42001) for compliance verification.",
   },
 ];
 
@@ -91,43 +91,43 @@ export default function HomePage() {
       <section className="hero-wrap">
         <div className="container hero hero-3d">
           <div className="hero-copy">
-            <span className="pill neon-pill">🎓 THE ONE-STOP AI UNIVERSITY · ROADMAPS + TEXTBOOKS + MNC COURSES</span>
+            <span className="pill neon-pill">TECHNICAL CURRICULA · SYSTEMS ARCHITECTURE · EMPIRICAL BENCHMARKS</span>
             <h1>
-              Your End-to-End <br />
-              <span className="ai-grad">University for Mastering AI.</span>
+              The Definitive Engineering Reference for{" "}
+              <span className="ai-grad">Applied AI Systems.</span>
             </h1>
             <p className="lead">
-              Every topic includes <strong>detailed systems explanations, visual flowcharts, architecture blueprints,
-              step-by-step playbooks, real enterprise case studies, comparison tables</strong>, plus direct links to{" "}
-              <strong>Google, Anthropic, Microsoft, DeepLearning.AI, NVIDIA</strong>, top <strong>AI YouTubers (Mosh, Karpathy, 3Blue1Brown)</strong>,
-              and platforms like <strong>There's An AI For That & DataCamp</strong>.
+              Rigorous curricula and production specifications across nine AI engineering and leadership disciplines.
+              Every module pairs <strong>first-principles systems analysis, interactive execution flowcharts, ASCII reference architectures,
+              operational playbooks, and enterprise case studies</strong> with primary courses from{" "}
+              <strong>Anthropic, DeepLearning.AI, Google Cloud, Microsoft, NVIDIA, and Stanford</strong>.
             </p>
             <div className="cta">
               <a className="btn primary glow-btn" href="#matcher">
-                🧭 Find My AI Role (30s)
+                Run Track Diagnostic
               </a>
               <Link className="btn" to="/university">
-                🎓 Open AI University Library
+                Research & Course Index
               </Link>
               <a className="btn" href="#roles">
-                🎮 9 Career Skill Trees
+                9 Engineering Curricula
               </a>
               <a className="btn" href="#arcade">
-                🕹️ Live AI Labs
+                Systems Workbench
               </a>
             </div>
             <dl className="stats">
               <div>
-                <dt>{stats.roadmaps}</dt>
-                <dd>Career Tracks</dd>
+                <dt>0{stats.roadmaps}</dt>
+                <dd>Specialization Tracks</dd>
               </div>
               <div>
                 <dt>{stats.topics}</dt>
-                <dd>Deep-Dive Textbooks</dd>
+                <dd>Technical Specifications</dd>
               </div>
               <div>
                 <dt>50+</dt>
-                <dd>MNC & YouTube Courses</dd>
+                <dd>Primary Research & Courses</dd>
               </div>
             </dl>
           </div>
@@ -137,12 +137,12 @@ export default function HomePage() {
             <div className="holo-ring ring-2" />
             <div className="holo-ring ring-3" />
             <div className="cube-3d">
-              <div className="face front">🤖 AGENTS</div>
-              <div className="face back">✨ LLMs</div>
-              <div className="face right">🛠️ RAG</div>
-              <div className="face left">🧭 AI PM</div>
-              <div className="face top">⚡ MLOps</div>
-              <div className="face bottom">⚖️ SAFETY</div>
+              <div className="face front">SYS · AGENTS</div>
+              <div className="face back">CORE · LLMs</div>
+              <div className="face right">ARCH · RAG</div>
+              <div className="face left">SPEC · EVALS</div>
+              <div className="face top">INFRA · MLOPS</div>
+              <div className="face bottom">GOV · SAFETY</div>
             </div>
           </div>
         </div>
@@ -154,11 +154,11 @@ export default function HomePage() {
 
       <section className="container">
         <div className="section-head">
-          <span className="pill neon-pill">🔥 ZERO GATEKEEPING</span>
-          <h2 className="h2">Built for the 6 Exact Roadblocks Holding You Back</h2>
+          <span className="pill neon-pill">ARCHITECTURAL METHODOLOGY</span>
+          <h2 className="h2">Engineered for Technical Authority & Production Confidence</h2>
         </div>
         <div className="grid problems-grid">
-          {PROBLEMS_SOLVED.map((item) => (
+          {ARCHITECTURAL_PILLARS.map((item) => (
             <Tilt3DCard key={item.tag} className="problem-card">
               <span className="badge neon">{item.tag}</span>
               <h3>{item.q}</h3>
@@ -170,15 +170,15 @@ export default function HomePage() {
 
       <section className="container" id="roles">
         <div className="section-head">
-          <span className="pill neon-pill">🗺️ 3D SKILL-TREE CATALOG</span>
-          <h2 className="h2">Choose Your Character (9 End-to-End AI Roles)</h2>
+          <span className="pill neon-pill">DISCIPLINE SPECIFICATIONS</span>
+          <h2 className="h2">Nine Production AI Specializations</h2>
         </div>
 
         <div className="toolbar">
           <input
             type="search"
-            placeholder="Search roles, tools (Python, Zapier, PyTorch)..."
-            aria-label="Search roles"
+            placeholder="Filter by discipline, protocol, or stack (Python, PyTorch, vLLM, MCP)..."
+            aria-label="Filter disciplines"
             value={params.get("q") ?? ""}
             onChange={(e) => setParam("q", e.target.value)}
           />
@@ -188,21 +188,21 @@ export default function HomePage() {
               className={filter === "all" ? "tab active" : "tab"}
               onClick={() => setParam("f", "all")}
             >
-              All 9 Roles
+              All 9 Disciplines
             </button>
             <button
               type="button"
               className={filter === "nocode" ? "tab active" : "tab"}
               onClick={() => setParam("f", "nocode")}
             >
-              🌱 No-Tech / Low-Code Friendly
+              Strategy, Operations & Governance
             </button>
             <button
               type="button"
               className={filter === "builder" ? "tab active" : "tab"}
               onClick={() => setParam("f", "builder")}
             >
-              ⚡ Code & Engineering Tracks
+              Systems & Model Engineering
             </button>
           </div>
         </div>
@@ -222,7 +222,7 @@ export default function HomePage() {
                       {r.emoji}
                     </span>
                     <span className={`badge ${isNoCode ? "neon-green" : "neon"}`}>
-                      {isNoCode ? "🌱 No-Code Friendly" : "⚡ Code & Build"}
+                      {isNoCode ? "STRATEGY & GOVERNANCE" : "SYSTEMS ENGINEERING"}
                     </span>
                   </div>
                   <h3>{r.title}</h3>
@@ -235,9 +235,9 @@ export default function HomePage() {
                     ))}
                   </div>
                   <div className="meta">
-                    <span>🎯 {total} milestones</span>
-                    <span>⏱️ ~{Math.floor(mins / 60)}h {mins % 60}m</span>
-                    <span>⚡ +{total * 120} XP</span>
+                    <span>{total} Specifications</span>
+                    <span>~{Math.floor(mins / 60)}h {mins % 60}m Study</span>
+                    <span>{total * 120} CR</span>
                   </div>
                   <div className="progress small" aria-label={`${pct}% complete`}>
                     <div className="bar" style={{ width: `${pct}%` }} />
@@ -246,7 +246,7 @@ export default function HomePage() {
               </Tilt3DCard>
             );
           })}
-          {visible.length === 0 && <p className="muted">No roles match your search.</p>}
+          {visible.length === 0 && <p className="muted">No specialization tracks match your filter criteria.</p>}
         </div>
       </section>
 
@@ -257,20 +257,20 @@ export default function HomePage() {
       <section className="container" id="university-preview">
         <div className="arcade-header">
           <div>
-            <span className="pill neon-pill">🏛️ GLOBAL AI UNIVERSITY VAULT</span>
+            <span className="pill neon-pill">EXTERNAL RESEARCH & CURRICULUM INDEX</span>
             <h2 className="h2" style={{ margin: "6px 0 4px" }}>
-              Top MNC Academies, Hall-of-Fame YouTubers & AI Tool Directories
+              Primary Engineering Academies, Technical Lectures & Evaluation Benchmarks
             </h2>
             <p className="muted" style={{ margin: 0 }}>
-              Every topic on XplAIned.in is wired directly to official courses and creator masterclasses.
+              Curated primary documentation, frontier lab engineering courses, and university lectures mapped to each specification.
             </p>
           </div>
           <Link to="/university" className="btn primary">
-            🎓 Explore Full AI University Library →
+            Open Full Research Index →
           </Link>
         </div>
 
-        <h3 className="h3" style={{ marginTop: 18 }}>🏛️ Official Tech Giant Academies (Google, Anthropic, Microsoft, DeepLearning.AI, NVIDIA)</h3>
+        <h3 className="h3" style={{ marginTop: 18 }}>Frontier Lab & Cloud Engineering Academies</h3>
         <div className="grid">
           {MNC_ACADEMIES.slice(0, 6).map((m) => (
             <Tilt3DCard key={m.title}>
@@ -281,23 +281,23 @@ export default function HomePage() {
                 </div>
                 <div className="meta">
                   <span>{m.org}</span>
-                  <span>{m.level} · FREE</span>
+                  <span>{m.level} · OPEN ACCESS</span>
                 </div>
                 <h3>{m.title}</h3>
                 <p>{m.summary}</p>
-                <span style={{ fontWeight: 700, fontSize: 13, color: "var(--accent)" }}>Open Official Course ↗</span>
+                <span style={{ fontWeight: 600, fontSize: 13, color: "var(--accent)" }}>Inspect Curriculum ↗</span>
               </a>
             </Tilt3DCard>
           ))}
         </div>
 
-        <h3 className="h3" style={{ marginTop: 32 }}>▶️ Top AI YouTube Masterclasses (Mosh Python, Karpathy LLMs, 3Blue1Brown & More)</h3>
+        <h3 className="h3" style={{ marginTop: 32 }}>Foundational Technical Lectures & Systems Walkthroughs</h3>
         <div className="grid">
           {YOUTUBE_MASTERS.slice(0, 6).map((yt) => (
             <Tilt3DCard key={yt.title}>
               <div className="card">
                 <div className="card-top">
-                  <span className="badge neon-green">▶️ {yt.duration}</span>
+                  <span className="badge neon-green">DURATION · {yt.duration}</span>
                   <span className="badge">{yt.subs}</span>
                 </div>
                 <div className="meta">
@@ -308,10 +308,10 @@ export default function HomePage() {
                 <p>{yt.summary}</p>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: "auto" }}>
                   <a href={yt.url} target="_blank" rel="noreferrer" className="btn primary small">
-                    ▶️ Watch Video ↗
+                    View Lecture ↗
                   </a>
                   <Link to={yt.topicLink} className="btn small">
-                    📖 Topic: {yt.topicLabel}
+                    Spec: {yt.topicLabel}
                   </Link>
                 </div>
               </div>
@@ -319,7 +319,7 @@ export default function HomePage() {
           ))}
         </div>
 
-        <h3 className="h3" style={{ marginTop: 32 }}>🧭 Essential AI Websites & Practice Platforms (There's An AI For That, DataCamp, Hugging Face, Kaggle)</h3>
+        <h3 className="h3" style={{ marginTop: 32 }}>Empirical Benchmarks, Model Registries & Evaluation Platforms</h3>
         <div className="grid">
           {ECOSYSTEM_PORTALS.slice(0, 6).map((site) => (
             <Tilt3DCard key={site.name}>
@@ -330,7 +330,7 @@ export default function HomePage() {
                 </div>
                 <h3>{site.name}</h3>
                 <p>{site.description}</p>
-                <span style={{ fontWeight: 700, fontSize: 13, color: "var(--accent)" }}>Visit {site.name} ↗</span>
+                <span style={{ fontWeight: 600, fontSize: 13, color: "var(--accent)" }}>Open {site.name} ↗</span>
               </a>
             </Tilt3DCard>
           ))}
@@ -338,14 +338,14 @@ export default function HomePage() {
       </section>
 
       <section className="container" id="compare">
-        <h2 className="h2">⚡ Side-by-Side Role Matrix</h2>
+        <h2 className="h2">Specialization Specification Matrix</h2>
         <div className="table-wrap glass-3d">
           <table className="compare">
             <thead>
               <tr>
-                <th>Role</th>
-                <th>Best For</th>
-                <th>Core Stack</th>
+                <th>Discipline</th>
+                <th>Target Mandate & Profile</th>
+                <th>Reference Production Stack</th>
               </tr>
             </thead>
             <tbody>
@@ -353,7 +353,7 @@ export default function HomePage() {
                 <tr key={r.slug}>
                   <td>
                     <Link to={`/${r.slug}`}>
-                      {r.emoji} <strong>{r.title}</strong>
+                      <strong>{r.title}</strong>
                     </Link>
                   </td>
                   <td>{r.audience}</td>
@@ -366,7 +366,7 @@ export default function HomePage() {
       </section>
 
       <section className="container narrow">
-        <h2 className="h2">💬 FAQ</h2>
+        <h2 className="h2">Methodology & Frequently Asked Questions</h2>
         {faqs.map((f) => (
           <details key={f.q} className="faq">
             <summary>{f.q}</summary>
