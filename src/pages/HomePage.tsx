@@ -301,7 +301,7 @@ export default function HomePage() {
                   <span className="badge">{yt.subs}</span>
                 </div>
                 <div className="meta">
-                  <strong style={{ color: "#fff" }}>{yt.creator}</strong>
+                  <strong style={{ color: "var(--fg)" }}>{yt.creator}</strong>
                   <span>{yt.specialty}</span>
                 </div>
                 <h3>{yt.title}</h3>

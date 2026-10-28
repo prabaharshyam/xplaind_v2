@@ -91,8 +91,12 @@ export default function TopicPage() {
           <a href="#playbook" className="mini-chip">📋 Step-by-Step Playbook</a>
           <a href="#case-studies" className="mini-chip">🏢 Real-Life Case Studies</a>
           <a href="#comparison" className="mini-chip">📊 Trade-Off Table</a>
-          <a href="#mnc-courses" className="mini-chip">🏛️ MNC Courses</a>
-          <a href="#youtube-lab" className="mini-chip">▶️ YouTube Masterclasses</a>
+          {deep.mncCourses.length > 0 && (
+            <a href="#mnc-courses" className="mini-chip">🏛️ Relevant Courses</a>
+          )}
+          {deep.youtubeVideos.length > 0 && (
+            <a href="#youtube-lab" className="mini-chip">▶️ Relevant Videos</a>
+          )}
         </div>
 
         {eli5Mode && (
@@ -245,95 +249,101 @@ export default function TopicPage() {
           </ul>
         </div>
 
-        {/* 9. Top MNC Courses & Official Documentation */}
-        <section id="mnc-courses" className="box glass-3d">
-          <div className="finder-badge">🏛️ TOP MNC COURSES & OFFICIAL LEARNING LABS (+30 XP)</div>
-          <h2 className="h3" style={{ fontSize: 19, marginBottom: 12 }}>
-            Learn "{topic.title}" from Google, Anthropic, Microsoft, DeepLearning.AI & NVIDIA
-          </h2>
-          <div className="resource-list">
-            {deep.mncCourses.map((c) => (
-              <a
-                key={c.title}
-                href={c.url}
-                target="_blank"
-                rel="noreferrer"
-                className="resource-row"
-                onClick={() => awardBonusXp(30, "lab")}
-              >
-                <div>
-                  <div className="chip-row" style={{ marginBottom: 4 }}>
-                    <span className="badge neon">{c.org}</span>
-                    <span className="badge">{c.type}</span>
-                    <span className="badge">⏱️ {c.duration}</span>
+        {/* 9. Top MNC Courses & Official Documentation (only shown when topic has strictly relevant courses) */}
+        {deep.mncCourses.length > 0 && (
+          <section id="mnc-courses" className="box glass-3d">
+            <div className="finder-badge">🏛️ TOPIC-SPECIFIC COURSES & OFFICIAL GUIDES (+30 XP)</div>
+            <h2 className="h3" style={{ fontSize: 19, marginBottom: 12 }}>
+              Official Courses & Guides Directly for "{topic.title}"
+            </h2>
+            <div className="resource-list">
+              {deep.mncCourses.map((c) => (
+                <a
+                  key={c.title}
+                  href={c.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="resource-row"
+                  onClick={() => awardBonusXp(30, "lab")}
+                >
+                  <div>
+                    <div className="chip-row" style={{ marginBottom: 4 }}>
+                      <span className="badge neon">{c.org}</span>
+                      <span className="badge">{c.type}</span>
+                      <span className="badge">⏱️ {c.duration}</span>
+                    </div>
+                    <strong className="resource-title">{c.title}</strong>
                   </div>
-                  <strong style={{ fontSize: 15, color: "#fff" }}>{c.title}</strong>
-                </div>
-                <span className="btn small primary">Start Course ↗</span>
-              </a>
-            ))}
-          </div>
-        </section>
+                  <span className="btn small primary">Start Course ↗</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
 
-        {/* 10. Top AI YouTubers & Video Masterclasses */}
-        <section id="youtube-lab" className="box glass-3d">
-          <div className="finder-badge">▶️ CURATED YOUTUBE MASTERCLASSES (+30 XP)</div>
-          <h2 className="h3" style={{ fontSize: 19, marginBottom: 12 }}>
-            Watch the Best Creators Explain & Build "{topic.title}"
-          </h2>
-          <div className="resource-list">
-            {deep.youtubeVideos.map((yt) => (
-              <a
-                key={yt.title}
-                href={yt.url}
-                target="_blank"
-                rel="noreferrer"
-                className="resource-row"
-                onClick={() => awardBonusXp(30, "lab")}
-              >
-                <div style={{ flex: 1 }}>
-                  <div className="chip-row" style={{ marginBottom: 4 }}>
-                    <span className="badge neon-green">▶️ {yt.creator}</span>
-                    <span className="badge">{yt.channelBadge}</span>
-                    <span className="badge">⏱️ {yt.duration}</span>
+        {/* 10. Top AI YouTubers & Video Masterclasses (only shown when topic has strictly relevant videos) */}
+        {deep.youtubeVideos.length > 0 && (
+          <section id="youtube-lab" className="box glass-3d">
+            <div className="finder-badge">▶️ TOPIC-SPECIFIC VIDEO MASTERCLASSES (+30 XP)</div>
+            <h2 className="h3" style={{ fontSize: 19, marginBottom: 12 }}>
+              Watch Creators Explain & Build "{topic.title}"
+            </h2>
+            <div className="resource-list">
+              {deep.youtubeVideos.map((yt) => (
+                <a
+                  key={yt.title}
+                  href={yt.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="resource-row"
+                  onClick={() => awardBonusXp(30, "lab")}
+                >
+                  <div style={{ flex: 1 }}>
+                    <div className="chip-row" style={{ marginBottom: 4 }}>
+                      <span className="badge neon-green">▶️ {yt.creator}</span>
+                      <span className="badge">{yt.channelBadge}</span>
+                      <span className="badge">⏱️ {yt.duration}</span>
+                    </div>
+                    <strong className="resource-title" style={{ display: "block", marginBottom: 4 }}>
+                      {yt.title}
+                    </strong>
+                    <span style={{ fontSize: 13, color: "var(--muted)" }}>{yt.whyWatch}</span>
                   </div>
-                  <strong style={{ fontSize: 15, color: "#fff", display: "block", marginBottom: 4 }}>
-                    {yt.title}
-                  </strong>
-                  <span style={{ fontSize: 13, color: "var(--muted)" }}>{yt.whyWatch}</span>
-                </div>
-                <span className="btn small">▶️ Watch Video ↗</span>
-              </a>
-            ))}
-          </div>
-        </section>
+                  <span className="btn small">▶️ Watch Video ↗</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
 
-        {/* 11. Ecosystem Portals (There's An AI For That, DataCamp, Hugging Face, etc.) */}
-        <section className="box glass-3d">
-          <div className="finder-badge">🧭 AI ECOSYSTEM PORTALS, DIRECTORIES & SANDBOXES</div>
-          <h2 className="h3" style={{ fontSize: 19, marginBottom: 12 }}>
-            Explore Tools, Interactive Practice & Benchmarks
-          </h2>
-          <div className="playbook-grid">
-            {deep.portals.map((portal) => (
-              <a
-                key={portal.name}
-                href={portal.url}
-                target="_blank"
-                rel="noreferrer"
-                className="playbook-card"
-                onClick={() => awardBonusXp(20, "lab")}
-                style={{ display: "block" }}
-              >
-                <div className="card-top">
-                  <strong style={{ color: "var(--accent)" }}>{portal.name}</strong>
-                  <span className="badge">{portal.category}</span>
-                </div>
-                <p style={{ margin: "6px 0 0", fontSize: 13.5, color: "var(--muted)" }}>{portal.description}</p>
-              </a>
-            ))}
-          </div>
-        </section>
+        {/* 11. Ecosystem Portals (only shown when topic has strictly relevant websites/sandboxes) */}
+        {deep.portals.length > 0 && (
+          <section className="box glass-3d">
+            <div className="finder-badge">🧭 RELEVANT WEBSITES, TOOLS & INTERACTIVE SANDBOXES</div>
+            <h2 className="h3" style={{ fontSize: 19, marginBottom: 12 }}>
+              Hands-On Practice & Reference Websites for "{topic.title}"
+            </h2>
+            <div className="playbook-grid">
+              {deep.portals.map((portal) => (
+                <a
+                  key={portal.name}
+                  href={portal.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="playbook-card"
+                  onClick={() => awardBonusXp(20, "lab")}
+                  style={{ display: "block" }}
+                >
+                  <div className="card-top">
+                    <strong style={{ color: "var(--accent)" }}>{portal.name}</strong>
+                    <span className="badge">{portal.category}</span>
+                  </div>
+                  <p style={{ margin: "6px 0 0", fontSize: 13.5, color: "var(--muted)" }}>{portal.description}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* 12. Checkpoint Challenge Quiz */}
         <div className="quiz-box glass-3d">

@@ -1,4 +1,5 @@
 import type { Topic } from "../types";
+import { TOPIC_RESOURCES } from "./topicResources";
 
 export interface PlaybookStep {
   phase: string;
@@ -379,6 +380,146 @@ const SPECIFIC_OVERRIDES: Record<string, Partial<TopicDeepDive>> = {
         whyWatch: "Hands-on walkthrough from raw PDFs to deployed retrieval API.",
       },
     ],
+  },
+
+  "git-github": {
+    conceptualDeepDive: [
+      "Git is a distributed content-addressable filesystem where every commit is an immutable cryptographic snapshot (SHA-256/SHA-1) of your entire repository tree—not just a naive file diff. In modern AI and software teams, Git is the single source of truth that binds application code, prompt templates, evaluation datasets, and CI/CD deployment triggers together.",
+      "Professional engineering teams rely on trunk-based development or short-lived feature branches: every change is proposed via a Pull Request (PR) that automatically triggers linting, secret-scanning (so `.env` API keys never leak to GitHub), unit tests, and AI evaluation checks before a teammate approves and squash-merges into `main`.",
+    ],
+    flowchartTitle: "Production Git & GitHub Pull Request Workflow",
+    flowchartSteps: [
+      { label: "1. Feature Branch", detail: "git switch -c feat/add-rag-reranker from latest main" },
+      { label: "2. Pre-Commit Hook", detail: "Run ruff, mypy & gitleaks locally before git commit" },
+      { label: "3. Atomic Commits", detail: "Stage cohesive changes with clear conventional commit messages" },
+      { label: "4. Pull Request & CI", detail: "Push branch; GitHub Actions runs pytest & evaluation suite" },
+      { label: "5. Code Review & Merge", detail: "Address inline feedback, squash-merge & auto-delete branch" },
+    ],
+    architectureTitle: "Git Object Graph & GitHub CI/CD Protection Architecture",
+    architectureAscii: `[Developer Working Tree]
+     │  git add (pre-commit: ruff + secret scan)
+     ▼
+[Staging Index] ──(git commit)──► [Local Commit DAG (f4a9c1 -> 8b2e10)]
+                                          │
+                                          │ git push origin feat/branch
+                                          ▼
+┌───────────────────────────────────────────────────────────────────┐
+│ GitHub Remote Repository                                          │
+│  ├─► Pull Request #142 opened against protected branch 'main'     │
+│  ├─► GitHub Actions CI: Unit Tests + Secret Scan + Prompt Eval    │
+│  └─► Required Peer Review (CODEOWNERS) ──► Squash Merge to 'main' │
+└───────────────────────────────────────────────────────────────────┘`,
+    playbook: [
+      { phase: "Phase 1 · Hygiene", title: "Lock Down Secrets & .gitignore", action: "Configure `.gitignore` for `.env`, `.venv/`, `__pycache__/`, and large `.safetensors` weights; install `pre-commit` with secret detection.", deliverable: "Hardened Repository Baseline" },
+      { phase: "Phase 2 · Branching", title: "Adopt Short-Lived Feature Branches", action: "Create focused branches (`feat/`, `fix/`, `chore/`) that live < 2 days and touch < 400 lines of code for fast review.", deliverable: "Clean Branch & Commit History" },
+      { phase: "Phase 3 · Automation", title: "Enforce Protected Main Branch", action: "Enable branch protection on `main` requiring passing GitHub Actions checks and at least 1 reviewer approval.", deliverable: "Protected PR Gate" },
+      { phase: "Phase 4 · Recovery", title: "Master Non-Destructive Recovery", action: "Use `git revert` for shared branches and `git reflog` to recover accidentally reset local commits.", deliverable: "Team Git Runbook" },
+    ],
+    caseStudies: [
+      {
+        company: "GitHub & Microsoft Core Engineering",
+        domain: "High-Velocity Trunk-Based Pull Request Workflow",
+        challenge: "Coordinating thousands of engineers shipping daily without breaking `main` or leaking credentials.",
+        solution: "Standardized short-lived feature branches, automated CODEOWNERS review routing, secret scanning push-protection, and required status checks.",
+        impact: "Reduced merge conflicts by over 60% and blocked 100% of accidental API key commits before reaching public remotes.",
+      },
+      {
+        company: "Hugging Face & Open-Source AI Maintainers",
+        domain: "Collaborating on Code + Multi-Gigabyte Model Weights",
+        challenge: "Standard Git chokes on 5GB+ `.safetensors` and `.parquet` files when contributors clone repositories.",
+        solution: "Separated lightweight Python/config code in standard Git from large binary tensors tracked via Git LFS and Hugging Face Hub pointers.",
+        impact: "Kept `git clone` times under 3 seconds while versioning petabytes of model checkpoints.",
+      },
+    ],
+    table: {
+      caption: "Essential Git Operations & When to Use Each in Team Workflows",
+      headers: ["Operation", "What It Does", "Safe on Shared Branches?", "Production Rule of Thumb"],
+      rows: [
+        ["git switch -c <branch>", "Creates and checks out a new isolated branch", "Yes", "Always branch off an up-to-date `main` before starting work"],
+        ["git rebase main", "Replays your local commits cleanly on top of latest `main`", "Local branch only", "Great for cleaning up local history before merging; never rebase shared `main`"],
+        ["git revert <sha>", "Creates a brand-new commit that inverses a broken commit", "Yes (100% safe)", "The gold standard for rolling back a bug that already merged to `main`"],
+        ["git reflog", "Shows chronological log of every HEAD movement locally", "Local recovery tool", "Your safety net to rescue 'lost' commits after a bad reset or rebase"],
+      ],
+    },
+  },
+
+  "sql-basics": {
+    conceptualDeepDive: [
+      "Every AI model, RAG pipeline, and analytics dashboard is only as good as the SQL query that feeds it. In production, data does not arrive as a clean CSV—it lives across normalized transactional tables (`PostgreSQL`), cloud data warehouses (`Snowflake`, `BigQuery`), and columnar lakehouses (`DuckDB`, `ClickHouse`).",
+      "Mastering Common Table Expressions (`WITH`), window functions (`ROW_NUMBER()`, `LAG()`, `SUM() OVER`), and point-in-time joins is mandatory for AI & data engineers. Without point-in-time correct SQL joins, your training query accidentally joins future outcomes into historical rows—creating catastrophic target leakage.",
+    ],
+    flowchartTitle: "Production Analytical & Feature-Building SQL Pipeline",
+    flowchartSteps: [
+      { label: "1. Schema & Grain Check", detail: "Identify primary key, timestamp column & exact row grain (1 row = 1 user/day)" },
+      { label: "2. Filter Early (WHERE)", detail: "Prune partitions by date/tenant before running expensive joins" },
+      { label: "3. Modular CTEs (WITH)", detail: "Break complex transformations into readable, testable CTE blocks" },
+      { label: "4. Window Aggregations", detail: "Compute rolling 7d/30d features with PARTITION BY and ORDER BY" },
+      { label: "5. EXPLAIN ANALYZE", detail: "Verify index usage, join cardinality & zero duplicate fan-out" },
+    ],
+    architectureTitle: "Point-in-Time Correct SQL Feature & Analytics Architecture",
+    architectureAscii: `[Raw Events Table]          [Users / Subscriptions Table]
+        │                                 │
+        ▼ (Filter by partition date)      ▼ (Deduplicate via ROW_NUMBER() = 1)
+┌───────────────────────────────────────────────────────────┐
+│ CTE 1: clean_events            CTE 2: latest_user_state   │
+└───────────────┬─────────────────────────┬─────────────────┘
+                │   LEFT JOIN ON user_id  │
+                │   AND event_ts <= cutoff│ (Prevents Future Leakage!)
+                ▼                         ▼
+┌───────────────────────────────────────────────────────────┐
+│ CTE 3: Window Features (COUNT /LAG OVER PARTITION BY user)│
+└────────────────────────────┬──────────────────────────────┘
+                             ▼
+            [Clean Feature View / Warehouse Table]`,
+    table: {
+      caption: "SQL Patterns Every Data & AI Engineer Must Master",
+      headers: ["SQL Construct", "Primary Purpose", "Common Bug to Watch For", "Best Practice"],
+      rows: [
+        ["LEFT JOIN vs INNER JOIN", "Combine tables while preserving all base entities", "One-to-many join silently duplicates rows and inflates sums", "Always assert `COUNT(*)` before and after a join"],
+        ["Window Functions (`OVER`)", "Rank, deduplicate (`ROW_NUMBER`), and compute rolling stats", "Forgetting `ORDER BY` inside the window frame", "Use `QUALIFY ROW_NUMBER() OVER (...) = 1` to deduplicate cleanly"],
+        ["`WHERE` vs `HAVING`", "`WHERE` filters raw rows; `HAVING` filters grouped aggregates", "Putting partition date filters in `HAVING` instead of `WHERE`", "Filter partitions in `WHERE` first to cut scan cost by 90%+"],
+        ["`COALESCE(col, 0)`", "Safely replace `NULL` values after outer joins", "`NULL + 5` evaluates to `NULL` in SQL", "Explicitly coalesce nullable metrics before arithmetic"],
+      ],
+    },
+  },
+
+  "apis-http": {
+    conceptualDeepDive: [
+      "Modern AI engineering is fundamentally API engineering. Whether you are calling OpenAI/Anthropic endpoints, exposing a FastAPI microservice, or wiring webhook automations, everything travels over HTTP/HTTPS using structured JSON payloads, authentication headers, and status codes.",
+      "Production-grade API integration requires four defensive habits: (1) Streaming responses via Server-Sent Events (SSE) so users see the first LLM token in 300ms instead of staring at a spinner for 12 seconds; (2) Exponential backoff with jitter on `429 Too Many Requests` and `502/503/504` transient errors; (3) Explicit connect/read timeouts; and (4) Idempotency keys on `POST` requests so network retries never double-charge or double-trigger actions.",
+    ],
+    flowchartTitle: "Resilient Production HTTP / AI API Request Lifecycle",
+    flowchartSteps: [
+      { label: "1. Auth & Headers", detail: "Attach Bearer token from env + Idempotency-Key + Content-Type" },
+      { label: "2. Timeout Budget", detail: "Set strict connect (3s) and read/stream (30s) timeouts" },
+      { label: "3. SSE Stream / JSON", detail: "Consume incremental data chunks or parse validated JSON" },
+      { label: "4. Status Code Router", detail: "Fail fast on 400/401/422; retry with backoff + jitter on 429/5xx" },
+      { label: "5. Structured Telemetry", detail: "Log latency, status code, request_id & token usage headers" },
+    ],
+    architectureTitle: "Fault-Tolerant API Client & Gateway Architecture",
+    architectureAscii: `[Your Application / Service]
+         │
+         ▼
+┌──────────────────────────────────────────────────────────┐
+│ Resilient HTTP Client Wrapper (httpx / fetch)            │
+│  ├─► Timeout Guard (connect=3.0s, read=30.0s)            │
+│  ├─► Retry Policy (429 / 503 ──► Exp Backoff + Jitter)   │
+│  └─► Idempotency-Key Header (UUIDv4 per logical action)  │
+└───────────────────────────┬──────────────────────────────┘
+                            │ HTTPS TLS 1.3 (JSON / SSE Stream)
+                            ▼
+            [External API / LLM Provider Gateway]`,
+    table: {
+      caption: "HTTP Status Codes & Production Handling Strategy",
+      headers: ["Status Code", "Meaning", "Should You Auto-Retry?", "Correct Engineering Action"],
+      rows: [
+        ["200 OK / 201 Created", "Request succeeded", "No", "Validate response JSON schema before using data"],
+        ["400 / 422 Unprocessable", "Malformed JSON or schema validation error", "Never (will fail again)", "Fix request payload or ask LLM to repair tool arguments"],
+        ["401 / 403 Unauthorized", "Missing, expired, or insufficient API key/scopes", "Never", "Alert ops & check secret manager / RBAC permissions"],
+        ["429 Too Many Requests", "Rate limit or token-per-minute quota exceeded", "Yes — with Backoff", "Respect `Retry-After` header + exponential backoff with random jitter"],
+        ["500 / 502 / 503 / 504", "Upstream server crash or gateway timeout", "Yes (up to 3 attempts)", "Retry idempotent requests; failover to backup provider if persistent"],
+      ],
+    },
   },
 };
 
@@ -917,6 +1058,7 @@ export function getTopicDeepDive(topic: Topic): TopicDeepDive {
   };
 
   const base = clusterConfigs[cluster];
+  const curated = TOPIC_RESOURCES[topic.id];
 
   return {
     conceptualDeepDive: override?.conceptualDeepDive ?? baseConceptual,
@@ -927,8 +1069,8 @@ export function getTopicDeepDive(topic: Topic): TopicDeepDive {
     playbook: override?.playbook ?? base.playbook,
     caseStudies: override?.caseStudies ?? base.caseStudies,
     table: override?.table ?? base.table,
-    mncCourses: override?.mncCourses ?? base.mncCourses,
-    youtubeVideos: override?.youtubeVideos ?? base.youtubeVideos,
-    portals: override?.portals ?? base.portals,
+    mncCourses: curated?.mncCourses ?? [],
+    youtubeVideos: curated?.youtubeVideos ?? [],
+    portals: curated?.portals ?? [],
   };
 }

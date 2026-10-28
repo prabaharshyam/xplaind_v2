@@ -27,7 +27,7 @@ export function CyberCanvas() {
       color: string;
     }
 
-    const palette = ["#00f5d4", "#7b2cbf", "#ff2a85", "#4cc9f0", "#b5179e"];
+    const palette = ["#8b72ff", "#38b29a", "#f2789f", "#569cd6", "#f5a623", "#b388eb"];
     const stars: Star[] = Array.from({ length: 110 }, (_, i) => ({
       x: (Math.random() - 0.5) * 1600,
       y: (Math.random() - 0.5) * 1600,
