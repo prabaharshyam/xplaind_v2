@@ -1069,8 +1069,8 @@ export function getTopicDeepDive(topic: Topic): TopicDeepDive {
     playbook: override?.playbook ?? base.playbook,
     caseStudies: override?.caseStudies ?? base.caseStudies,
     table: override?.table ?? base.table,
-    mncCourses: curated?.mncCourses ?? [],
-    youtubeVideos: curated?.youtubeVideos ?? [],
-    portals: curated?.portals ?? [],
+    mncCourses: curated?.mncCourses ?? base.mncCourses,
+    youtubeVideos: curated?.youtubeVideos ?? base.youtubeVideos,
+    portals: curated?.portals ?? base.portals,
   };
 }

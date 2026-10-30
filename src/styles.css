@@ -78,9 +78,8 @@ a { color: var(--fg); text-decoration: none; transition: border-color .18s ease,
   border-color: var(--line);
 }
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: inline-flex;
+  align-items: baseline;
   font-family: var(--font-serif);
   font-weight: 600;
   font-size: 24px;
@@ -88,8 +87,10 @@ a { color: var(--fg); text-decoration: none; transition: border-color .18s ease,
   letter-spacing: -0.03em;
 }
 .brand-orb {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
+  margin-right: 10px;
+  align-self: center;
   border-radius: 2px;
   background-color: var(--fg);
   transform: rotate(45deg);
@@ -103,6 +104,7 @@ a { color: var(--fg); text-decoration: none; transition: border-color .18s ease,
   color: var(--subtle);
   font-size: 12px;
   font-weight: 500;
+  margin-left: 2px;
   letter-spacing: 0.02em;
 }
 

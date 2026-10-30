@@ -6,192 +6,234 @@ export const forwardDeployedEngineer: Roadmap = {
   title: "Forward Deployed Engineer (FDE)",
   emoji: "🚀",
   description:
-    "Work directly with customers to turn an AI platform into a working solution inside their data, systems and security rules.",
+    "Embed directly with enterprise customers to scope, architect, integrate, and ship production AI systems against messy legacy infrastructure, data warehouses, and strict security boundaries—aligned with the canonical Palantir, OpenAI, and Anthropic FDE operating model.",
   audience:
-    "Engineers who enjoy customer contact and want to own outcomes: from discovery to deployment to adoption.",
-  tools: ["Python", "SQL", "REST APIs and webhooks", "Cloud (AWS/Azure/GCP)", "Docker", "SSO / SAML / OAuth", "Dashboards"],
+    "Full-stack and applied AI engineers who want to own end-to-end technical delivery in the field: customer discovery, data untangling, full-stack + LLM/agent builds, VPC/air-gapped deployment, and product feedback loops.",
+  tools: [
+    "Python, TypeScript/React & Go",
+    "FastAPI, PostgreSQL & GraphQL",
+    "Snowflake, BigQuery, Databricks & Spark",
+    "LLM APIs, RAG, Agents & MCP",
+    "Docker, Kubernetes & Terraform",
+    "SSO / SAML / OAuth2 / RBAC",
+    "Claude Code / Cursor (Rapid Prototyping)",
+  ],
   outcomes: [
-    "Run discovery and define a scoped pilot with measurable success criteria.",
-    "Integrate with messy customer systems and deploy securely in their environment.",
-    "Drive adoption and feed lessons back into the product.",
+    "Embed with enterprise customers, run technical discovery and data audits, and deliver working end-to-end prototypes in days.",
+    "Integrate LLMs, RAG pipelines, and MCP agents with legacy ERPs, CRMs, data warehouses, and SSO/RBAC security models.",
+    "Deploy production systems across cloud VPCs, Kubernetes clusters, or air-gapped environments and generalize customer patterns back into the core platform.",
   ],
   sections: [
     {
-      id: "role",
-      title: "Understanding the role",
+      id: "fde-operating-model",
+      title: "1. The Forward Deployed Operating Model",
       topics: [
         {
           id: "what-is-fde",
-          title: "What a Forward Deployed Engineer does",
-          minutes: 6,
-          summary: "Embedded engineering that owns the customer's outcome.",
+          title: "What is an FDE? Delta vs Echo Tiers, Last-Mile Integration & Day-2 Operations",
+          minutes: 7,
+          summary: "Understand the Palantir/OpenAI FDE operating model: embedded engineering vs consulting, productized delivery, and Day-2 ownership.",
           body: [
-            "An FDE works at or with the customer to make a product deliver real value in their environment. Unlike a classic software engineer, you spend much of your time with users and their data. Unlike a pre-sales solutions architect, you write production code and stay until it works.",
-            "Success needs three skills at once: engineering depth to build quickly, product sense to decide what matters, and people skills to build trust. Your work produces two things: a happy customer and reusable learning for the product team.",
+            "Pioneered by Palantir ('Delta' and 'Echo' engineers) and adopted across frontier AI labs (OpenAI, Anthropic, Scale, Cohere, Sierra), Forward Deployed Engineers (FDEs) are full-stack and AI engineers who embed directly inside high-value customer organizations to close the 'last-mile gap' between a general platform/model and a customer's messy operational reality.",
+            "Unlike traditional consultants who deliver slide decks or one-off custom forks, FDEs practice Productized Consulting: they build real production software on top of the company's core platform, own Day-2 production reliability and operator adoption, and extract repeatable abstractions that feed back into the core product roadmap.",
           ],
           points: [
-            "You own the outcome, not just the code.",
-            "The blend: engineering, product judgement and customer trust.",
-            "Customer learnings should flow back into the core product.",
+            "FDEs write production code in the field rather than handing off specifications or slide decks.",
+            "Distinguish rapid application prototyping ('Delta') from deep data/infrastructure integration ('Echo').",
+            "Every custom field solution should be evaluated as a candidate abstraction for the core product platform.",
           ],
         },
-      ],
-    },
-    {
-      id: "foundations",
-      title: "Technical foundations",
-      topics: [S.pythonEssentials, S.apisHttp, S.sqlBasics, S.gitGithub, S.cloudBasics],
-    },
-    {
-      id: "discovery",
-      title: "Discovery and scoping",
-      topics: [
         {
           id: "customer-discovery",
-          title: "Customer discovery",
-          minutes: 7,
-          summary: "Find the real problem behind the request.",
+          title: "Customer Discovery, Scoping & Sequencing: Scope, Speed, Quality & UAT",
+          minutes: 8,
+          summary: "Shadow frontline operators, map pain points to measurable business ROI, and lock a 2–4 week vertical slice with clear UAT criteria.",
           body: [
-            "Customers often ask for a solution ('add a chatbot') when the problem is different ('agents take too long to find policy details'). Ask about the current process, who does it, how often, what it costs and what a good result would look like. Watch the work happen where possible, and talk to the people who will use the system, not only the sponsor.",
-            "Map the data and systems involved, who owns them, and what rules apply. Write down what you heard and confirm it back. Misunderstandings found in week one cost far less than those found in week eight.",
+            "Enterprise buyers often ask for vague solutions ('build us an AI copilot for supply chain'). An effective FDE shadows actual operators at their desks for half a day: watching which screens they copy-paste between, where data is missing or contradictory, and which exceptions stall workflows.",
+            "Scope a narrow, high-value vertical slice that can reach User Acceptance Testing (UAT) in 2–4 weeks. Define explicit baseline metrics (current cycle time, error rate, cost per ticket), success criteria, out-of-scope boundaries, and named data/security owners before writing production integration code.",
           ],
           points: [
-            "Ask about the problem before accepting a solution.",
-            "Observe real work and talk to end users.",
-            "Confirm your understanding in writing.",
+            "Shadow real end-users to uncover the actual workflow bottleneck behind executive requests.",
+            "Sequence delivery around Time-to-First-Value: ship a working vertical slice in days, then expand.",
+            "Write a 1-page UAT contract defining input sources, target accuracy, latency SLA, and human sign-off owners.",
           ],
         },
-        {
-          id: "scoping-pilots",
-          title: "Scoping pilots and success metrics",
-          minutes: 7,
-          summary: "Define a small, time-boxed project that proves value.",
-          body: [
-            "A pilot should be small enough to finish in weeks and meaningful enough to matter. Agree the user, the task, the data, the baseline today and one or two success metrics, such as 'cut handling time by 30% with at least 95% accuracy on a reviewed sample'. Write down what is out of scope.",
-            "Set up an evaluation method with the customer before building, so both sides accept the result. Agree on exit criteria: what happens if the pilot succeeds, partly succeeds or fails. Clear scope protects trust.",
-          ],
-          points: [
-            "Pilots are time-boxed with a defined baseline and metrics.",
-            "Agree how success will be measured before building.",
-            "State out-of-scope items and next steps explicitly.",
-          ],
-        },
-        S.stakeholderComm,
       ],
     },
     {
-      id: "building",
-      title: "Building in the customer's context",
+      id: "core-engineering-fullstack",
+      title: "2. Core Engineering, Full-Stack & Rapid Prototyping",
       topics: [
+        S.pythonEssentials,
         {
-          id: "data-integration",
-          title: "Integrating with customer systems",
+          id: "fullstack-operator-ui",
+          title: "Full-Stack Engineering: TypeScript, React, FastAPI & PostgreSQL",
           minutes: 8,
-          summary: "Connect to messy, legacy and permissioned data sources.",
+          summary: "Build clean operator interfaces and resilient backend services without waiting on a separate frontend or API team.",
           body: [
-            "Real customer data sits in ERPs, CRMs, shared drives, old databases and spreadsheets, with inconsistent formats and missing fields. Learn to read API docs fast, use connectors where they exist, fall back to file exports or database views, and build small adapters that turn messy inputs into a clean internal format.",
-            "Authenticate properly (OAuth, service accounts, SSO) and request only the access you need. Validate and log what you ingest, handle failures without losing data, and respect each source's permissions so users only see what they are allowed to see.",
+            "In the field, an AI model without a usable operator workflow is invisible. FDEs must be self-sufficient across the stack: building responsive TypeScript/React interfaces (side-by-side source viewer, citation highlighting, keyboard-driven approve/edit/reject queues) backed by async Python (FastAPI) or Node/Go services and PostgreSQL.",
+            "Use AI-assisted coding tools (Claude Code, Cursor) to accelerate boilerplate UI and API scaffolding so 80% of your engineering hours go toward domain logic, data edge cases, and evaluation quality.",
           ],
           points: [
-            "Build small adapters that normalise messy sources.",
-            "Use proper authentication with minimum access.",
-            "Validate, log and respect source permissions.",
+            "Build operator UIs that highlight source provenance and make human verification a single keystroke.",
+            "Design clean REST/GraphQL backends with strict Pydantic/Zod validation and PostgreSQL transactional state.",
+            "Leverage AI coding agents to ship polished internal tools and admin dashboards in hours rather than weeks.",
           ],
         },
         {
           id: "rapid-prototyping",
-          title: "Rapid prototyping",
-          minutes: 6,
-          summary: "Show a working thin slice in days, not months.",
+          title: "Distributed System Design, Async Queues & Rapid Vertical Prototyping",
+          minutes: 8,
+          summary: "Architect non-blocking ingestion workers, rate-limited LLM pipelines, and thin end-to-end slices on real data.",
           body: [
-            "Build the thinnest vertical slice that touches real data and real users: one input, one output, end to end. A working prototype in days beats a design document in weeks, because it surfaces data problems and misunderstandings early and gives the customer something to react to.",
-            "Prototype fast, but label it as a prototype. Keep a short list of shortcuts you took, and plan time to turn what survives into production-quality work with tests, error handling and monitoring.",
+            "Field workloads rarely arrive as clean, uniform requests: a customer might dump 50,000 PDFs at 8 AM while 200 operators query interactive chat. Decouple synchronous user requests from heavy background document processing using durable task queues (Celery, Redis Streams, BullMQ, Kafka, or Temporal).",
+            "Build the thinnest vertical slice that touches real customer data end-to-end in week one, while enforcing backpressure, token-bucket rate limiters per upstream API, and idempotency keys on every state-changing write.",
           ],
           points: [
-            "Build one thin end-to-end slice first.",
-            "Use real data and real users early.",
-            "Track shortcuts so they do not silently become production.",
+            "Isolate interactive low-latency traffic from high-volume batch ingestion using separate worker queues.",
+            "Design every job step to be idempotent so crashed tasks can retry safely without duplicate side effects.",
+            "Demo on real customer data in days to expose schema and edge-case bugs early.",
           ],
         },
+      ],
+    },
+    {
+      id: "data-audit-enterprise-integration",
+      title: "3. Customer Data Audits, Warehouses & Legacy Integration",
+      topics: [
+        S.sqlBasics,
+        {
+          id: "customer-data-audit",
+          title: "Customer Data Audits, Schema Untangling & Enterprise Warehouses",
+          minutes: 8,
+          summary: "Audit messy customer schemas across Snowflake, BigQuery, Databricks, Spark, and Airflow before feeding AI pipelines.",
+          body: [
+            "The #1 failure cause of enterprise AI pilots is unexamined customer data: undocumented join keys, silent nulls, timezone drift, duplicate records across regions, and stale ETL tables. Within week one, run a systematic Data Audit across the customer's data warehouse (Snowflake, BigQuery, Databricks) and orchestration DAGs (Airflow, dbt, Spark).",
+            "Profile cardinality, null rates, freshness lag, and permission boundaries. Build a canonical semantic layer or clean read-replica view with automated schema/freshness assertions before indexing documents into vector stores or exposing SQL tools to agents.",
+          ],
+          points: [
+            "Never trust customer ER diagrams; profile actual table distributions, join fan-outs, and null rates with SQL.",
+            "Verify data freshness lags in Airflow/Spark pipelines so your AI system does not act on yesterday's stale state.",
+            "Create curated, well-documented warehouse views rather than letting LLMs query raw 500-column bronze tables.",
+          ],
+        },
+        {
+          id: "data-integration",
+          title: "Integrating Legacy Enterprise Systems: ERPs, CRMs, SOAP & Mainframes",
+          minutes: 8,
+          summary: "Build anti-corruption adapter layers around SAP, Salesforce, ServiceNow, Epic, and brittle on-prem APIs.",
+          body: [
+            "Enterprise workflows live inside systems of record—Salesforce, SAP, Oracle, ServiceNow, Workday, Jira, or decades-old SOAP/XML and flat-file SFTP drops. These systems have quirky pagination, strict governor limits, inconsistent error codes, and scheduled maintenance windows.",
+            "Wrap every external customer system behind a clean Anti-Corruption Adapter Layer in your codebase. Normalize external payloads into your internal domain types at the boundary, cache slow reference lookups, and record raw request/response audit logs with correlation IDs.",
+          ],
+          points: [
+            "Isolate customer-specific ERP/CRM quirks behind a typed adapter interface so core workflow logic stays clean.",
+            "Respect governor limits (e.g., Salesforce daily API quotas) with bulk APIs, delta syncs, and local read caches.",
+            "Log correlation IDs across every external call to prove root cause when a customer's upstream service fails.",
+          ],
+          example: {
+            title: "Resilient enterprise CRM adapter with retries and correlation IDs",
+            language: "python",
+            code: `import httpx, uuid
+from tenacity import retry, stop_after_attempt, wait_exponential
+
+@retry(stop=stop_after_attempt(3), wait=wait_exponential(min=1, max=8))
+async def fetch_customer_case(case_id: str, token: str) -> dict:
+    correlation_id = str(uuid.uuid4())
+    async with httpx.AsyncClient(timeout=10.0) as client:
+        resp = await client.get(
+            f"https://crm.customer.internal/api/v2/cases/{case_id}",
+            headers={"Authorization": f"Bearer {token}", "X-Correlation-ID": correlation_id},
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        return {"id": data["CaseNumber"], "status": data["Status"], "priority": data.get("Priority", "Normal")}`,
+          },
+        },
+      ],
+    },
+    {
+      id: "applied-ai-field",
+      title: "4. Applied AI, Enterprise RAG, Agents & MCP in the Field",
+      topics: [
         S.promptDesign,
         S.structuredOutput,
         S.rag,
-        S.toolUse,
-        S.dataPrivacy,
+        {
+          id: "field-agents-mcp",
+          title: "Field Agent Architectures, Tool Use & Model Context Protocol (MCP)",
+          minutes: 9,
+          summary: "Connect LLMs to enterprise tools via MCP servers, permission-aware retrieval, and human-in-the-loop approval gates.",
+          body: [
+            "When deploying RAG and agents inside an enterprise, Document-Level Access Control (ACLs) is mandatory: a user querying the AI assistant must never retrieve chunks from a SharePoint folder, Slack channel, or Jira project they lack permission to read directly. Propagate user identity tokens into vector metadata filters and MCP tool calls.",
+            "Use the Model Context Protocol (MCP) to expose customer databases, ticketing systems, and internal APIs as standardized, reusable tool servers. Keep high-impact write actions (issuing refunds, modifying ERP orders, sending external emails) behind explicit human-in-the-loop confirmation steps.",
+          ],
+          points: [
+            "Enforce source-system ACLs at retrieval time using pre-filtering on user/group security principals.",
+            "Package customer system integrations as standardized MCP servers so tools work across multiple agent workflows.",
+            "Gate external write operations behind human approval until offline and shadow evaluations prove >99% reliability.",
+          ],
+        },
       ],
     },
     {
       id: "deploying",
-      title: "Deploying and securing",
+      title: "5. Cloud Infrastructure, Kubernetes, Air-Gapped Deployments & Security",
       topics: [
-        {
-          id: "enterprise-security",
-          title: "Enterprise security requirements",
-          minutes: 7,
-          summary: "Pass security review without stalling the project.",
-          body: [
-            "Large customers run security reviews before connecting anything. Expect questions on single sign-on (SAML or OIDC), role-based access, encryption in transit and at rest, audit logs, data residency, subprocessors, penetration tests and compliance reports. Prepare answers and diagrams early.",
-            "Design for least privilege and isolated data from the start. Explain exactly what data flows to which model provider and whether it is retained or used for training. Engaging the customer's security team in week one prevents late blockers.",
-          ],
-          points: [
-            "Expect questions on SSO, access control, encryption, logging and residency.",
-            "Document data flows, including model providers.",
-            "Involve the customer's security team early.",
-          ],
-        },
+        S.docker,
         {
           id: "deployment-environments",
-          title: "Deploying into customer environments",
-          minutes: 7,
-          summary: "Cloud, private network, on-premises and air-gapped options.",
+          title: "Cloud VPCs, Terraform IaC, Kubernetes & Air-Gapped / On-Prem Delivery",
+          minutes: 8,
+          summary: "Deploy reproducibly into customer AWS/Azure/GCP VPCs, PrivateLink networks, or disconnected on-premises Kubernetes clusters.",
           body: [
-            "Deployments range from your hosted cloud, to a dedicated tenant, to the customer's own cloud account or private network, to on-premises and fully air-gapped systems. Each step adds control for the customer and operational work for you, such as updates, observability and model access without internet.",
-            "Use containers and infrastructure as code so installs are repeatable. Provide health checks, clear logs, a runbook and a rollback plan. Agree who operates what, how updates are applied and how support access is granted and audited.",
+            "Regulated enterprises (banking, defense, healthcare, industrials) rarely allow sensitive data to leave their virtual private cloud (VPC). FDEs must package applications as reproducible Docker containers, Helm charts, and Terraform modules that deploy cleanly into AWS, Azure, or GCP via VPC Peering / AWS PrivateLink—or into fully air-gapped on-premises Kubernetes clusters.",
+            "In restricted environments without public internet access, bundle container images, Python wheels, embedding models, and open-weight LLM checkpoints into private artifact registries and verify GPU operator drivers beforehand.",
           ],
           points: [
-            "Options: hosted, dedicated, customer cloud, on-premises, air-gapped.",
-            "Containers and infrastructure as code make installs repeatable.",
-            "Agree operations, updates and support access up front.",
+            "Codify customer infrastructure with Terraform and Helm so environments can be spun up or upgraded reproducibly.",
+            "Use AWS Bedrock, Azure OpenAI over PrivateLink, or self-hosted vLLM on customer GPUs when data residency forbids public APIs.",
+            "Test offline container and model-weight bundles before deploying into air-gapped or firewall-restricted networks.",
           ],
         },
-        S.docker,
+        {
+          id: "enterprise-security",
+          title: "Enterprise Auth (SSO, SAML, OIDC, RBAC), DevSecOps & AI Governance",
+          minutes: 8,
+          summary: "Pass enterprise InfoSec reviews: integrate Okta/Entra ID SSO, role-based access control, PII redaction, and immutable audit logs.",
+          body: [
+            "No enterprise deployment goes live without clearing Information Security (InfoSec) and compliance review. You must integrate corporate Single Sign-On (SAML 2.0 / OIDC via Okta, Microsoft Entra ID, or Ping), enforce Role-Based Access Control (RBAC), encrypt data in transit (TLS 1.3) and at rest (KMS), and store secrets in Vault or cloud secret managers.",
+            "For AI workloads, verify zero-data-retention (ZDR) agreements with model providers, redact PII/PHI before external API calls, defend against indirect prompt injection from untrusted customer documents, and log an immutable audit trail of every prompt, retrieved document ID, tool call, and user action.",
+          ],
+          points: [
+            "Integrate OIDC/SAML SSO and RBAC early; InfoSec sign-off often takes longer than writing the application code.",
+            "Confirm Zero Data Retention (ZDR) and regional data residency on all commercial LLM endpoints.",
+            "Maintain complete audit logs (who asked what, which documents were retrieved, which tool executed) for compliance.",
+          ],
+        },
         S.cicd,
       ],
     },
     {
       id: "adoption",
-      title: "Adoption and impact",
+      title: "6. Field Evaluation Pipelines, Stakeholder Leadership & Product Loop",
       topics: [
         S.llmEvaluation,
         S.monitoring,
-        {
-          id: "change-management",
-          title: "Driving adoption and change management",
-          minutes: 6,
-          summary: "A working system only creates value if people use it.",
-          body: [
-            "Find a champion on the customer side, train the first users with their own examples, and make the new workflow easier than the old one. Collect feedback weekly, fix annoying issues fast and share small wins with the sponsor. Resistance usually has a reason, such as fear of errors or extra work, so listen first.",
-            "Track adoption (active users, tasks handled) next to quality and business impact. If people go around the system, treat that as product feedback, not user failure.",
-          ],
-          points: [
-            "Win a champion and train with real examples.",
-            "Measure adoption as well as accuracy.",
-            "Treat workarounds as feedback.",
-          ],
-        },
+        S.stakeholderComm,
         {
           id: "productising-handover",
-          title: "Productising and handover",
-          minutes: 6,
-          summary: "Turn one-off work into reusable product and a smooth handover.",
+          title: "Driving Operator Adoption, Executive ROI & Productizing Field Work",
+          minutes: 7,
+          summary: "Quantify business impact for executive sponsors and generalize field patterns into reusable platform features.",
           body: [
-            "When several customers need the same custom piece, propose it as a product feature, with clear requirements, examples and data. Share patterns, connectors and playbooks so the next deployment is faster. Be honest about what is customer-specific and what is general.",
-            "Plan the handover from the start: documentation, runbooks, training for the customer's team, a support path and clear ownership. A project that only you can operate is a risk to the customer and to you.",
+            "Track adoption and business impact from day one: daily active operators, percentage of AI drafts accepted without edits, median resolution time saved, and cost per completed workflow. Present clear before/after ROI metrics to customer executives to drive expansion from pilot to enterprise-wide rollout.",
+            "Internally, close the loop with core engineering: document where the core product required custom workarounds, contribute reusable connectors/evaluators back to the shared repo, and help turn repeated field patterns into first-class product features.",
           ],
           points: [
-            "Turn repeated custom work into product features.",
-            "Document patterns and playbooks for reuse.",
-            "Plan documentation and handover from the start.",
+            "Measure human edit distance and acceptance rate on AI outputs as your primary field quality indicator.",
+            "Translate technical metrics into executive ROI (hours saved, backlog reduced, SLA attainment).",
+            "Generalize code built for three customers into a configurable platform capability.",
           ],
         },
       ],

