@@ -177,7 +177,7 @@ export function InteractiveLabs() {
                 className="btn primary small"
                 onClick={() => awardBonusXp(35, "lab")}
               >
-                Validate Specification (+35 CR)
+                Validate Specification ✓
               </button>
             </div>
             <ul className="check-pills">
@@ -265,7 +265,7 @@ export function InteractiveLabs() {
                   awardBonusXp(20, "lab");
                 }}
               >
-                {agentStep < agentTrace.length ? "Advance Execution State → (+20 CR)" : "Reset Execution Trace ↻"}
+                {agentStep < agentTrace.length ? "Advance Execution State →" : "Reset Execution Trace ↻"}
               </button>
             </div>
           </div>

@@ -3,14 +3,15 @@ import { Link, useParams } from "react-router-dom";
 import { findRoadmap, topicsOf } from "../content";
 import { getTopicDeepDive } from "../content/deepDiveEngine";
 import { awardBonusXp } from "../gamification";
-import { useProgress } from "../progress";
+import { setStoredGoalSlug, useProgress } from "../progress";
 import { buildTopicQuiz, getSimpleTake } from "../simpleExplainer";
 import type { Status } from "../types";
+import { downloadRoadmapChecklistPdf } from "../utils/roadmapPdf";
 
 const labels: Record<Status, string> = {
   pending: "Queued",
   learning: "In Progress",
-  done: "Verified (+120 CR)",
+  done: "Completed ✓",
   skipped: "Defer",
 };
 
@@ -27,7 +28,10 @@ export default function TopicPage() {
     setSelectedAns(null);
     setQuizClaimed(false);
     setActiveFlowStep(0);
-  }, [topicId]);
+    if (slug) {
+      setStoredGoalSlug(slug);
+    }
+  }, [topicId, slug]);
 
   const all = roadmap ? topicsOf(roadmap) : [];
   const index = all.findIndex((t) => t.id === topicId);
@@ -45,6 +49,16 @@ export default function TopicPage() {
   const prev = index > 0 ? all[index - 1] : undefined;
   const next = index < all.length - 1 ? all[index + 1] : undefined;
   const status = getStatus(topic.id);
+  const finishedCount = all.filter((t) => ["done", "skipped"].includes(getStatus(t.id))).length;
+  const currentPct = all.length ? Math.round((finishedCount / all.length) * 100) : 0;
+  const afterThisPct = all.length
+    ? Math.min(
+        100,
+        Math.round(
+          ((status === "done" || status === "skipped" ? finishedCount : finishedCount + 1) / all.length) * 100
+        )
+      )
+    : 100;
   const simple = getSimpleTake(topic);
   const quiz = buildTopicQuiz(topic);
   const deep = getTopicDeepDive(topic);
@@ -68,7 +82,7 @@ export default function TopicPage() {
         <div className="topic-header-row">
           <div>
             <span className="pill neon-pill">
-              SPECIFICATION 0{index + 1} OF {all.length} · {topic.minutes + 10} MIN TECHNICAL BRIEF · +120 CR
+              SPECIFICATION {String(index + 1).padStart(2, "0")} OF {all.length} · {topic.minutes + 10} MIN TECHNICAL BRIEF · {currentPct}% GOAL READINESS
             </span>
             <h1>{topic.title}</h1>
           </div>
@@ -79,6 +93,46 @@ export default function TopicPage() {
           >
             {eli5Mode ? "Executive Briefing: ACTIVE" : "Executive & First-Principles Briefing"}
           </button>
+        </div>
+
+        {/* Personalized Topic Completion Motivation Strip */}
+        <div className="coach-callout" style={{ marginBottom: 18 }}>
+          <div className="coach-top">
+            <span className="badge neon">
+              {status === "done"
+                ? `COMPLETED · ${currentPct}% TOWARD ${roadmap.title.toUpperCase()}`
+                : `PERSONALIZED GOAL IMPACT · REACH ${afterThisPct}% ON COMPLETION`}
+            </span>
+            <button
+              type="button"
+              className="btn small"
+              style={{ padding: "4px 10px", fontSize: 11.5 }}
+              onClick={() => downloadRoadmapChecklistPdf(roadmap)}
+            >
+              ↓ Checklist PDF
+            </button>
+          </div>
+          <p style={{ margin: "6px 0 0", fontSize: 14 }}>
+            {status === "done" ? (
+              next ? (
+                <>
+                  You've verified <strong>{topic.title}</strong>! Keep your streak alive by advancing to{" "}
+                  <Link to={`/${roadmap.slug}/${next.id}`}>
+                    <strong>{next.title}</strong>
+                  </Link>{" "}
+                  next ({all.length - finishedCount} modules remaining in {roadmap.title}).
+                </>
+              ) : (
+                <>You have completed the final module of {roadmap.title}!</>
+              )
+            ) : (
+              <>
+                Finishing <strong>{topic.title}</strong> moves your {roadmap.title} goal from{" "}
+                <strong>{currentPct}% → {afterThisPct}%</strong> ({finishedCount + 1}/{all.length} modules)
+                {next ? ` and unlocks "${next.title}" next.` : " and completes the entire career track!"}
+              </>
+            )}
+          </p>
         </div>
 
         <p className="lead">{topic.summary}</p>
@@ -252,7 +306,7 @@ export default function TopicPage() {
         {/* 9. Top MNC Courses & Official Documentation */}
         {deep.mncCourses.length > 0 && (
           <section id="mnc-courses" className="box glass-3d">
-            <div className="finder-badge">07 · VERIFIED PRIMARY DOCUMENTATION & COURSES (+30 CR)</div>
+            <div className="finder-badge">07 · VERIFIED PRIMARY DOCUMENTATION & COURSES</div>
             <h2 className="h3" style={{ fontSize: 19, marginBottom: 12 }}>
               Primary Engineering Curricula & Specifications for "{topic.title}"
             </h2>
@@ -284,7 +338,7 @@ export default function TopicPage() {
         {/* 10. Top AI YouTubers & Video Masterclasses */}
         {deep.youtubeVideos.length > 0 && (
           <section id="youtube-lab" className="box glass-3d">
-            <div className="finder-badge">08 · TECHNICAL LECTURES & IMPLEMENTATION WALKTHROUGHS (+30 CR)</div>
+            <div className="finder-badge">08 · TECHNICAL LECTURES & IMPLEMENTATION WALKTHROUGHS</div>
             <h2 className="h3" style={{ fontSize: 19, marginBottom: 12 }}>
               Verified Engineering Lectures on "{topic.title}"
             </h2>
@@ -347,7 +401,7 @@ export default function TopicPage() {
 
         {/* 12. Checkpoint Challenge Quiz */}
         <div className="quiz-box glass-3d">
-          <div className="finder-badge">TECHNICAL VERIFICATION ASSESSMENT · +50 CR</div>
+          <div className="finder-badge">TECHNICAL VERIFICATION ASSESSMENT</div>
           <h3 style={{ margin: "6px 0 12px" }}>{quiz.question}</h3>
           <div className="quiz-options">
             {quiz.options.map((opt, idx) => {
@@ -366,7 +420,7 @@ export default function TopicPage() {
           {selectedAns !== null && (
             <p className="quiz-feedback">
               {selectedAns === quiz.correctIndex
-                ? `[VERIFIED +50 CR] ${quiz.explanation}`
+                ? `[VERIFIED ✓] ${quiz.explanation}`
                 : "Verification failed. Review the highlighted engineering invariant above."}
             </p>
           )}
@@ -393,7 +447,7 @@ export default function TopicPage() {
               className="pager-link right"
               onClick={() => status === "pending" && setStatus(topic.id, "done")}
             >
-              <span className="muted">Verify & Advance (+120 CR) →</span>
+              <span className="muted">Complete & Advance to {afterThisPct}% Goal →</span>
               <strong>{next.title}</strong>
             </Link>
           ) : (
@@ -402,7 +456,7 @@ export default function TopicPage() {
               className="pager-link right"
               onClick={() => status === "pending" && setStatus(topic.id, "done")}
             >
-              <span className="muted">Curriculum Specification Complete</span>
+              <span className="muted">Curriculum Specification Complete (100%)</span>
               <strong>Record Track Completion & Return →</strong>
             </Link>
           )}

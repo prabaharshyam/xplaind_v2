@@ -2,11 +2,13 @@ import { useEffect } from "react";
 import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
 import { CyberCanvas } from "./components/CyberCanvas";
 import { InteractiveLabs } from "./components/InteractiveLabs";
+import { roadmaps } from "./content";
 import { usePlayerStats } from "./gamification";
 import HomePage from "./pages/HomePage";
 import RoadmapOverview from "./pages/RoadmapOverview";
 import TopicPage from "./pages/TopicPage";
 import UniversityPage from "./pages/UniversityPage";
+import { downloadRoadmapChecklistPdf, printRoadmapChecklistSheet } from "./utils/roadmapPdf";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -25,7 +27,7 @@ export default function App() {
       <ScrollToTop />
       {toast && (
         <div className="xp-toast" role="status">
-          +{toast} COMPETENCY CREDITS RECORDED
+          {toast}
         </div>
       )}
       <header className="nav">
@@ -34,22 +36,32 @@ export default function App() {
           Xpl<span className="ai">AI</span>ned<span className="tld">.in</span>
         </Link>
 
-        <div className="hud-bar" title={`${stats.xp} Credits · Next tier at ${stats.nextLevelXp} Credits`}>
-          <span className="hud-chip streak">{stats.streak}d Cadence</span>
+        <Link
+          to={
+            stats.nextTopic
+              ? `/${stats.goalRoadmap.slug}/${stats.nextTopic.id}`
+              : `/${stats.goalRoadmap.slug}`
+          }
+          className="hud-bar"
+          title={`${stats.goalPct}% toward ${stats.goalRoadmap.title} (${stats.goalDone}/${stats.goalTotal} modules) · Click to continue your next step`}
+        >
+          <span className="hud-chip streak">{stats.streak}d Streak</span>
           <span className="hud-chip lvl">
-            TIER 0{stats.level} · {stats.rank}
+            GOAL · {stats.goalRoadmap.title}
           </span>
-          <span className="hud-chip xp">{stats.xp} CR</span>
+          <span className="hud-chip xp">
+            {stats.goalPct}% ({stats.goalDone}/{stats.goalTotal})
+          </span>
           <div className="hud-progress">
-            <div style={{ width: `${stats.currentLevelProgress}%` }} />
+            <div style={{ width: `${stats.goalPct}%` }} />
           </div>
-        </div>
+        </Link>
 
         <nav>
           <NavLink to="/" end>Disciplines</NavLink>
           <NavLink to="/university">Research & Curricula</NavLink>
           <NavLink to="/arcade">Systems Workbench</NavLink>
-          <NavLink to="/about">Practitioner Record</NavLink>
+          <NavLink to="/about">Goal Tracker</NavLink>
         </nav>
       </header>
       <main>
@@ -88,32 +100,104 @@ function ArcadePage() {
 }
 
 function About() {
-  const { stats } = usePlayerStats();
+  const { stats, setActiveGoal } = usePlayerStats();
   return (
     <section className="container">
       <div className="glass-3d" style={{ padding: 28, marginBottom: 28 }}>
-        <span className="pill neon-pill">PRACTITIONER CREDENTIAL RECORD</span>
-        <h1 style={{ margin: "8px 0 6px" }}>
-          Tier 0{stats.level} · <span className="ai">{stats.rank}</span>
-        </h1>
-        <p className="lead">
-          {stats.xp} Competency Credits · {stats.completedTopics} Specifications Completed · {stats.streak}-Day Active Cadence
-        </p>
-        <div className="progress" style={{ height: 8 }}>
-          <div className="bar" style={{ width: `${stats.currentLevelProgress}%` }} />
+        <div className="finder-top" style={{ marginBottom: 10 }}>
+          <span className="pill neon-pill" style={{ marginBottom: 0 }}>
+            ACTIVE GOAL HORIZON & MILESTONE RECORD
+          </span>
+          <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+            <label htmlFor="goal-select" className="muted" style={{ fontSize: 12.5, fontFamily: "var(--font-mono)" }}>
+              ACTIVE TARGET ROLE:
+            </label>
+            <select
+              id="goal-select"
+              className="cyber-input"
+              style={{ width: "auto", minWidth: 230, marginTop: 0, padding: "6px 10px", fontSize: 13 }}
+              value={stats.goalRoadmap.slug}
+              onChange={(e) => setActiveGoal(e.target.value)}
+            >
+              {roadmaps.map((r) => (
+                <option key={r.slug} value={r.slug}>
+                  {r.title}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-        <p className="muted" style={{ marginTop: 8 }}>
-          {350 - (stats.xp % 350)} Credits required for Tier 0{stats.level + 1}
+
+        <h1 style={{ margin: "6px 0 8px" }}>
+          {stats.goalPct}% Closer to <span className="ai">{stats.goalRoadmap.title}</span>
+        </h1>
+        <p className="lead" style={{ maxWidth: "100%" }}>
+          {stats.goalDone} of {stats.goalTotal} Modules Completed · {stats.goalStagesCompleted} of {stats.goalTotalStages} Stages Cleared ·{" "}
+          {stats.goalRemaining === 0
+            ? "Goal Track Mastered!"
+            : `${stats.goalRemaining} Modules (~${Math.ceil(stats.goalRemainingMinutes / 60)}h) Remaining to Finish`}
         </p>
+
+        {/* Visual Stage Milestone Horizon */}
+        <div className="goal-stage-strip" style={{ marginTop: 18, marginBottom: 18 }}>
+          {stats.goalStages.map((stg) => (
+            <div
+              key={stg.index}
+              className={`goal-stage-pill ${stg.isComplete ? "done" : stg.isCurrent ? "current" : ""}`}
+            >
+              <span className="stg-num">STAGE 0{stg.index}</span>
+              <strong>{stg.title}</strong>
+              <span className="stg-meta">
+                {stg.done}/{stg.total} ({stg.pct}%)
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Personalized Next-Step Coach Box */}
+        <div className="coach-callout">
+          <div className="coach-top">
+            <span className="badge neon">{stats.coaching.momentumBadge}</span>
+            <span className="muted" style={{ fontFamily: "var(--font-mono)", fontSize: 12 }}>
+              {stats.streak}-Day Active Study Streak
+            </span>
+          </div>
+          <h3>{stats.coaching.headline}</h3>
+          <p>{stats.coaching.message}</p>
+          <div className="coach-actions">
+            {stats.nextTopic && (
+              <Link
+                to={`/${stats.goalRoadmap.slug}/${stats.nextTopic.id}`}
+                className="btn primary small"
+              >
+                Finish Next Topic: {stats.nextTopic.title} →
+              </Link>
+            )}
+            <button
+              type="button"
+              className="btn small"
+              onClick={() => downloadRoadmapChecklistPdf(stats.goalRoadmap)}
+            >
+              ↓ Download Checklist PDF ({stats.goalRoadmap.title})
+            </button>
+            <button
+              type="button"
+              className="btn small"
+              onClick={() => printRoadmapChecklistSheet(stats.goalRoadmap)}
+            >
+              🖨 Print Physical Tracker Sheet
+            </button>
+          </div>
+        </div>
       </div>
 
-      <h2 className="h2">Verified Milestones & Credentials</h2>
+      <h2 className="h2">Verified Milestones & Achievements</h2>
       <div className="grid">
         {stats.badges.map((b) => (
           <div key={b.id} className={`card badge-card ${b.unlocked ? "unlocked" : "locked"}`}>
             <div className="card-top">
               <span className="emoji">{b.icon}</span>
-              <span className="badge">{b.unlocked ? "VERIFIED" : "PENDING"}</span>
+              <span className="badge">{b.unlocked ? "UNLOCKED" : "IN PROGRESS"}</span>
             </div>
             <h3>{b.title}</h3>
             <p>{b.desc}</p>

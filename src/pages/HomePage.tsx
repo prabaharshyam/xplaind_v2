@@ -3,7 +3,9 @@ import { InteractiveLabs } from "../components/InteractiveLabs";
 import { RoleFinderWidget } from "../components/RoleFinderWidget";
 import { Tilt3DCard } from "../components/Tilt3DCard";
 import { minutesOf, roadmaps, stats, topicsOf } from "../content";
+import { usePlayerStats } from "../gamification";
 import { countFinished } from "../progress";
+import { downloadRoadmapChecklistPdf, printRoadmapChecklistSheet } from "../utils/roadmapPdf";
 import { ECOSYSTEM_PORTALS, MNC_ACADEMIES, YOUTUBE_MASTERS } from "./UniversityPage";
 
 const ARCHITECTURAL_PILLARS = [
@@ -18,13 +20,13 @@ const ARCHITECTURAL_PILLARS = [
     tag: "PILLAR · 02",
   },
   {
-    q: "Ordered Competency Progression",
-    a: "Structured dependency stages with technical verification checkpoints, competency credit telemetry, and persistent progress tracking across shared foundational modules.",
+    q: "Visual Goal Horizon & Personalized Coaching",
+    a: "Track exactly how close you are to completing your target AI role with stage-by-stage milestone telemetry and personalized coaching for your next module.",
     tag: "PILLAR · 03",
   },
   {
-    q: "Executive & First-Principles Briefings",
-    a: "Toggle Executive Briefing mode inside any specification to inspect the core architectural thesis, systems mental model, and immediate verification protocol.",
+    q: "Printable Physical Checklist PDFs",
+    a: "Download any of the 9 career roadmaps as a formatted multi-page PDF checklist so you can print a physical copy and check off modules at your desk.",
     tag: "PILLAR · 04",
   },
   {
@@ -51,12 +53,12 @@ const faqs = [
     a: "Select the 'Strategy, Operations & Governance' filter below to focus on AI Technical Product Management, Enterprise Automation Architecture, or AI Governance & Regulatory Compliance. Every technical module also includes an Executive Briefing toggle for systems-level mental models.",
   },
   {
-    q: "How are Competency Credits and Practitioner Tiers calculated?",
-    a: "Completing a technical specification records +120 Credits, passing a Technical Verification checkpoint awards +50 to +75 Credits, and executing interactive workbench simulations awards bonus credits. All telemetry is persisted locally in your browser.",
+    q: "How does Goal Horizon Tracking & Personalized Next-Step Coaching work?",
+    a: "Instead of arbitrary point systems, XplAIned.in tracks your exact completion distance toward your chosen AI Career Goal—showing how many stages and modules remain, estimated hours to finish, and a personalized coaching prompt tailored to the exact next topic you need to complete.",
   },
   {
-    q: "How should I select my primary specialization track?",
-    a: "Complete the Architectural Track Diagnostic above or review the Role Specification Matrix below. Foundational modules (such as LLM internals, prompt specifications, and evaluation frameworks) are shared across tracks, so completed credits transfer automatically.",
+    q: "Can I download and print a physical copy of a roadmap checklist?",
+    a: "Yes. Every role card and curriculum page includes a 'Download Checklist PDF' button that generates a clean, multi-page A4 printable checklist with checkboxes, module summaries, time estimates, and completion sign-off lines.",
   },
   {
     q: "How frequently are regulatory frameworks and architectural patterns updated?",
@@ -68,6 +70,7 @@ export default function HomePage() {
   const [params, setParams] = useSearchParams();
   const q = (params.get("q") ?? "").toLowerCase();
   const filter = params.get("f") ?? "all";
+  const { stats: player, setActiveGoal } = usePlayerStats();
 
   const visible = roadmaps.filter((r) => {
     const matchesQuery =
@@ -86,63 +89,202 @@ export default function HomePage() {
     setParams(next, { replace: true });
   };
 
+  const goalCircumference = 2 * Math.PI * 52;
+  const goalDashOffset = goalCircumference - (player.goalPct / 100) * goalCircumference;
+
   return (
     <>
       <section className="hero-wrap">
-        <div className="container hero hero-3d">
+        <div className="hero-blueprint-grid" aria-hidden="true" />
+        <div className="container hero hero-command">
           <div className="hero-copy">
-            <span className="pill neon-pill">TECHNICAL CURRICULA · SYSTEMS ARCHITECTURE · EMPIRICAL BENCHMARKS</span>
+            <div className="hero-eyebrow-row">
+              <span className="hero-kicker">ARCHITECTURAL AI CURRICULUM & GOAL ENGINE</span>
+              <span className="hero-live-tag">
+                <span className="pulse-dot" /> 9 CANONICAL ROLES · {stats.topics} SPECIFICATIONS
+              </span>
+            </div>
             <h1>
               The Definitive Engineering Reference for{" "}
               <span className="ai-grad">Applied AI Systems.</span>
             </h1>
             <p className="lead">
-              Rigorous curricula and production specifications across nine AI engineering and leadership disciplines.
-              Every module pairs <strong>first-principles systems analysis, interactive execution flowcharts, ASCII reference architectures,
-              operational playbooks, and enterprise case studies</strong> with primary courses from{" "}
+              Rigorous, industry-aligned roadmaps across nine AI engineering and leadership disciplines.
+              Every specification pairs <strong>first-principles systems analysis, interactive execution flowcharts, ASCII reference architectures,
+              operational playbooks, and printable PDF checklists</strong> with primary courses from{" "}
               <strong>Anthropic, DeepLearning.AI, Google Cloud, Microsoft, NVIDIA, and Stanford</strong>.
             </p>
             <div className="cta">
-              <a className="btn primary glow-btn" href="#matcher">
-                Run Track Diagnostic
+              {player.nextTopic ? (
+                <Link
+                  className="btn hero-primary-btn"
+                  to={`/${player.goalRoadmap.slug}/${player.nextTopic.id}`}
+                >
+                  Continue Next Step: {player.nextTopic.title} →
+                </Link>
+              ) : (
+                <a className="btn hero-primary-btn" href="#matcher">
+                  Run Track Diagnostic →
+                </a>
+              )}
+              <button
+                type="button"
+                className="btn hero-secondary-btn"
+                onClick={() => downloadRoadmapChecklistPdf(player.goalRoadmap)}
+              >
+                ↓ Download {player.goalRoadmap.title} Checklist PDF
+              </button>
+              <a className="btn hero-ghost-btn" href="#roles">
+                Explore All 9 Roadmaps
               </a>
-              <Link className="btn" to="/university">
+              <Link className="btn hero-ghost-btn" to="/university">
                 Research & Course Index
               </Link>
-              <a className="btn" href="#roles">
-                9 Engineering Curricula
-              </a>
-              <a className="btn" href="#arcade">
-                Systems Workbench
-              </a>
             </div>
-            <dl className="stats">
+
+            <dl className="stats hero-stats">
               <div>
                 <dt>0{stats.roadmaps}</dt>
-                <dd>Specialization Tracks</dd>
+                <dd>Canonical Role Roadmaps</dd>
               </div>
               <div>
                 <dt>{stats.topics}</dt>
-                <dd>Technical Specifications</dd>
+                <dd>Production Specifications</dd>
+              </div>
+              <div>
+                <dt>PDF</dt>
+                <dd>Printable Track Checklists</dd>
               </div>
               <div>
                 <dt>50+</dt>
-                <dd>Primary Research & Courses</dd>
+                <dd>Primary Lab & Uni Courses</dd>
               </div>
             </dl>
           </div>
 
-          <div className="hero-cube-stage" aria-hidden="true">
-            <div className="holo-ring ring-1" />
-            <div className="holo-ring ring-2" />
-            <div className="holo-ring ring-3" />
-            <div className="cube-3d">
-              <div className="face front">SYS · AGENTS</div>
-              <div className="face back">CORE · LLMs</div>
-              <div className="face right">ARCH · RAG</div>
-              <div className="face left">SPEC · EVALS</div>
-              <div className="face top">INFRA · MLOPS</div>
-              <div className="face bottom">GOV · SAFETY</div>
+          {/* Right Column: Interactive Goal Horizon Radar + Personalized Motivation Coach */}
+          <div className="hero-goal-deck">
+            <div className="goal-deck-header">
+              <div>
+                <span className="goal-deck-kicker">YOUR GOAL COMPLETION HORIZON</span>
+                <div className="goal-selector-wrap">
+                  <select
+                    aria-label="Select your target AI career goal"
+                    className="goal-role-select"
+                    value={player.goalRoadmap.slug}
+                    onChange={(e) => setActiveGoal(e.target.value)}
+                  >
+                    {roadmaps.map((r) => (
+                      <option key={r.slug} value={r.slug}>
+                        Target Goal: {r.title}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <span className="goal-streak-chip">{player.streak}d Active Streak</span>
+            </div>
+
+            {/* Radial Gauge + Distance-to-Goal Telemetry */}
+            <div className="goal-radar-row">
+              <div className="goal-ring-wrap">
+                <svg width="124" height="124" viewBox="0 0 124 124" className="goal-ring-svg">
+                  <circle
+                    cx="62"
+                    cy="62"
+                    r="52"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.12)"
+                    strokeWidth="9"
+                  />
+                  <circle
+                    cx="62"
+                    cy="62"
+                    r="52"
+                    fill="none"
+                    stroke="#38BDF8"
+                    strokeWidth="9"
+                    strokeLinecap="round"
+                    strokeDasharray={goalCircumference}
+                    strokeDashoffset={goalDashOffset}
+                    transform="rotate(-90 62 62)"
+                  />
+                </svg>
+                <div className="goal-ring-center">
+                  <strong>{player.goalPct}%</strong>
+                  <span>TO GOAL</span>
+                </div>
+              </div>
+
+              <div className="goal-metrics-col">
+                <div className="goal-metric-line">
+                  <span className="gm-label">MODULES CONQUERED</span>
+                  <strong className="gm-val">
+                    {player.goalDone} / {player.goalTotal} Specifications
+                  </strong>
+                </div>
+                <div className="goal-metric-line">
+                  <span className="gm-label">STAGES CLEARED</span>
+                  <strong className="gm-val">
+                    {player.goalStagesCompleted} of {player.goalTotalStages} Phases
+                  </strong>
+                </div>
+                <div className="goal-metric-line">
+                  <span className="gm-label">DISTANCE TO FINISH LINE</span>
+                  <strong className="gm-val accent-cyan">
+                    {player.goalRemaining === 0
+                      ? "Goal Completed!"
+                      : `${player.goalRemaining} steps left (~${Math.ceil(player.goalRemainingMinutes / 60)}h)`}
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            {/* Stage Milestone Stepper */}
+            <div className="goal-stage-nodes" aria-label="Stage milestone progress">
+              {player.goalStages.map((s) => (
+                <div
+                  key={s.index}
+                  className={`stage-dot-node ${s.isComplete ? "done" : s.isCurrent ? "current" : ""}`}
+                  title={`Stage 0${s.index}: ${s.title} (${s.done}/${s.total})`}
+                >
+                  <span className="sd-idx">S{s.index}</span>
+                  <span className="sd-bar">
+                    <span style={{ width: `${s.pct}%` }} />
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Personalized Creative Motivation Coach */}
+            <div className="hero-coach-box">
+              <div className="hc-badge-row">
+                <span className="hc-pill">{player.coaching.momentumBadge}</span>
+                <span className="hc-stage-tag">
+                  Stage 0{player.goalCurrentStageIndex}: {player.goalCurrentStageTitle}
+                </span>
+              </div>
+              <h3 className="hc-title">{player.coaching.headline}</h3>
+              <p className="hc-msg">{player.coaching.message}</p>
+              <div className="hc-unlock">{player.coaching.unlockImpact}</div>
+              <div className="hc-actions">
+                {player.nextTopic && (
+                  <Link
+                    to={`/${player.goalRoadmap.slug}/${player.nextTopic.id}`}
+                    className="btn hc-start-btn"
+                  >
+                    Start "{player.nextTopic.title}" ({player.nextTopic.minutes}m) →
+                  </Link>
+                )}
+                <button
+                  type="button"
+                  className="btn hc-pdf-btn"
+                  onClick={() => printRoadmapChecklistSheet(player.goalRoadmap)}
+                  title="Open printable checklist sheet"
+                >
+                  🖨 Print Checklist
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -209,14 +351,16 @@ export default function HomePage() {
 
         <div className="grid role-grid">
           {visible.map((r) => {
-            const total = topicsOf(r).length;
+            const allTopics = topicsOf(r);
+            const total = allTopics.length;
             const done = countFinished(r.slug);
             const pct = total ? Math.round((done / total) * 100) : 0;
+            const remaining = Math.max(0, total - done);
             const mins = minutesOf(r);
             const isNoCode = NO_CODE_SLUGS.has(r.slug);
             return (
               <Tilt3DCard key={r.slug}>
-                <Link to={`/${r.slug}`} className="card role-card">
+                <div className="card role-card">
                   <div className="card-top">
                     <span className="emoji" aria-hidden="true">
                       {r.emoji}
@@ -225,7 +369,11 @@ export default function HomePage() {
                       {isNoCode ? "STRATEGY & GOVERNANCE" : "SYSTEMS ENGINEERING"}
                     </span>
                   </div>
-                  <h3>{r.title}</h3>
+                  <h3>
+                    <Link to={`/${r.slug}`} style={{ color: "inherit", textDecoration: "none" }}>
+                      {r.title}
+                    </Link>
+                  </h3>
                   <p>{r.description}</p>
                   <div className="chip-row">
                     {r.tools.slice(0, 3).map((t) => (
@@ -235,14 +383,29 @@ export default function HomePage() {
                     ))}
                   </div>
                   <div className="meta">
-                    <span>{total} Specifications</span>
-                    <span>~{Math.floor(mins / 60)}h {mins % 60}m Study</span>
-                    <span>{total * 120} CR</span>
+                    <span>{total} Modules ({r.sections.length} Stages)</span>
+                    <span>~{Math.floor(mins / 60)}h {mins % 60}m</span>
+                    <span style={{ color: pct === 100 ? "var(--done)" : "var(--accent)", fontWeight: 600 }}>
+                      {pct === 100 ? "Goal Complete!" : `${pct}% (${remaining} left)`}
+                    </span>
                   </div>
                   <div className="progress small" aria-label={`${pct}% complete`}>
                     <div className="bar" style={{ width: `${pct}%` }} />
                   </div>
-                </Link>
+                  <div className="role-card-actions">
+                    <Link to={`/${r.slug}`} className="btn primary small" onClick={() => setActiveGoal(r.slug)}>
+                      {done > 0 ? `Continue (${pct}%) →` : "Open Roadmap →"}
+                    </Link>
+                    <button
+                      type="button"
+                      className="btn small"
+                      onClick={() => downloadRoadmapChecklistPdf(r)}
+                      title={`Download ${r.title} printable PDF checklist`}
+                    >
+                      ↓ Checklist PDF
+                    </button>
+                  </div>
+                </div>
               </Tilt3DCard>
             );
           })}
